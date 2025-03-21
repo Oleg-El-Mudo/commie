@@ -1,0 +1,56 @@
+import QtQuick 2.2
+import Sailfish.Silica 1.0
+import Aurora.Controls 1.0
+
+Page{
+    objectName: "mainPage"
+    allowedOrientations: Orientation.All
+    id:mainPage
+
+    //верхнее меню приложения
+    AppBar{
+        headerText: "Комми"
+        subHeaderText: "(без)опасный мессенджер"
+        id:header
+        divider: true
+        background: true
+    }
+
+    //вертикальный контейней для выравнивания кнопок по центру
+    Column{
+        id:buttonsLab
+        width: mainPage.width
+        height: mainPage.height-header.height
+        anchors.top: header.bottom
+
+        //контейнер, содержащий кнопки и лейбл
+        Column{
+            spacing: Theme.paddingLarge
+            anchors.top: header.bottom
+            anchors.centerIn: parent
+
+            Button {
+                id: regButton
+                text: "Зарегистрироваться"
+                anchors.horizontalCenter: parent.horizontalCenter
+                width: Theme.buttonWidthLarge
+                onClicked: pageStack.push(Qt.resolvedUrl("RegPage.qml"))
+            }
+
+            Button{
+                id: loginButton
+                text: "Войти"
+                width: Theme.buttonWidthLarge
+                anchors.horizontalCenter: parent.horizontalCenter
+                onClicked: pageStack.push(Qt.resolvedUrl("LoginPage.qml"))
+            }
+
+            Label{
+                text:"Только если вы уже создали
+аккаунт на данном устройстве!"
+                horizontalAlignment: "AlignHCenter"
+                anchors.horizontalCenter: parent.horizontalCenter
+            }
+        }
+    }
+}

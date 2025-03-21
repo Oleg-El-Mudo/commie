@@ -1,0 +1,17 @@
+[Desktop Entry]
+Type=Application
+X-Nemo-Application-Type=silica-qt5
+Icon=psuti.fishman.messenger
+Exec=/usr/bin/psuti.fishman.messenger
+Name=Commie
+Name[ru]=Комми
+
+[X-Application]
+Permissions=SecureStorage;PushNotifications;Bluetooth;Camera;Internet;Location;MediaIndexing;Microphone;RemovableMedia;UserDirs
+OrganizationName=psuti.fishman
+ApplicationName=messenger
+ExecDBus=/usr/bin/psuti.fishman.messenger
+
+[X-Aurora-Application]
+IconMode=Crop
+
