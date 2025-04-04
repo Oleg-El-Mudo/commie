@@ -80,6 +80,12 @@ QtObject {
             tx.executeSql("UPDATE users SET alias = ? where is_active=true", [new_alias]);
         });
     }
+    function setPassword(new_password){
+        db.transaction(function(tx){
+            tx.executeSql("UPDATE users SET password = ? where is_active=true", [new_password]);
+        });
+    }
+
     //РАБОТА С ТАБЛИЦЕЙ КОНТАКТОВ
 
     //создаем таблицу для контактов если её ещё не было

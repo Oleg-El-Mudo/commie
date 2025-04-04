@@ -16,7 +16,7 @@ Page{
     AppBar{
         //заголовок
         headerText: qsTr("Commie")
-        /подзаголовок
+        //подзаголовок
         subHeaderText: qsTr("Safe messenger")
         id:header
         //разделитель

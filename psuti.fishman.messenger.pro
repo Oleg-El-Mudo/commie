@@ -25,6 +25,7 @@ DISTFILES += \
     qml/pages/InvitePage.qml \
     qml/pages/LoginLoadingPage.qml \
     qml/pages/LoginPage.qml \
+    qml/pages/PasswordSettingsPage.qml \
     qml/pages/PersonalChatsPage.qml \
     qml/pages/ProfileSettingsPage.qml \
     qml/pages/QRCodePage.qml \
