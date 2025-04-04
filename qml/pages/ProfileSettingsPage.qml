@@ -171,13 +171,7 @@ Page{
                     break;
                 case 2:
                     // код для нажатия на смены пароля
-
-
-                    /*
-                      СДЕЛАТЬ!!!!!
-                    */
-
-
+                    pageStack.push(Qt.resolvedUrl("PasswordSettingsPage.qml"))
                     break;
                 }
             }

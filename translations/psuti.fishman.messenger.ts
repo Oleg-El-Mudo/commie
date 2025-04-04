@@ -4,80 +4,75 @@
 <context>
     <name>AboutProjectPage</name>
     <message>
-        <location filename="../qml/pages/AboutProjectPage.qml" line="21"/>
+        <location filename="../qml/pages/AboutProjectPage.qml" line="30"/>
         <source>About Project</source>
         <translation>About Project</translation>
     </message>
     <message>
-        <location filename="../qml/pages/AboutProjectPage.qml" line="34"/>
+        <location filename="../qml/pages/AboutProjectPage.qml" line="47"/>
         <source>Commie - safe messenger</source>
         <translation>Commie - safe messenger</translation>
     </message>
     <message>
-        <location filename="../qml/pages/AboutProjectPage.qml" line="55"/>
+        <location filename="../qml/pages/AboutProjectPage.qml" line="80"/>
         <source>The messenger works on a p2p network&lt;br&gt;&lt;br&gt;All messages sent through messenger are end-to-end encrypted&lt;br&gt;&lt;br&gt;The project is the thesis work of a PSUTI student:&lt;br&gt;&lt;br&gt;Faculty #1 Cybersecurity and Management Department&lt;br&gt;&lt;br&gt;Group: RPIS-11&lt;br&gt;Full name: Oleg Mikhailovich Rybin</source>
         <translation>The messenger works on a p2p network&lt;br&gt;&lt;br&gt;All messages sent through messenger are end-to-end encrypted&lt;br&gt;&lt;br&gt;The project is the thesis work of a PSUTI student:&lt;br&gt;&lt;br&gt;Faculty #1 Cybersecurity and Management Department&lt;br&gt;&lt;br&gt;Group: RPIS-11&lt;br&gt;Full name: Oleg Mikhailovich Rybin</translation>
     </message>
     <message>
-        <location filename="../qml/pages/AboutProjectPage.qml" line="64"/>
+        <location filename="../qml/pages/AboutProjectPage.qml" line="94"/>
         <source>License</source>
         <translation>License</translation>
     </message>
     <message>
-        <location filename="../qml/pages/AboutProjectPage.qml" line="78"/>
+        <location filename="../qml/pages/AboutProjectPage.qml" line="117"/>
         <source>The project is licensed under GPLv3+. Consequently:&lt;br&gt;&lt;br&gt;- The source codes are open and available for review and modification to everyone; &lt;br&gt;&lt;br&gt;- All changes in the software product are open and distributed under the same license; &lt;br&gt;&lt;br&gt;- All modifications (branches) of the project must also be distributed under this license</source>
         <translation>The project is licensed under GPLv3+. Consequently:&lt;br&gt;&lt;br&gt;- The source codes are open and available for review and modification to everyone; &lt;br&gt;&lt;br&gt;- All changes in the software product are open and distributed under the same license; &lt;br&gt;&lt;br&gt;- All modifications (branches) of the project must also be distributed under this license</translation>
     </message>
     <message>
-        <location filename="../qml/pages/AboutProjectPage.qml" line="87"/>
+        <location filename="../qml/pages/AboutProjectPage.qml" line="131"/>
         <source>Source codes</source>
         <translation>Source codes</translation>
     </message>
     <message>
-        <location filename="../qml/pages/AboutProjectPage.qml" line="101"/>
+        <location filename="../qml/pages/AboutProjectPage.qml" line="154"/>
         <source>In accordance with the project&apos;s licensing, its source code is open source and available at the following resources:</source>
         <translation>&quot;In accordance with the project&apos;s licensing, its source code is open source and available at the following resources:</translation>
     </message>
     <message>
-        <location filename="../qml/pages/AboutProjectPage.qml" line="110"/>
+        <location filename="../qml/pages/AboutProjectPage.qml" line="169"/>
         <source>&lt;a href=&apos;https://gitverse.ru/Fishman/commie&apos;&gt;GitVerse&lt;/a&gt;</source>
         <translation>&lt;a href=&apos;https://gitverse.ru/Fishman/commie&apos;&gt;GitVerse&lt;/a&gt;</translation>
-    </message>
-    <message>
-        <location filename="../qml/pages/AboutProjectPage.qml" line="124"/>
-        <source>&lt;a href=&apos;https://gitflick.ru/Fishman/commie&apos;&gt;GitFlick&lt;/a&gt;</source>
-        <translation>&lt;a href=&apos;https://gitflick.ru/Fishman/commie&apos;&gt;GitFlick&lt;/a&gt;</translation>
     </message>
 </context>
 <context>
     <name>AliasSettingsPage</name>
     <message>
-        <location filename="../qml/pages/AliasSettingsPage.qml" line="16"/>
+        <location filename="../qml/pages/AliasSettingsPage.qml" line="18"/>
         <source>Commie</source>
         <translation type="unfinished">Commie</translation>
     </message>
     <message>
-        <location filename="../qml/pages/AliasSettingsPage.qml" line="17"/>
+        <location filename="../qml/pages/AliasSettingsPage.qml" line="20"/>
         <source>Alias Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/AliasSettingsPage.qml" line="35"/>
+        <location filename="../qml/pages/AliasSettingsPage.qml" line="45"/>
         <source>Set or change your alias</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/AliasSettingsPage.qml" line="42"/>
+        <location filename="../qml/pages/AliasSettingsPage.qml" line="55"/>
         <source>Enter alias here</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/AliasSettingsPage.qml" line="49"/>
+        <location filename="../qml/pages/AliasSettingsPage.qml" line="64"/>
         <source>Accept</source>
         <translation type="unfinished">Accept</translation>
     </message>
     <message>
-        <location filename="../qml/pages/AliasSettingsPage.qml" line="56"/>
+        <location filename="../qml/pages/AliasSettingsPage.qml" line="76"/>
         <source>Alias set</source>
         <translation type="unfinished"></translation>
     </message>
@@ -85,27 +80,27 @@
 <context>
     <name>Contacts</name>
     <message>
-        <location filename="../qml/pages/Contacts.qml" line="107"/>
+        <location filename="../qml/pages/Contacts.qml" line="159"/>
         <source>Commie</source>
         <translation>Commie</translation>
     </message>
     <message>
-        <location filename="../qml/pages/Contacts.qml" line="76"/>
+        <location filename="../qml/pages/Contacts.qml" line="112"/>
         <source>Personal Chats</source>
         <translation>Personal Chats</translation>
     </message>
     <message>
-        <location filename="../qml/pages/Contacts.qml" line="65"/>
+        <location filename="../qml/pages/Contacts.qml" line="96"/>
         <source>Update</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/Contacts.qml" line="82"/>
+        <location filename="../qml/pages/Contacts.qml" line="121"/>
         <source>Groups</source>
         <translation>Groups</translation>
     </message>
     <message>
-        <location filename="../qml/pages/Contacts.qml" line="35"/>
+        <location filename="../qml/pages/Contacts.qml" line="51"/>
         <source>Contacts</source>
         <translation>Contacts</translation>
     </message>
@@ -115,17 +110,17 @@
         <translation></translation>
     </message>
     <message>
-        <location filename="../qml/pages/Contacts.qml" line="88"/>
+        <location filename="../qml/pages/Contacts.qml" line="130"/>
         <source>Invites</source>
         <translation>Invites</translation>
     </message>
     <message>
-        <location filename="../qml/pages/Contacts.qml" line="94"/>
+        <location filename="../qml/pages/Contacts.qml" line="139"/>
         <source>Settings</source>
         <translation>Settings</translation>
     </message>
     <message>
-        <location filename="../qml/pages/Contacts.qml" line="100"/>
+        <location filename="../qml/pages/Contacts.qml" line="148"/>
         <source>Exit</source>
         <translation>Exit</translation>
     </message>
@@ -133,42 +128,42 @@
 <context>
     <name>GroupChatsPage</name>
     <message>
-        <location filename="../qml/pages/GroupChatsPage.qml" line="17"/>
+        <location filename="../qml/pages/GroupChatsPage.qml" line="25"/>
         <source>Groups</source>
         <translation>Groups</translation>
     </message>
     <message>
-        <location filename="../qml/pages/GroupChatsPage.qml" line="19"/>
+        <location filename="../qml/pages/GroupChatsPage.qml" line="29"/>
         <source>Chats</source>
         <translation>Chats</translation>
     </message>
     <message>
-        <location filename="../qml/pages/GroupChatsPage.qml" line="25"/>
+        <location filename="../qml/pages/GroupChatsPage.qml" line="37"/>
         <source>Personal Chats</source>
         <translation>Personal Chats</translation>
     </message>
     <message>
-        <location filename="../qml/pages/GroupChatsPage.qml" line="31"/>
+        <location filename="../qml/pages/GroupChatsPage.qml" line="46"/>
         <source>Contacts</source>
         <translation>Contacts</translation>
     </message>
     <message>
-        <location filename="../qml/pages/GroupChatsPage.qml" line="37"/>
+        <location filename="../qml/pages/GroupChatsPage.qml" line="55"/>
         <source>Invites</source>
         <translation>Invites</translation>
     </message>
     <message>
-        <location filename="../qml/pages/GroupChatsPage.qml" line="43"/>
+        <location filename="../qml/pages/GroupChatsPage.qml" line="64"/>
         <source>Settings</source>
         <translation>Settings</translation>
     </message>
     <message>
-        <location filename="../qml/pages/GroupChatsPage.qml" line="49"/>
+        <location filename="../qml/pages/GroupChatsPage.qml" line="73"/>
         <source>Exit</source>
         <translation>Exit</translation>
     </message>
     <message>
-        <location filename="../qml/pages/GroupChatsPage.qml" line="56"/>
+        <location filename="../qml/pages/GroupChatsPage.qml" line="84"/>
         <source>Commie</source>
         <translation>Commie</translation>
     </message>
@@ -176,78 +171,78 @@
 <context>
     <name>InvitePage</name>
     <message>
-        <location filename="../qml/pages/InvitePage.qml" line="59"/>
+        <location filename="../qml/pages/InvitePage.qml" line="84"/>
         <source>Contact added</source>
         <translation>Contact added</translation>
     </message>
     <message>
-        <location filename="../qml/pages/InvitePage.qml" line="91"/>
-        <location filename="../qml/pages/InvitePage.qml" line="132"/>
+        <location filename="../qml/pages/InvitePage.qml" line="130"/>
+        <location filename="../qml/pages/InvitePage.qml" line="192"/>
         <source>Commie</source>
         <translation>Commie</translation>
     </message>
     <message>
-        <location filename="../qml/pages/InvitePage.qml" line="92"/>
+        <location filename="../qml/pages/InvitePage.qml" line="132"/>
         <source>Safe messenger</source>
         <translation>Safe messenger</translation>
     </message>
     <message>
-        <location filename="../qml/pages/InvitePage.qml" line="101"/>
+        <location filename="../qml/pages/InvitePage.qml" line="145"/>
         <source>Personal Chats</source>
         <translation>Personal Chats</translation>
     </message>
     <message>
-        <location filename="../qml/pages/InvitePage.qml" line="107"/>
+        <location filename="../qml/pages/InvitePage.qml" line="154"/>
         <source>Groups</source>
         <translation>Groups</translation>
     </message>
     <message>
-        <location filename="../qml/pages/InvitePage.qml" line="113"/>
+        <location filename="../qml/pages/InvitePage.qml" line="163"/>
         <source>Contacts</source>
         <translation>Contacts</translation>
     </message>
     <message>
-        <location filename="../qml/pages/InvitePage.qml" line="119"/>
+        <location filename="../qml/pages/InvitePage.qml" line="172"/>
         <source>Settings</source>
         <translation>Settings</translation>
     </message>
     <message>
-        <location filename="../qml/pages/InvitePage.qml" line="125"/>
+        <location filename="../qml/pages/InvitePage.qml" line="181"/>
         <source>Exit</source>
         <translation>Exit</translation>
     </message>
     <message>
-        <location filename="../qml/pages/InvitePage.qml" line="148"/>
+        <location filename="../qml/pages/InvitePage.qml" line="214"/>
         <source>Generate invite-link</source>
         <translation>&quot;Generate invite-link</translation>
     </message>
     <message>
-        <location filename="../qml/pages/InvitePage.qml" line="155"/>
+        <location filename="../qml/pages/InvitePage.qml" line="222"/>
         <source>Generate</source>
         <translation>Generate</translation>
     </message>
     <message>
-        <location filename="../qml/pages/InvitePage.qml" line="176"/>
+        <location filename="../qml/pages/InvitePage.qml" line="250"/>
         <source>Copy</source>
         <translation>Copy</translation>
     </message>
     <message>
-        <location filename="../qml/pages/InvitePage.qml" line="186"/>
+        <location filename="../qml/pages/InvitePage.qml" line="263"/>
         <source>Generate QR</source>
         <translation>Generate QR</translation>
     </message>
     <message>
-        <location filename="../qml/pages/InvitePage.qml" line="197"/>
+        <location filename="../qml/pages/InvitePage.qml" line="279"/>
         <source>Enter invite link here</source>
         <translation>Enter invite link here</translation>
     </message>
     <message>
-        <location filename="../qml/pages/InvitePage.qml" line="204"/>
+        <location filename="../qml/pages/InvitePage.qml" line="288"/>
         <source>Accept</source>
         <translation>Accept</translation>
     </message>
     <message>
-        <location filename="../qml/pages/InvitePage.qml" line="213"/>
+        <location filename="../qml/pages/InvitePage.qml" line="302"/>
         <source>Scan QR</source>
         <translation>Scan QR</translation>
     </message>
@@ -255,7 +250,7 @@
 <context>
     <name>LoginLoadingPage</name>
     <message>
-        <location filename="../qml/pages/LoginLoadingPage.qml" line="21"/>
+        <location filename="../qml/pages/LoginLoadingPage.qml" line="23"/>
         <source>Wait please</source>
         <translation>Wait, please</translation>
     </message>
@@ -265,7 +260,7 @@
         <translation></translation>
     </message>
     <message>
-        <location filename="../qml/pages/LoginLoadingPage.qml" line="78"/>
+        <location filename="../qml/pages/LoginLoadingPage.qml" line="101"/>
         <source>Authentication failed</source>
         <translation>Autentification failed</translation>
     </message>
@@ -278,48 +273,48 @@
         <translation>Please fill in all fields</translation>
     </message>
     <message>
-        <location filename="../qml/pages/LoginPage.qml" line="43"/>
+        <location filename="../qml/pages/LoginPage.qml" line="45"/>
         <source>Signing in</source>
         <translation>Signing in</translation>
     </message>
     <message>
-        <location filename="../qml/pages/LoginPage.qml" line="45"/>
+        <location filename="../qml/pages/LoginPage.qml" line="47"/>
         <source>Login</source>
         <translation>Login</translation>
     </message>
     <message>
-        <location filename="../qml/pages/LoginPage.qml" line="46"/>
+        <location filename="../qml/pages/LoginPage.qml" line="48"/>
         <source>Cancel</source>
         <translation>Cancel</translation>
     </message>
     <message>
-        <location filename="../qml/pages/LoginPage.qml" line="76"/>
-        <location filename="../qml/pages/LoginPage.qml" line="103"/>
+        <location filename="../qml/pages/LoginPage.qml" line="89"/>
+        <location filename="../qml/pages/LoginPage.qml" line="121"/>
         <source>Required field!</source>
         <translation>Required field!</translation>
     </message>
     <message>
-        <location filename="../qml/pages/LoginPage.qml" line="77"/>
+        <location filename="../qml/pages/LoginPage.qml" line="91"/>
         <source>Enter a nickname</source>
         <translation>Enter a nickname</translation>
     </message>
     <message>
-        <location filename="../qml/pages/LoginPage.qml" line="102"/>
+        <location filename="../qml/pages/LoginPage.qml" line="120"/>
         <source>Enter your password</source>
         <translation>Enter your password</translation>
     </message>
     <message>
-        <location filename="../qml/pages/LoginPage.qml" line="75"/>
+        <location filename="../qml/pages/LoginPage.qml" line="88"/>
         <source>Enter your nickname</source>
         <translation>Enter your nickname</translation>
     </message>
     <message>
-        <location filename="../qml/pages/LoginPage.qml" line="67"/>
+        <location filename="../qml/pages/LoginPage.qml" line="78"/>
         <source>!You must already have an account&lt;br&gt;created on this device!</source>
         <translation>&quot;!You must already have an account&lt;br&gt;created on this device!</translation>
     </message>
     <message>
-        <location filename="../qml/pages/LoginPage.qml" line="104"/>
+        <location filename="../qml/pages/LoginPage.qml" line="123"/>
         <source>Enter a password</source>
         <translation>Enter a password</translation>
     </message>
@@ -327,30 +322,68 @@
 <context>
     <name>MainPage</name>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="16"/>
+        <location filename="../qml/pages/MainPage.qml" line="18"/>
         <source>Commie</source>
         <translation>Commie</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="17"/>
+        <location filename="../qml/pages/MainPage.qml" line="20"/>
         <source>Safe messenger</source>
         <translation>Safe messenger</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="36"/>
+        <location filename="../qml/pages/MainPage.qml" line="47"/>
         <source>Sign up</source>
         <translation>Sign up</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="47"/>
+        <location filename="../qml/pages/MainPage.qml" line="63"/>
         <source>Sign in</source>
         <translation>Sign in</translation>
     </message>
 </context>
 <context>
+    <name>PasswordSettingsPage</name>
+    <message>
+        <location filename="../qml/pages/PasswordSettingsPage.qml" line="18"/>
+        <source>Commie</source>
+        <translation type="unfinished">Commie</translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/PasswordSettingsPage.qml" line="20"/>
+        <source>Password Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/PasswordSettingsPage.qml" line="45"/>
+        <source>Set or change your password</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/PasswordSettingsPage.qml" line="55"/>
+        <source>Enter password here</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/PasswordSettingsPage.qml" line="64"/>
+        <source>Accept</source>
+        <translation type="unfinished">Accept</translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/PasswordSettingsPage.qml" line="83"/>
+        <source>Password set</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/PasswordSettingsPage.qml" line="93"/>
+        <source>Error</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>PersonalChatsPage</name>
     <message>
-        <location filename="../qml/pages/PersonalChatsPage.qml" line="35"/>
+        <location filename="../qml/pages/PersonalChatsPage.qml" line="49"/>
         <source>Groups</source>
         <translation>Groups</translation>
     </message>
@@ -360,37 +393,37 @@
         <translation></translation>
     </message>
     <message>
-        <location filename="../qml/pages/PersonalChatsPage.qml" line="23"/>
+        <location filename="../qml/pages/PersonalChatsPage.qml" line="33"/>
         <source>Personal</source>
         <translation>Personal</translation>
     </message>
     <message>
-        <location filename="../qml/pages/PersonalChatsPage.qml" line="27"/>
+        <location filename="../qml/pages/PersonalChatsPage.qml" line="39"/>
         <source>Chats</source>
         <translation>Chats</translation>
     </message>
     <message>
-        <location filename="../qml/pages/PersonalChatsPage.qml" line="42"/>
+        <location filename="../qml/pages/PersonalChatsPage.qml" line="59"/>
         <source>Contact</source>
         <translation>Contacts</translation>
     </message>
     <message>
-        <location filename="../qml/pages/PersonalChatsPage.qml" line="49"/>
+        <location filename="../qml/pages/PersonalChatsPage.qml" line="69"/>
         <source>Invites</source>
         <translation>Invites</translation>
     </message>
     <message>
-        <location filename="../qml/pages/PersonalChatsPage.qml" line="56"/>
+        <location filename="../qml/pages/PersonalChatsPage.qml" line="79"/>
         <source>Settings</source>
         <translation>Settings</translation>
     </message>
     <message>
-        <location filename="../qml/pages/PersonalChatsPage.qml" line="63"/>
+        <location filename="../qml/pages/PersonalChatsPage.qml" line="89"/>
         <source>Exit</source>
         <translation>Exit</translation>
     </message>
     <message>
-        <location filename="../qml/pages/PersonalChatsPage.qml" line="71"/>
+        <location filename="../qml/pages/PersonalChatsPage.qml" line="101"/>
         <source>Commie</source>
         <translation>Commie</translation>
     </message>
@@ -398,37 +431,37 @@
 <context>
     <name>ProfileSettingsPage</name>
     <message>
-        <location filename="../qml/pages/ProfileSettingsPage.qml" line="20"/>
+        <location filename="../qml/pages/ProfileSettingsPage.qml" line="25"/>
         <source>Commie</source>
         <translation>Commie</translation>
     </message>
     <message>
-        <location filename="../qml/pages/ProfileSettingsPage.qml" line="21"/>
+        <location filename="../qml/pages/ProfileSettingsPage.qml" line="27"/>
         <source>Profile Settings</source>
         <translation>Profile settings</translation>
     </message>
     <message>
-        <location filename="../qml/pages/ProfileSettingsPage.qml" line="29"/>
+        <location filename="../qml/pages/ProfileSettingsPage.qml" line="40"/>
         <source>Update</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ProfileSettingsPage.qml" line="61"/>
+        <location filename="../qml/pages/ProfileSettingsPage.qml" line="88"/>
         <source>No alias set</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ProfileSettingsPage.qml" line="84"/>
+        <location filename="../qml/pages/ProfileSettingsPage.qml" line="126"/>
         <source>Set/change avatar</source>
         <translation>Set/change avatar</translation>
     </message>
     <message>
-        <location filename="../qml/pages/ProfileSettingsPage.qml" line="87"/>
+        <location filename="../qml/pages/ProfileSettingsPage.qml" line="130"/>
         <source>Set/change alias</source>
         <translation>Set/change alias</translation>
     </message>
     <message>
-        <location filename="../qml/pages/ProfileSettingsPage.qml" line="90"/>
+        <location filename="../qml/pages/ProfileSettingsPage.qml" line="134"/>
         <source>Change password</source>
         <translation>Change password</translation>
     </message>
@@ -436,7 +469,7 @@
 <context>
     <name>QRCodePage</name>
     <message>
-        <location filename="../qml/pages/QRCodePage.qml" line="11"/>
+        <location filename="../qml/pages/QRCodePage.qml" line="15"/>
         <source>QR Code</source>
         <translation>QR Code</translation>
     </message>
@@ -444,22 +477,22 @@
 <context>
     <name>QRReaderPage</name>
     <message>
-        <location filename="../qml/pages/QRReaderPage.qml" line="46"/>
+        <location filename="../qml/pages/QRReaderPage.qml" line="64"/>
         <source>Contact added/updated</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/QRReaderPage.qml" line="56"/>
+        <location filename="../qml/pages/QRReaderPage.qml" line="78"/>
         <source>Commie</source>
         <translation>Commie</translation>
     </message>
     <message>
-        <location filename="../qml/pages/QRReaderPage.qml" line="57"/>
+        <location filename="../qml/pages/QRReaderPage.qml" line="80"/>
         <source>QR Reader</source>
         <translation>QR Reader</translation>
     </message>
     <message>
-        <location filename="../qml/pages/QRReaderPage.qml" line="145"/>
+        <location filename="../qml/pages/QRReaderPage.qml" line="187"/>
         <source>Add contact</source>
         <translation>Contact added</translation>
     </message>
@@ -467,17 +500,17 @@
 <context>
     <name>RegLoadingPage</name>
     <message>
-        <location filename="../qml/pages/RegLoadingPage.qml" line="21"/>
+        <location filename="../qml/pages/RegLoadingPage.qml" line="23"/>
         <source>Wait, please</source>
         <translation>Wait, please</translation>
     </message>
     <message>
-        <location filename="../qml/pages/RegLoadingPage.qml" line="71"/>
+        <location filename="../qml/pages/RegLoadingPage.qml" line="85"/>
         <source>A user with this login already exists.</source>
         <translation>A user with this login already exists.</translation>
     </message>
     <message>
-        <location filename="../qml/pages/RegLoadingPage.qml" line="101"/>
+        <location filename="../qml/pages/RegLoadingPage.qml" line="124"/>
         <source>Fill in all fields</source>
         <translation>Fill in all fields</translation>
     </message>
@@ -495,52 +528,52 @@
         <translation>Fill in all fields</translation>
     </message>
     <message>
-        <location filename="../qml/pages/RegPage.qml" line="42"/>
+        <location filename="../qml/pages/RegPage.qml" line="45"/>
         <source>Create an account</source>
         <translation>Create an account</translation>
     </message>
     <message>
-        <location filename="../qml/pages/RegPage.qml" line="44"/>
+        <location filename="../qml/pages/RegPage.qml" line="47"/>
         <source>Create</source>
         <translation>Create</translation>
     </message>
     <message>
-        <location filename="../qml/pages/RegPage.qml" line="45"/>
+        <location filename="../qml/pages/RegPage.qml" line="48"/>
         <source>Cancel</source>
         <translation>Cancel</translation>
     </message>
     <message>
-        <location filename="../qml/pages/RegPage.qml" line="67"/>
+        <location filename="../qml/pages/RegPage.qml" line="78"/>
         <source>!If you delete the messenger or forget your password, it will be impossible to restore your account!</source>
         <translation>!If you delete the messenger or forget your password, it will be impossible to restore your account!</translation>
     </message>
     <message>
-        <location filename="../qml/pages/RegPage.qml" line="74"/>
+        <location filename="../qml/pages/RegPage.qml" line="87"/>
         <source>Come up with a suitable nickname for yourself</source>
         <translation>Come up with a suitable nickname for yourself</translation>
     </message>
     <message>
-        <location filename="../qml/pages/RegPage.qml" line="75"/>
+        <location filename="../qml/pages/RegPage.qml" line="88"/>
         <source>Required field!</source>
         <translation>Required field!</translation>
     </message>
     <message>
-        <location filename="../qml/pages/RegPage.qml" line="76"/>
+        <location filename="../qml/pages/RegPage.qml" line="90"/>
         <source>Enter a nickname</source>
         <translation>Enter a nickname</translation>
     </message>
     <message>
-        <location filename="../qml/pages/RegPage.qml" line="101"/>
+        <location filename="../qml/pages/RegPage.qml" line="119"/>
         <source>Use letters, numbers and special characters</source>
         <translation>Use letters, numbers and special characters</translation>
     </message>
     <message>
-        <location filename="../qml/pages/RegPage.qml" line="102"/>
+        <location filename="../qml/pages/RegPage.qml" line="120"/>
         <source>From 15 characters</source>
         <translation>From 15 characters</translation>
     </message>
     <message>
-        <location filename="../qml/pages/RegPage.qml" line="103"/>
+        <location filename="../qml/pages/RegPage.qml" line="122"/>
         <source>Enter a password</source>
         <translation>Enter a password</translation>
     </message>
@@ -548,53 +581,53 @@
 <context>
     <name>SettingsPage</name>
     <message>
-        <location filename="../qml/pages/SettingsPage.qml" line="22"/>
-        <location filename="../qml/pages/SettingsPage.qml" line="70"/>
+        <location filename="../qml/pages/SettingsPage.qml" line="28"/>
+        <location filename="../qml/pages/SettingsPage.qml" line="87"/>
         <source>Commie</source>
         <translation>Commie</translation>
     </message>
     <message>
-        <location filename="../qml/pages/SettingsPage.qml" line="23"/>
+        <location filename="../qml/pages/SettingsPage.qml" line="30"/>
         <source>Settings</source>
         <translation>Settings</translation>
     </message>
     <message>
-        <location filename="../qml/pages/SettingsPage.qml" line="34"/>
+        <location filename="../qml/pages/SettingsPage.qml" line="44"/>
         <source>Personal Chats</source>
         <translation>Personal Chats</translation>
     </message>
     <message>
-        <location filename="../qml/pages/SettingsPage.qml" line="41"/>
+        <location filename="../qml/pages/SettingsPage.qml" line="52"/>
         <source>Groups</source>
         <translation>Groups</translation>
     </message>
     <message>
-        <location filename="../qml/pages/SettingsPage.qml" line="48"/>
+        <location filename="../qml/pages/SettingsPage.qml" line="60"/>
         <source>Contacts</source>
         <translation>Contacts</translation>
     </message>
     <message>
-        <location filename="../qml/pages/SettingsPage.qml" line="55"/>
+        <location filename="../qml/pages/SettingsPage.qml" line="68"/>
         <source>Invites</source>
         <translation>Invites</translation>
     </message>
     <message>
-        <location filename="../qml/pages/SettingsPage.qml" line="62"/>
+        <location filename="../qml/pages/SettingsPage.qml" line="76"/>
         <source>Exit</source>
         <translation>Exit</translation>
     </message>
     <message>
-        <location filename="../qml/pages/SettingsPage.qml" line="82"/>
+        <location filename="../qml/pages/SettingsPage.qml" line="107"/>
         <source>Profile</source>
         <translation>Profile</translation>
     </message>
     <message>
-        <location filename="../qml/pages/SettingsPage.qml" line="85"/>
+        <location filename="../qml/pages/SettingsPage.qml" line="111"/>
         <source>About Project</source>
         <translation>About Project</translation>
     </message>
     <message>
-        <location filename="../qml/pages/SettingsPage.qml" line="88"/>
+        <location filename="../qml/pages/SettingsPage.qml" line="115"/>
         <source>Delete account</source>
         <translation>Delete account</translation>
     </message>
