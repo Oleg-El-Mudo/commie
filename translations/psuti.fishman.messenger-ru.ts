@@ -365,17 +365,17 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/PasswordSettingsPage.qml" line="64"/>
+        <location filename="../qml/pages/PasswordSettingsPage.qml" line="66"/>
         <source>Accept</source>
         <translation type="unfinished">Подтвердить</translation>
     </message>
     <message>
-        <location filename="../qml/pages/PasswordSettingsPage.qml" line="83"/>
+        <location filename="../qml/pages/PasswordSettingsPage.qml" line="85"/>
         <source>Password set</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/PasswordSettingsPage.qml" line="93"/>
+        <location filename="../qml/pages/PasswordSettingsPage.qml" line="95"/>
         <source>Error</source>
         <translation type="unfinished"></translation>
     </message>
@@ -429,6 +429,39 @@
     </message>
 </context>
 <context>
+    <name>ProfileAvatarSettingsPage</name>
+    <message>
+        <location filename="../qml/pages/ProfileAvatarSettingsPage.qml" line="55"/>
+        <source>Commie</source>
+        <translation type="unfinished">Комми</translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/ProfileAvatarSettingsPage.qml" line="56"/>
+        <source>Avatar Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/ProfileAvatarSettingsPage.qml" line="75"/>
+        <source>Set or change your avatar</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/ProfileAvatarSettingsPage.qml" line="81"/>
+        <source>Select image</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/ProfileAvatarSettingsPage.qml" line="103"/>
+        <source>Accept</source>
+        <translation type="unfinished">Подтвердить</translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/ProfileAvatarSettingsPage.qml" line="112"/>
+        <source>Avatar updated</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>ProfileSettingsPage</name>
     <message>
         <location filename="../qml/pages/ProfileSettingsPage.qml" line="25"/>
@@ -446,22 +479,22 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ProfileSettingsPage.qml" line="88"/>
+        <location filename="../qml/pages/ProfileSettingsPage.qml" line="101"/>
         <source>No alias set</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ProfileSettingsPage.qml" line="126"/>
+        <location filename="../qml/pages/ProfileSettingsPage.qml" line="139"/>
         <source>Set/change avatar</source>
         <translation>Установить / поменять аватар</translation>
     </message>
     <message>
-        <location filename="../qml/pages/ProfileSettingsPage.qml" line="130"/>
+        <location filename="../qml/pages/ProfileSettingsPage.qml" line="143"/>
         <source>Set/change alias</source>
         <translation>Установить / поменять псевдоним</translation>
     </message>
     <message>
-        <location filename="../qml/pages/ProfileSettingsPage.qml" line="134"/>
+        <location filename="../qml/pages/ProfileSettingsPage.qml" line="147"/>
         <source>Change password</source>
         <translation>Поменять пароль</translation>
     </message>
@@ -628,8 +661,8 @@
     </message>
     <message>
         <location filename="../qml/pages/SettingsPage.qml" line="115"/>
-        <source>Delete account</source>
-        <translation>Удалить аккаунт</translation>
+        <source>Delete all accounts</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>

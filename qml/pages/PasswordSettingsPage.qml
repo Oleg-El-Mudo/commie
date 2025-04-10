@@ -49,7 +49,7 @@ Page{
                 anchors.horizontalCenter: parent.horizontalCenter
             }
             //текстовое поле для ввода псевдонима
-            TextArea {
+            PasswordField {
                 id: passwordTextArea
                 //текст с подсказкой, что вводить в поле
                 placeholderText: qsTr("Enter password here")
@@ -57,6 +57,8 @@ Page{
                 anchors.horizontalCenter: parent.horizontalCenter
                 //текст не переносится
                 wrapMode: Text.NoWrap
+                acceptableInput: text.length > 14 && /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&*()_+]+$/.test(text)
+                EnterKey.enabled: text.length > 14 && /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&*()_+]+$/.test(text)
             }
             //кнопка для принятия и парсинга ссылки
             Button {
@@ -66,7 +68,7 @@ Page{
                 anchors.horizontalCenter: parent.horizontalCenter
                 //системная большая ширина кнопки
                 width: Theme.buttonWidthLarge
-                enabled: passwordTextArea.text.length > 0
+                enabled: passwordTextArea.text.length > 14 && /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&*()_+]{15,}$/.test(passwordTextArea.text)
                 //при клике по кнопке
                 onClicked: {
                     //устанавливаем пароль пользователю в БД

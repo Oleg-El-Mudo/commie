@@ -19,7 +19,7 @@ QtObject {
     port INTEGER NOT NULL,
     is_active BOOLEAN NOT NULL,
     alias TEXT,
-    avatar BLOB)");
+    avatar TEXT)");
         });
     }
     //функция для добавления данных пользователя при регистрации
@@ -84,6 +84,37 @@ QtObject {
         db.transaction(function(tx){
             tx.executeSql("UPDATE users SET password = ? where is_active=true", [new_password]);
         });
+    }
+    function updateAvatar(userId, avatarBase64) {
+        db.transaction(function(tx) {
+            tx.executeSql("UPDATE users SET avatar = ? WHERE id = ?", [avatarBase64, userId]);
+        });
+    }
+    function getAvatar(userId) {
+        var result = "";
+        db.transaction(function(tx) {
+            var query = tx.executeSql("SELECT avatar FROM users WHERE id = ?", [userId]);
+            if (query.rows.length > 0) {
+                result = query.rows.item(0).avatar; // Возвращаем строку Base64
+            }
+        });
+        return result;
+    }
+
+    function getAvatarBase64(userId) {
+        var result = "";
+        db.transaction(function(tx) {
+            var query = tx.executeSql("SELECT avatar FROM users WHERE id = ?", [userId]);
+            if (query.rows.length > 0) {
+                var blob = query.rows.item(0).avatar;
+                if (blob) {
+                    // Преобразуем BLOB в Base64
+                    result = "data:image/png;base64," + btoa(String.fromCharCode.apply(null, new Uint8Array(blob)));
+                }
+            }
+        });
+        console.log(result);
+        return result;
     }
 
     //РАБОТА С ТАБЛИЦЕЙ КОНТАКТОВ

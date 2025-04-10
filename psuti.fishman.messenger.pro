@@ -27,6 +27,7 @@ DISTFILES += \
     qml/pages/LoginPage.qml \
     qml/pages/PasswordSettingsPage.qml \
     qml/pages/PersonalChatsPage.qml \
+    qml/pages/ProfileAvatarSettingsPage.qml \
     qml/pages/ProfileSettingsPage.qml \
     qml/pages/QRCodePage.qml \
     qml/pages/QRReaderPage.qml \

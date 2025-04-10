@@ -112,7 +112,7 @@ Page{
                 }
                 ListElement{
                     //пункт меню для удаления профиля
-                    settingsPunkt: qsTr("Delete account")
+                    settingsPunkt: qsTr("Delete all accounts")
                 }
             }
             //описание шаблона элемента

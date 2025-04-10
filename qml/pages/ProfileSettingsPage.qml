@@ -35,20 +35,18 @@ Page{
         AppBarSpacer{}
 
         //кнопка в шапке
-        AppBarButton{
-            //кнопка обновления данных профиля
+        AppBarButton {
             context: qsTr("Update")
-            //картинка обновления
             icon.source: "image://theme/icon-m-refresh"
 
-            //при клике
             onClicked: {
-                //получаем активного пользователя
                 var auser = dao.getActiveUser();
-                //получаем псевдоним от активного пользователя
-                your_alias = auser.alias;
-                //получаем аватар от активного пользователя
-                your_avatar = auser.avatar;
+                // Загружаем псевдоним независимо от аватара
+                your_alias = auser.alias || qsTr("No alias set");
+
+                // Всегда пытаемся загрузить аватар, даже если псевдонима нет
+                your_avatar = dao.getAvatar(auser.id);
+                console.log("Avatar after update:", your_avatar);
             }
         }
     }
@@ -65,19 +63,31 @@ Page{
 
 
         // Проверяем наличие аватара
+        // Проверяем наличие аватара
+        // Изображение с аватаром при наличии
         Image {
             id: avatarImage
-            //если автар есть, то выводим его, если нет - пустая строка
-            source: your_avatar ? your_avatar : ""
-            //размеры 100*100
-            width: 100
-            height: 100
-            //видимость если есть аватар
-            visible: your_avatar !== null
-            //привязка по левой границе родителя
-            anchors.left: parent.left
-            //вертикальное центрирование по центру родителя
-            anchors.verticalCenter: parent.verticalCenter
+            // Источник картинки - или аватар, или пустая строка
+            source: your_avatar
+            // Размеры 100x100
+            width: 200
+            height: 200
+            // Видимость, если аватар присутствует
+            visible: true
+        }
+
+        // Точка вместо аватара
+        Rectangle {
+            id: avatarPlaceholder
+            // Синий цвет
+            color: "#3D6BE3"
+            // Размеры 100x100
+            width: 200
+            height: 200
+            // Углы скошены до круга
+            radius: width * 0.5
+            // Видим, если аватар отсутствует
+            visible: !your_avatar
         }
 
         // Проверяем наличие псевдонима
@@ -89,7 +99,7 @@ Page{
             //привязка слева
             //если картинка есть, то слева от неё
             //если картинки нет, то слева от родителя
-            anchors.left: avatarImage.visible ? avatarImage.right : parent.left
+            anchors.left: avatarImage.visible ? avatarImage.right : avatarPlaceholder.right
             //вертикальное выравнивание по центру
             anchors.verticalCenter: parent.verticalCenter
         }
@@ -159,11 +169,7 @@ Page{
                 switch (index) {
                 case 0:
                     // код для нажатия на установки аватара
-
-                    /*
-                      СДЕЛАТЬ!!!!!
-                    */
-
+                    pageStack.push(Qt.resolvedUrl("ProfileAvatarSettingsPage.qml"))
                     break;
                 case 1:
                     // код для нажатия на установки псевдонима
@@ -179,10 +185,8 @@ Page{
     }
     //при загрузке страницы
     Component.onCompleted: {
-        //получаем активного пользователя
         var auser = dao.getActiveUser();
-        //вытаскиваем из активного пользователя псевдоним и аватар
-        your_alias = auser.alias;
-        your_avatar = auser.avatar;
+        your_alias = auser.alias || qsTr("No alias set");
+        your_avatar = dao.getAvatar(auser.id);
     }
 }
