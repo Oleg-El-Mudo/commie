@@ -474,27 +474,29 @@
         <translation>Profile settings</translation>
     </message>
     <message>
-        <location filename="../qml/pages/ProfileSettingsPage.qml" line="40"/>
+        <location filename="../qml/pages/ProfileSettingsPage.qml" line="39"/>
         <source>Update</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ProfileSettingsPage.qml" line="101"/>
+        <location filename="../qml/pages/ProfileSettingsPage.qml" line="45"/>
+        <location filename="../qml/pages/ProfileSettingsPage.qml" line="99"/>
+        <location filename="../qml/pages/ProfileSettingsPage.qml" line="190"/>
         <source>No alias set</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ProfileSettingsPage.qml" line="139"/>
+        <location filename="../qml/pages/ProfileSettingsPage.qml" line="137"/>
         <source>Set/change avatar</source>
         <translation>Set/change avatar</translation>
     </message>
     <message>
-        <location filename="../qml/pages/ProfileSettingsPage.qml" line="143"/>
+        <location filename="../qml/pages/ProfileSettingsPage.qml" line="141"/>
         <source>Set/change alias</source>
         <translation>Set/change alias</translation>
     </message>
     <message>
-        <location filename="../qml/pages/ProfileSettingsPage.qml" line="147"/>
+        <location filename="../qml/pages/ProfileSettingsPage.qml" line="145"/>
         <source>Change password</source>
         <translation>Change password</translation>
     </message>

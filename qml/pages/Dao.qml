@@ -130,7 +130,7 @@ QtObject {
     ip TEXT NOT NULL,
     port INTEGER NOT NULL,
     alias TEXT,
-    avatar BLOB)");
+    avatar TEXT)");
         });
     }
     function updateContact(login, ip, port, aliias, avatar, user_id, public_key) {
@@ -167,6 +167,12 @@ QtObject {
             }
         });
         return records;
+    }
+
+    function deleteAllContacts() {
+        db.transaction(function(tx) {
+            tx.executeSql("DELETE FROM contacts");
+        });
     }
 
     //РАБОТА С ТАБЛИЦЕЙ ЛИЧНЫХ ЧАТОВ

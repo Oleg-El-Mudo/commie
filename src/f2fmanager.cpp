@@ -4,7 +4,7 @@
 #include <QJsonDocument>
 #include <QJsonObject>
 //генерация пригласительной ссылки
-QString F2FManager::generateInviteLink(const QString &login, const QString &publicKey, const QString &ip, int port, const QString &alias, const QByteArray &avatar)
+QString F2FManager::generateInviteLink(const QString &login, const QString &publicKey, const QString &ip, int port, const QString &alias, const QString &avatar)
 {
     //создает json объект и вставляем в него логин, публичный ключ, айпи и порт после соотвествующих меток
     QJsonObject data;
@@ -18,7 +18,7 @@ QString F2FManager::generateInviteLink(const QString &login, const QString &publ
     }
     //если у пользователя есть аватар (может отсутсвовать)
     if (!avatar.isEmpty()) {
-        data.insert("avatar", QString::fromLatin1(avatar.toBase64()));
+        data.insert("avatar", avatar);
     }
     //формируется json документ по данным
     QJsonDocument doc(data);
@@ -62,7 +62,7 @@ QMap<QString, QString> F2FManager::parseInviteLink(const QString &inviteLink)
     }
     //если в полученных данных есть аватар, получаем его и приводим к строке (тип данных BLOB)
     if (data.contains("avatar")) {
-        result["avatar"] = QByteArray::fromBase64(data["avatar"].toString().toLatin1());
+        result["avatar"] = data["avatar"].toString();
     }
     //возвращаем полученную карту
     return result;
@@ -102,12 +102,12 @@ QString F2FManager::getAliasFromParsedLink(const QString &inviteLink)
 }
 
 // получаем отдельно avatar
-QByteArray F2FManager::getAvatarFromParsedLink(const QString &inviteLink)
+QString F2FManager::getAvatarFromParsedLink(const QString &inviteLink)
 {
     QMap<QString, QString> data = parseInviteLink(inviteLink);
     //если аватар есть, возвращаем его, если нет - пустой массив
     if (data.contains("avatar")) {
-        return QByteArray::fromBase64(data["avatar"].toLatin1());
+        return data["avatar"];
     }
-    return QByteArray();
+    return "";
 }

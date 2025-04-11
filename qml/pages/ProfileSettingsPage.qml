@@ -74,6 +74,7 @@ Page{
             height: 200
             // Видимость, если аватар присутствует
             visible: true
+            fillMode: Image.PreserveAspectCrop
         }
 
         // Точка вместо аватара

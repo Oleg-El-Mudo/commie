@@ -149,6 +149,7 @@ Page{
                     case 2:
                         // код для нажатия на "Delete account"
                         dao.deleteAllUsers();
+                        dao.deleteAllContacts();
                         Notices.show("Данные аккаунтов удалены",
                                      Notice.Short,
                                      Notice.Bottom,
