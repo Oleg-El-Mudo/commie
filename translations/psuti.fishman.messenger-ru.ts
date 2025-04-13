@@ -171,78 +171,78 @@
 <context>
     <name>InvitePage</name>
     <message>
-        <location filename="../qml/pages/InvitePage.qml" line="84"/>
+        <location filename="../qml/pages/InvitePage.qml" line="93"/>
         <source>Contact added</source>
         <translation>Контакт добавлен</translation>
     </message>
     <message>
-        <location filename="../qml/pages/InvitePage.qml" line="130"/>
-        <location filename="../qml/pages/InvitePage.qml" line="192"/>
+        <location filename="../qml/pages/InvitePage.qml" line="139"/>
+        <location filename="../qml/pages/InvitePage.qml" line="201"/>
         <source>Commie</source>
         <translation>Комми</translation>
     </message>
     <message>
-        <location filename="../qml/pages/InvitePage.qml" line="132"/>
+        <location filename="../qml/pages/InvitePage.qml" line="141"/>
         <source>Safe messenger</source>
         <translation>Безопасный мессенджер</translation>
     </message>
     <message>
-        <location filename="../qml/pages/InvitePage.qml" line="145"/>
+        <location filename="../qml/pages/InvitePage.qml" line="154"/>
         <source>Personal Chats</source>
         <translation>Личные чаты</translation>
     </message>
     <message>
-        <location filename="../qml/pages/InvitePage.qml" line="154"/>
+        <location filename="../qml/pages/InvitePage.qml" line="163"/>
         <source>Groups</source>
         <translation>Группы</translation>
     </message>
     <message>
-        <location filename="../qml/pages/InvitePage.qml" line="163"/>
+        <location filename="../qml/pages/InvitePage.qml" line="172"/>
         <source>Contacts</source>
         <translation>Контакты</translation>
     </message>
     <message>
-        <location filename="../qml/pages/InvitePage.qml" line="172"/>
+        <location filename="../qml/pages/InvitePage.qml" line="181"/>
         <source>Settings</source>
         <translation>Настройки</translation>
     </message>
     <message>
-        <location filename="../qml/pages/InvitePage.qml" line="181"/>
+        <location filename="../qml/pages/InvitePage.qml" line="190"/>
         <source>Exit</source>
         <translation>Выход</translation>
     </message>
     <message>
-        <location filename="../qml/pages/InvitePage.qml" line="214"/>
+        <location filename="../qml/pages/InvitePage.qml" line="223"/>
         <source>Generate invite-link</source>
         <translation>Сгенерировать ссылку-приглашение</translation>
     </message>
     <message>
-        <location filename="../qml/pages/InvitePage.qml" line="222"/>
+        <location filename="../qml/pages/InvitePage.qml" line="231"/>
         <source>Generate</source>
         <translation>Сгенерировать</translation>
     </message>
     <message>
-        <location filename="../qml/pages/InvitePage.qml" line="250"/>
+        <location filename="../qml/pages/InvitePage.qml" line="259"/>
         <source>Copy</source>
         <translation>Скопировать</translation>
     </message>
     <message>
-        <location filename="../qml/pages/InvitePage.qml" line="263"/>
+        <location filename="../qml/pages/InvitePage.qml" line="272"/>
         <source>Generate QR</source>
         <translation>Сгенерировать QR</translation>
     </message>
     <message>
-        <location filename="../qml/pages/InvitePage.qml" line="279"/>
+        <location filename="../qml/pages/InvitePage.qml" line="288"/>
         <source>Enter invite link here</source>
         <translation>Введите сюда ссылку</translation>
     </message>
     <message>
-        <location filename="../qml/pages/InvitePage.qml" line="288"/>
+        <location filename="../qml/pages/InvitePage.qml" line="297"/>
         <source>Accept</source>
         <translation>Подтвердить</translation>
     </message>
     <message>
-        <location filename="../qml/pages/InvitePage.qml" line="302"/>
+        <location filename="../qml/pages/InvitePage.qml" line="311"/>
         <source>Scan QR</source>
         <translation>Сканировать QR</translation>
     </message>

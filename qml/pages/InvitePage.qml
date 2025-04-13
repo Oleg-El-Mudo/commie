@@ -75,7 +75,16 @@ Page{
         //иначе
         } else {
             //добавляем новый контакт текующему пользователю
-            dao.insertContact(auser.id, login, publicKey, ip, port, alias, avatar);
+
+            //МОНУМЕНТ КОСТЫЛЮ
+            //аватарка добавляется при обновлении контакта, но не при добавлении контакта
+
+            //поэтому я делаю пустой аватар
+            var empty_avatar = ""
+            //добавляю пользователя без аватарки
+            dao.insertContact(auser.id, login, publicKey, ip, port, alias, empty_avatar);
+            //потом обновляю этого пользователя с аватаркой
+            dao.updateContact(login, ip, port, alias, avatar, auser.id, publicKey);
         }
 
         //очищаем поле с введённой ссылкой

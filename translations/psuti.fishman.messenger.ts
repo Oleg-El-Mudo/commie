@@ -171,78 +171,78 @@
 <context>
     <name>InvitePage</name>
     <message>
-        <location filename="../qml/pages/InvitePage.qml" line="84"/>
+        <location filename="../qml/pages/InvitePage.qml" line="93"/>
         <source>Contact added</source>
         <translation>Contact added</translation>
     </message>
     <message>
-        <location filename="../qml/pages/InvitePage.qml" line="130"/>
-        <location filename="../qml/pages/InvitePage.qml" line="192"/>
+        <location filename="../qml/pages/InvitePage.qml" line="139"/>
+        <location filename="../qml/pages/InvitePage.qml" line="201"/>
         <source>Commie</source>
         <translation>Commie</translation>
     </message>
     <message>
-        <location filename="../qml/pages/InvitePage.qml" line="132"/>
+        <location filename="../qml/pages/InvitePage.qml" line="141"/>
         <source>Safe messenger</source>
         <translation>Safe messenger</translation>
     </message>
     <message>
-        <location filename="../qml/pages/InvitePage.qml" line="145"/>
+        <location filename="../qml/pages/InvitePage.qml" line="154"/>
         <source>Personal Chats</source>
         <translation>Personal Chats</translation>
     </message>
     <message>
-        <location filename="../qml/pages/InvitePage.qml" line="154"/>
+        <location filename="../qml/pages/InvitePage.qml" line="163"/>
         <source>Groups</source>
         <translation>Groups</translation>
     </message>
     <message>
-        <location filename="../qml/pages/InvitePage.qml" line="163"/>
+        <location filename="../qml/pages/InvitePage.qml" line="172"/>
         <source>Contacts</source>
         <translation>Contacts</translation>
     </message>
     <message>
-        <location filename="../qml/pages/InvitePage.qml" line="172"/>
+        <location filename="../qml/pages/InvitePage.qml" line="181"/>
         <source>Settings</source>
         <translation>Settings</translation>
     </message>
     <message>
-        <location filename="../qml/pages/InvitePage.qml" line="181"/>
+        <location filename="../qml/pages/InvitePage.qml" line="190"/>
         <source>Exit</source>
         <translation>Exit</translation>
     </message>
     <message>
-        <location filename="../qml/pages/InvitePage.qml" line="214"/>
+        <location filename="../qml/pages/InvitePage.qml" line="223"/>
         <source>Generate invite-link</source>
         <translation>&quot;Generate invite-link</translation>
     </message>
     <message>
-        <location filename="../qml/pages/InvitePage.qml" line="222"/>
+        <location filename="../qml/pages/InvitePage.qml" line="231"/>
         <source>Generate</source>
         <translation>Generate</translation>
     </message>
     <message>
-        <location filename="../qml/pages/InvitePage.qml" line="250"/>
+        <location filename="../qml/pages/InvitePage.qml" line="259"/>
         <source>Copy</source>
         <translation>Copy</translation>
     </message>
     <message>
-        <location filename="../qml/pages/InvitePage.qml" line="263"/>
+        <location filename="../qml/pages/InvitePage.qml" line="272"/>
         <source>Generate QR</source>
         <translation>Generate QR</translation>
     </message>
     <message>
-        <location filename="../qml/pages/InvitePage.qml" line="279"/>
+        <location filename="../qml/pages/InvitePage.qml" line="288"/>
         <source>Enter invite link here</source>
         <translation>Enter invite link here</translation>
     </message>
     <message>
-        <location filename="../qml/pages/InvitePage.qml" line="288"/>
+        <location filename="../qml/pages/InvitePage.qml" line="297"/>
         <source>Accept</source>
         <translation>Accept</translation>
     </message>
     <message>
-        <location filename="../qml/pages/InvitePage.qml" line="302"/>
+        <location filename="../qml/pages/InvitePage.qml" line="311"/>
         <source>Scan QR</source>
         <translation>Scan QR</translation>
     </message>
