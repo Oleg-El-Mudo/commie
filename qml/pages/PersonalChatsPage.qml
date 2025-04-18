@@ -12,20 +12,32 @@ Page {
     }
 
     // Функция для обновления списка чатов
+    // В функции updateChatsList():
     function updateChatsList() {
-        // Очищаем текущую модель
         listView.model.clear();
 
-        // Добавляем фиксированный элемент "Избранное"
+        // Добавляем избранное
         listView.model.append({
-            "isFavorite": true,
-            "title": qsTr("Избранное"),
-            "lastMessage": qsTr("Локальные заметки"),
-            "avatar": ""
-        });
+                                  "isFavorite": true,
+                                  "title": qsTr("Избранное"),
+                                  "lastMessage": qsTr("Локальные заметки"),
+                                  "chatId": "favorites", // Специальный идентификатор
+                                  "chatType": 3
+                              });
 
-        // Здесь будет код для загрузки реальных чатов из БД
-        // Пока оставляем пустым, чтобы список содержал только "Избранное"
+        // Добавляем личные чаты
+        var currentUser = dao.getActiveUser();
+        var chats = dao.getPersonalChats(currentUser.id);
+        chats.forEach(function(chat) {
+            listView.model.append({
+                                      "isFavorite": false,
+                                      "title": chat.alias || chat.login,
+                                      "lastMessage": chat.last_message || qsTr("Нет сообщений"),
+                                      "chatId": chat.id,
+                                      "chatType": chat.chat_type,
+                                      "avatar": chat.avatar
+                                  });
+        });
     }
 
     SilicaFlickable {
@@ -149,11 +161,24 @@ Page {
                         }
                     }
 
+                    // В обработчике клика:
                     onClicked: {
                         if (model.isFavorite) {
-                            console.log("Открываем избранное")
+                            var currentUser = dao.getActiveUser();
+                            pageStack.push(Qt.resolvedUrl("ChatTemplate.qml"), {
+                                               "chatId": "favorites_" + currentUser.id,
+                                               "chatType": 3,
+                                               "chatTitle": qsTr("Избранное"),
+                                               "isLocalChat": true
+                                           });
                         } else {
-                            console.log("Открываем чат:", model.title)
+                            pageStack.push(Qt.resolvedUrl("ChatTemplate.qml"), {
+                                               "chatId": model.chatId,
+                                               "chatType": model.chatType,
+                                               "chatTitle": model.title,
+                                               "avatar": model.avatar,
+                                               "isLocalChat": false
+                                           });
                         }
                     }
                 }

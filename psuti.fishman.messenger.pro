@@ -19,6 +19,7 @@ HEADERS += \
 DISTFILES += \
     qml/pages/AboutProjectPage.qml \
     qml/pages/AliasSettingsPage.qml \
+    qml/pages/ChatTemplate.qml \
     qml/pages/Contacts.qml \
     qml/pages/Dao.qml \
     qml/pages/GroupChatsPage.qml \

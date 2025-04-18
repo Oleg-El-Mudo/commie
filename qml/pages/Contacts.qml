@@ -66,7 +66,7 @@ Page{
                     if(searchText===""){
                         //обновить список
                         updateList();
-                    //иначе
+                        //иначе
                     }else{
                         //очищаем модель списка
                         listView.model.clear();
@@ -86,7 +86,7 @@ Page{
                                                           "alias": contacts[i].alias,
                                                           "avatar": contacts[i].avatar
                                                       });
-                                }
+                            }
                         }
                     }
                 }
