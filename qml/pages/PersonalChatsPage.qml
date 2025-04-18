@@ -2,247 +2,166 @@ import QtQuick 2.0
 import Sailfish.Silica 1.0
 import Aurora.Controls 1.0
 
-//страница личных чатов
-Page{
+Page {
     objectName: "PersonalChatsPage"
-    //доступны все ориентации экрана
     allowedOrientations: Orientation.All
     id: chatsPage
 
-    //объект dao для работы с бд
-    Dao{
-        id:dao
+    Dao {
+        id: dao
     }
 
-    //прокручиваемый элемент страницы
-    SilicaFlickable{
-        id:chatsList
-        //заполнение по родителю
+    // Функция для обновления списка чатов
+    function updateChatsList() {
+        // Очищаем текущую модель
+        listView.model.clear();
+
+        // Добавляем фиксированный элемент "Избранное"
+        listView.model.append({
+            "isFavorite": true,
+            "title": qsTr("Избранное"),
+            "lastMessage": qsTr("Локальные заметки"),
+            "avatar": ""
+        });
+
+        // Здесь будет код для загрузки реальных чатов из БД
+        // Пока оставляем пустым, чтобы список содержал только "Избранное"
+    }
+
+    SilicaFlickable {
+        id: chatsList
         anchors.fill: parent
-        //высота содержимого по родителю
         contentHeight: parent.height
 
-        //шапка страницы
-        AppBar{
-            id:chatsBar
-            //разделитель
+        AppBar {
+            id: chatsBar
             divider: true
-            //фон
             background: true
-            //подзаголовок
             subHeaderText: qsTr("Personal")
 
-            //пустое пространство
             AppBarSpacer{}
-
-            //заголовок
             headerText: qsTr("Chats")
+            AppBarSpacer{}
         }
 
-        //меню, вытягиваемое сверху вниз
-        PullDownMenu{
-            //отступ сверху по высоте шапки
+        PullDownMenu {
             topMargin: chatsBar.height
 
-            //элемент меню
             MenuItem {
                 text: qsTr("Groups")
-                //при клике
-                onClicked: {
-                    //меняем вершину стека страниц на группы
-                    pageStack.replace(Qt.resolvedUrl("GroupChatsPage.qml"))
-                }
+                onClicked: pageStack.replace(Qt.resolvedUrl("GroupChatsPage.qml"))
             }
 
-            //элемент меню
             MenuItem {
                 text: qsTr("Contact")
-                //при клике
-                onClicked: {
-                    //меняем вершину стека страниц на контакты
-                    pageStack.replace(Qt.resolvedUrl("Contacts.qml"))
-                }
+                onClicked: pageStack.replace(Qt.resolvedUrl("Contacts.qml"))
             }
 
-            //элемент меню
             MenuItem {
                 text: qsTr("Invites")
-                //при клике
-                onClicked: {
-                    //меняем вершину стека страниц на приглашения
-                    pageStack.replace(Qt.resolvedUrl("InvitePage.qml"))
-                }
+                onClicked: pageStack.replace(Qt.resolvedUrl("InvitePage.qml"))
             }
 
-            //элемент меню
             MenuItem {
                 text: qsTr("Settings")
-                //при клике
-                onClicked: {
-                    //меняем вершину стека страниц на настройки
-                    pageStack.push(Qt.resolvedUrl("SettingsPage.qml"))
-                }
+                onClicked: pageStack.push(Qt.resolvedUrl("SettingsPage.qml"))
             }
 
-            //элемент меню
             MenuItem {
                 text: qsTr("Exit")
-                //при клике
                 onClicked: {
-                    //деактивируем пользователя
                     dao.deActivate();
-                    //убираем из стека все страницы до главной
                     pageStack.replaceAbove(null, Qt.resolvedUrl("MainPage.qml"))
                 }
             }
 
-            //подпись меню
-            MenuLabel{
+            MenuLabel {
                 text: qsTr("Commie")
             }
         }
 
-        //столбец-заглушка с чатами
-        Column{
-            id:chatsCol
-            //ширина по странице
+        Column {
+            id: chatsCol
             width: chatsPage.width
-            //высота по странице минус шапка
-            height: chatsPage.height-chatsBar.height
-            //средние отступы между элементами столбца
+            height: chatsPage.height - chatsBar.height
             spacing: Theme.paddingMedium
-            //привязка сверху по низу шапки
             anchors.top: chatsBar.bottom
 
-            //не видна, пока страница чатов загружается
-            visible: !(chatsPage.loading)
-
-            //прокручиваемый элемент страницы
-            SilicaListView{
-                //ширина по столбцу
+            SilicaListView {
+                id: listView
                 width: chatsCol.width
-                //высота по столбцу минус шапка
-                height: chatsCol.height-chatsBar.height
+                height: chatsCol.height
 
-                //модель списка
-                model: ListModel{
-
-                    ListElement{
-                        author: "Мама"
-                        message: "Привет"
-                    }
-
-                    ListElement{
-                        author: "Папа"
-                        message: "Чё матери не отвечаешь"
-                    }
-
-                    ListElement{
-                        author: "900"
-                        message: "Очередная хрень"
-                    }
-
-                    ListElement{
-                        author: "Мама"
-                        message: "Привет"
-                    }
-
-                    ListElement{
-                        author: "Папа"
-                        message: "Чё матери не отвечаешь"
-                    }
-
-                    ListElement{
-                        author: "900"
-                        message: "Очередная хрень"
-                    }
-
-                    ListElement{
-                        author: "Мама"
-                        message: "Привет"
-                    }
-
-                    ListElement{
-                        author: "Папа"
-                        message: "Чё матери не отвечаешь"
-                    }
-
-                    ListElement{
-                        author: "900"
-                        message: "Очередная хрень"
-                    }
-
-                    ListElement{
-                        author: "Мама"
-                        message: "Привет"
-                    }
-
-                    ListElement{
-                        author: "Папа"
-                        message: "Чё матери не отвечаешь"
-                    }
-
-                    ListElement{
-                        author: "900"
-                        message: "Очередная хрень"
-                    }
-
-                    ListElement{
-                        author: "Мама"
-                        message: "Привет"
-                    }
-
-                    ListElement{
-                        author: "Папа"
-                        message: "Чё матери не отвечаешь"
-                    }
-
-                    ListElement{
-                        author: "901"
-                        message: "Очередная хрень"
+                model: ListModel {
+                    ListElement {
+                        isFavorite: false
+                        title: ""
+                        lastMessage: ""
+                        avatar: ""
                     }
                 }
-                delegate: BackgroundItem{
+
+                delegate: BackgroundItem {
                     height: Theme.dp(120)
 
-                    Row{
-
+                    Row {
                         x: Theme.dp(16)
                         anchors.verticalCenter: parent.verticalCenter
+                        spacing: Theme.paddingMedium
 
-                        Rectangle{
-                            x: 20
-                            y: 20
-                            color: "#3D6BE3"
-                            width: 15
-                            height: width
-                            radius: width*0.5
+                        // Иконка чата
+                        Rectangle {
+                            width: Theme.dp(80)
+                            height: Theme.dp(80)
+                            radius: width * 0.5
+                            color: model.isFavorite ? "#FFD700" : "#3D6BE3"
+
+                            Label {
+                                anchors.centerIn: parent
+                                text: model.isFavorite ? "★" : (model.title ? model.title.charAt(0) : "")
+                                color: model.isFavorite ? "#000000" : "#FFFFFF"
+                                font.pixelSize: Theme.dp(40)
+                            }
                         }
 
-                        Column{
-                            width: parent.width
+                        // Текстовая информация
+                        Column {
+                            width: parent.width - Theme.dp(100)
+                            spacing: Theme.paddingSmall
+                            x: 16
 
-                            Label{
-                                x: 16
-                                text: author
+                            Label {
+                                text: model.title || qsTr("Без названия")
                                 color: "#FFFFFF"
                                 font.pixelSize: Theme.dp(32)
                                 font.bold: true
+                                width: parent.width
+
                             }
 
-                            Label{
-                                x: 16
-                                text: message
-                                color: "#FFFFFF"
-                                topPadding: 8
+                            Label {
+                                text: model.lastMessage || qsTr("Нет сообщений")
+                                color: "#AAAAAA"
                                 font.pixelSize: Theme.dp(24)
+                                width: parent.width
+
                             }
                         }
                     }
+
+                    onClicked: {
+                        if (model.isFavorite) {
+                            console.log("Открываем избранное")
+                        } else {
+                            console.log("Открываем чат:", model.title)
+                        }
+                    }
                 }
-                //вертикальная полоса прокрутки
-                VerticalScrollDecorator {flickable: ListView}
             }
         }
+    }
+
+    Component.onCompleted: {
+        updateChatsList();
     }
 }

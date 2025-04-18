@@ -388,44 +388,64 @@
         <translation></translation>
     </message>
     <message>
-        <location filename="../qml/pages/PersonalChatsPage.qml" line="33"/>
+        <location filename="../qml/pages/PersonalChatsPage.qml" line="22"/>
+        <source>Избранное</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/PersonalChatsPage.qml" line="23"/>
+        <source>Локальные заметки</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/PersonalChatsPage.qml" line="40"/>
         <source>Personal</source>
         <translation>Личные</translation>
     </message>
     <message>
-        <location filename="../qml/pages/PersonalChatsPage.qml" line="39"/>
+        <location filename="../qml/pages/PersonalChatsPage.qml" line="43"/>
         <source>Chats</source>
         <translation>Чаты</translation>
     </message>
     <message>
-        <location filename="../qml/pages/PersonalChatsPage.qml" line="49"/>
+        <location filename="../qml/pages/PersonalChatsPage.qml" line="51"/>
         <source>Groups</source>
         <translation>Группы</translation>
     </message>
     <message>
-        <location filename="../qml/pages/PersonalChatsPage.qml" line="59"/>
+        <location filename="../qml/pages/PersonalChatsPage.qml" line="56"/>
         <source>Contact</source>
         <translation>Контакты</translation>
     </message>
     <message>
-        <location filename="../qml/pages/PersonalChatsPage.qml" line="69"/>
+        <location filename="../qml/pages/PersonalChatsPage.qml" line="61"/>
         <source>Invites</source>
         <translation>Приглашения</translation>
     </message>
     <message>
-        <location filename="../qml/pages/PersonalChatsPage.qml" line="79"/>
+        <location filename="../qml/pages/PersonalChatsPage.qml" line="66"/>
         <source>Settings</source>
         <translation>Настройки</translation>
     </message>
     <message>
-        <location filename="../qml/pages/PersonalChatsPage.qml" line="89"/>
+        <location filename="../qml/pages/PersonalChatsPage.qml" line="71"/>
         <source>Exit</source>
         <translation>Выход</translation>
     </message>
     <message>
-        <location filename="../qml/pages/PersonalChatsPage.qml" line="101"/>
+        <location filename="../qml/pages/PersonalChatsPage.qml" line="79"/>
         <source>Commie</source>
         <translation>Комми</translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/PersonalChatsPage.qml" line="134"/>
+        <source>Без названия</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/PersonalChatsPage.qml" line="143"/>
+        <source>Нет сообщений</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
