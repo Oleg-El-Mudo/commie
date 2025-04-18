@@ -1,6 +1,6 @@
 Name:       psuti.fishman.messenger
 Summary:    p2p - мессенджер для ОС Аврора
-Version:    0.4.19
+Version:    0.4.20
 Release:    15
 License:    GPLv3+
 URL:        https://gitverse.ru/Fishman/commie

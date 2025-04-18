@@ -123,14 +123,16 @@ QtObject {
     function createContactsTable() {
         db.transaction(function (tx) {
             tx.executeSql("CREATE TABLE IF NOT EXISTS contacts (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    user_id INTEGER NOT NULL,
-    login TEXT NOT NULL,
-    public_key TEXT NOT NULL UNIQUE,
-    ip TEXT NOT NULL,
-    port INTEGER NOT NULL,
-    alias TEXT,
-    avatar TEXT)");
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                user_id INTEGER NOT NULL,
+                login TEXT NOT NULL,
+                public_key TEXT NOT NULL UNIQUE,
+                ip TEXT NOT NULL,
+                port INTEGER NOT NULL,
+                alias TEXT,
+                avatar TEXT,
+                FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+            )");
         });
     }
     function updateContact(login, ip, port, aliias, avatar, user_id, public_key) {
@@ -175,14 +177,99 @@ QtObject {
         });
     }
 
-    //РАБОТА С ТАБЛИЦЕЙ ЛИЧНЫХ ЧАТОВ
+    // --- Таблица чатов ---
+    // Типы чатов: 1=личный, 2=групповой, 3=избранное (локальный)
+    function createChatsTable() {
+        db.transaction(function(tx) {
+            tx.executeSql("CREATE TABLE IF NOT EXISTS chats (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    type INTEGER NOT NULL,
+                    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                    last_message_id INTEGER
+                )");
+        });
+    }
 
-    //РАБОТА С ТАБЛИЦЕЙ ГРУППОВЫХ ЧАТОВ
+    // --- Таблица участников чатов ---
+    function createChatParticipantsTable() {
+        db.transaction(function(tx) {
+            tx.executeSql("CREATE TABLE IF NOT EXISTS chat_participants (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    chat_id INTEGER NOT NULL,
+                    user_id INTEGER NOT NULL,
+                    is_active BOOLEAN DEFAULT 1,
+                    FOREIGN KEY (chat_id) REFERENCES chats(id),
+                    FOREIGN KEY (user_id) REFERENCES users(id)
+                )");
+        });
+    }
+
+    // --- Таблица сообщений ---
+    function createMessagesTable() {
+        db.transaction(function(tx) {
+            tx.executeSql("CREATE TABLE IF NOT EXISTS messages (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    chat_id INTEGER NOT NULL,
+                    sender_id INTEGER NOT NULL,
+                    content TEXT,
+                    is_pinned BOOLEAN DEFAULT 0,
+                    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                    status INTEGER DEFAULT 0,
+                    is_local_only BOOLEAN DEFAULT 0,
+                    FOREIGN KEY (chat_id) REFERENCES chats(id),
+                    FOREIGN KEY (sender_id) REFERENCES users(id)
+                )");//status - 0=отправлено, 1=доставлено, 2=прочитано; is_local_only - TRUE для избранного
+        });
+    }
+
+    // --- Таблица вложений (Base64) ---
+    function createAttachmentsTable() {
+        db.transaction(function(tx) {
+            tx.executeSql("CREATE TABLE IF NOT EXISTS attachments (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    message_id INTEGER NOT NULL,
+                    type INTEGER NOT NULL,
+                    name TEXT NOT NULL,
+                    size INTEGER NOT NULL,
+                    mime_type TEXT NOT NULL,
+                    data TEXT NOT NULL,
+                    thumbnail TEXT,
+                    duration INTEGER,
+                    width INTEGER,
+                    height INTEGER,
+                    FOREIGN KEY (message_id) REFERENCES messages(id) ON DELETE CASCADE
+                )");//type -- 1=image, 2=video, 3=audio, 4=document
+        });
+    }
+
+    // --- Таблица статусов сообщений ---
+    function createMessageStatusTable() {
+        db.transaction(function(tx) {
+            tx.executeSql("CREATE TABLE IF NOT EXISTS message_status (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    message_id INTEGER NOT NULL,
+                    user_id INTEGER NOT NULL,
+                    status INTEGER DEFAULT 0,
+                    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                    FOREIGN KEY (message_id) REFERENCES messages(id),
+                    FOREIGN KEY (user_id) REFERENCES users(id),
+                    UNIQUE (message_id, user_id)
+                )"); //status - 0=отправлено, 1=доставлено, 2=прочитано
+        });
+    }
 
     //подключение к БД и создание таблицы при загрузке компонента
     Component.onCompleted: {
         db = LocalStorage.openDatabaseSync("commie_db", "1.0");
+        db.transaction(function(tx) {
+            tx.executeSql("PRAGMA foreign_keys = ON");
+        });
         createUsersTable();
         createContactsTable();
+        createChatsTable();
+        createChatParticipantsTable();
+        createMessagesTable();
+        createAttachmentsTable();
+        createMessageStatusTable();
     }
 }
