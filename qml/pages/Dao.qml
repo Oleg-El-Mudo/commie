@@ -243,26 +243,44 @@ QtObject {
         return messages;
     }
 
-    function saveToFavorites(userId, messageText) {
-        db.transaction(function(tx) {
-            var chat = tx.executeSql("SELECT c.id FROM chats c JOIN chat_participants cp ON c.id=cp.chat_id WHERE c.type=3 AND cp.user_id=?", [userId]);
-            if (chat.rows.length > 0) {
-                var chatId = chat.rows.item(0).id;
-                tx.executeSql("INSERT INTO messages(chat_id, sender_id, content, is_local) VALUES(?, ?, ?, 1)",
-                              [chatId, userId, messageText]);
-            }
-        });
-    }
-
     // ===== ФУНКЦИИ ДЛЯ РАБОТЫ С ЧАТАМИ =====
+
     function getPersonalChats(userId) {
         var chats = [];
-        db.readTransaction(function(tx) {
-            var res = tx.executeSql("SELECT c.id, c.type, cp.user_id as partner_id, u.login, u.alias, u.avatar, m.content as last_message FROM chats c JOIN chat_participants cp ON c.id=cp.chat_id JOIN users u ON cp.user_id=u.id LEFT JOIN messages m ON c.last_message_id=m.id WHERE c.type=1 AND c.id IN (SELECT chat_id FROM chat_participants WHERE user_id=?)", [userId]);
-            for (var i = 0; i < res.rows.length; i++) {
-                chats.push(res.rows.item(i));
+
+        db.transaction(function(tx) {
+            // Используем обратные кавычки для многострочного SQL-запроса
+            var query = tx.executeSql("
+                SELECT
+                    c.id AS chat_id,
+                    c.type AS chat_type,
+                    cp.user_id AS partner_id,
+                    u.login AS user_login,
+                    u.alias AS user_alias,
+                    u.avatar AS user_avatar,
+                    m.content AS last_message
+                FROM chats c
+                JOIN chat_participants cp ON c.id = cp.chat_id
+                JOIN users u ON cp.user_id = u.id
+                LEFT JOIN messages m ON c.last_message_id = m.id
+                WHERE c.type = 1 AND c.id IN (
+                    SELECT chat_id FROM chat_participants WHERE user_id = ?
+                )
+            ", [userId]);
+
+            for (var i = 0; i < query.rows.length; i++) {
+                var row = query.rows.item(i);
+                chats.push({
+                    id: row.chat_id,
+                    type: row.chat_type,
+                    login: row.user_login || "",
+                    alias: row.user_alias || "",
+                    avatar: row.user_avatar || "",
+                    last_message: row.last_message || ""
+                });
             }
         });
+
         return chats;
     }
 
@@ -278,11 +296,71 @@ QtObject {
     }
 
     function sendMessage(chatId, senderId, messageText, isLocal) {
+        // Добавляем сообщение в интерфейс
+        messageList.model.append({
+            content: messageText,
+            senderAlias: "Вы",
+            created_at: new Date().toISOString()
+        });
+
+        // Прокручиваем вниз
+        Qt.callLater(function() {
+            flickable.contentY = flickable.contentHeight - flickable.height;
+        });
+
+        // Сохраняем сообщение в базу данных асинхронно
+        setTimeout(function() {
+            db.transaction(function(tx) {
+                tx.executeSql("INSERT INTO messages(chat_id, sender_id, content, is_local) VALUES(?, ?, ?, ?)",
+                              [chatId, senderId, messageText, isLocal || 0]);
+                var msgId = tx.executeSql("SELECT last_insert_rowid()").rows.item(0)["last_insert_rowid()"];
+                tx.executeSql("UPDATE chats SET last_message_id=? WHERE id=?", [msgId, chatId]);
+            });
+        }, 0);
+    }
+
+    //создание индексов
+    function createIndexes() {
         db.transaction(function(tx) {
-            tx.executeSql("INSERT INTO messages(chat_id, sender_id, content, is_local) VALUES(?, ?, ?, ?)",
-                          [chatId, senderId, messageText, isLocal || 0]);
-            var msgId = tx.executeSql("SELECT last_insert_rowid()").rows.item(0)["last_insert_rowid()"];
-            tx.executeSql("UPDATE chats SET last_message_id=? WHERE id=?", [msgId, chatId]);
+            tx.executeSql("CREATE INDEX IF NOT EXISTS idx_chats_type ON chats(type)");
+            tx.executeSql("CREATE INDEX IF NOT EXISTS idx_chat_participants_user_id ON chat_participants(user_id)");
+            tx.executeSql("CREATE INDEX IF NOT EXISTS idx_messages_chat_id ON messages(chat_id)");
+        });
+    }
+
+    // В dao.qml
+    function sendMessageOptimized(chatId, senderId, messageText) {
+        db.transaction(function(tx) {
+            // Все в одной транзакции
+            tx.executeSql("INSERT INTO messages(chat_id, sender_id, content) VALUES(?, ?, ?)",
+                         [chatId, senderId, messageText]);
+            tx.executeSql("UPDATE chats SET last_message_id=last_insert_rowid() WHERE id=?", [chatId]);
+        });
+    }
+
+
+    function saveToFavorites(userId, messageText, callback) {
+        db.transaction(function(tx) {
+            try {
+                var chat = tx.executeSql(
+                    "SELECT c.id FROM chats c JOIN chat_participants cp ON c.id=cp.chat_id WHERE c.type=3 AND cp.user_id=?",
+                    [userId]
+                );
+
+                if (chat.rows.length > 0) {
+                    var chatId = chat.rows.item(0).id;
+                    tx.executeSql(
+                        "INSERT INTO messages(chat_id, sender_id, content, is_local) VALUES(?, ?, ?, 1)",
+                        [chatId, userId, messageText]
+                    );
+                    if (callback) callback(true);
+                } else {
+                    if (callback) callback(false);
+                }
+            } catch (e) {
+                console.error("DB error:", e);
+                if (callback) callback(false);
+            }
         });
     }
 
@@ -299,6 +377,8 @@ QtObject {
         createChatsTable();
         createChatParticipantsTable();
         createMessagesTable();
+
+        createIndexes();
 
         // Создаем чат "Избранное" для активного пользователя
         var activeUser = getActiveUser();

@@ -167,7 +167,7 @@ Page {
                             var currentUser = dao.getActiveUser();
                             pageStack.push(Qt.resolvedUrl("ChatTemplate.qml"), {
                                                "chatId": "favorites_" + currentUser.id,
-                                               "chatType": 3,
+                                               "chatType": 3, //3 - тип чата - избранное
                                                "chatTitle": qsTr("Избранное"),
                                                "isLocalChat": true
                                            });

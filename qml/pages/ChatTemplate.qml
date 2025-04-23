@@ -10,6 +10,7 @@ Page {
     property string chatTitle
     property string avatar
     property bool isLocalChat: chatType === 3
+    property int lastMessageId: 0
 
     Dao {
         id: dao
@@ -23,11 +24,12 @@ Page {
         background: true
         headerText: chatTitle
         subHeaderText: isLocalChat ? qsTr("Локальные заметки") :
-                     (chatType === 1 ? qsTr("Личный чат") : qsTr("Групповой чат"))
+                                     (chatType === 1 ? qsTr("Личный чат") : qsTr("Групповой чат"))
     }
 
     // Основное содержимое (прокручивается)
     SilicaFlickable {
+        id: flickable
         anchors {
             top: header.bottom
             bottom: inputArea.top
@@ -46,13 +48,15 @@ Page {
 
             delegate: BackgroundItem {
                 width: parent.width
-                height: Theme.itemSizeMedium
+                height: Math.max(Theme.itemSizeMedium, messageColumn.height + 2*Theme.paddingMedium)
 
                 Row {
                     spacing: Theme.paddingMedium
                     anchors.verticalCenter: parent.verticalCenter
                     x: Theme.horizontalPageMargin
+                    width: parent.width - 2*Theme.horizontalPageMargin
 
+                    // Аватар
                     Rectangle {
                         width: Theme.iconSizeMedium
                         height: Theme.iconSizeMedium
@@ -68,21 +72,50 @@ Page {
                     }
 
                     Column {
-                        width: parent.width - Theme.iconSizeMedium - Theme.horizontalPageMargin * 2
+                        id: messageColumn
+                        width: parent.width - Theme.iconSizeMedium - Theme.paddingMedium
                         spacing: Theme.paddingSmall
 
                         Label {
-                            text: isLocalChat ? "" : (model.senderAlias || qsTr("Неизвестный"))
+                            visible: !isLocalChat
+                            text: model.senderAlias || qsTr("Неизвестный")
                             color: Theme.secondaryColor
                             font.pixelSize: Theme.fontSizeSmall
                         }
 
-                        Label {
-                            text: model.content || ""
-                            color: Theme.primaryColor
-                            font.pixelSize: Theme.fontSizeMedium
+                        Row {
                             width: parent.width
-                            wrapMode: Text.Wrap
+                            spacing: Theme.paddingSmall
+
+                            Label {
+                                text: model.content || ""
+                                color: model.isError ? Theme.errorColor : Theme.primaryColor
+                                font.pixelSize: Theme.fontSizeMedium
+                                width: parent.width - (isLocalChat && model.isPending ? Theme.iconSizeSmall : 0)
+                                wrapMode: Text.Wrap
+                            }
+
+                            // Индикатор состояния (только для избранного)
+                            Loader {
+                                active: isLocalChat && (model.isPending !== undefined || model.isSaved !== undefined || model.isError)
+                                visible: active
+                                sourceComponent: Label {
+                                    width: Theme.iconSizeSmall
+                                    height: Theme.iconSizeSmall
+                                    font.pixelSize: Theme.fontSizeSmall
+                                    verticalAlignment: Text.AlignVCenter
+                                    text: {
+                                        if (model.isError) return "❌";
+                                        if (model.isPending) return "⏳";
+                                        return "✓"; // Галочка при успешном сохранении
+                                    }
+                                    color: {
+                                        if (model.isError) return "red";
+                                        if (model.isPending) return "orange";
+                                        return "green"; // Зеленый цвет при успешном сохранении
+                                    }
+                                }
+                            }
                         }
                     }
                 }
@@ -123,33 +156,91 @@ Page {
         if (messageInput.text.trim() === "") return;
 
         var currentUser = dao.getActiveUser();
-        if (isLocalChat) {
-            dao.saveToFavorites(currentUser.id, messageInput.text);
-        } else {
-            dao.sendMessage(chatId, currentUser.id, messageInput.text);
-        }
-
+        var tempId = Date.now();
+        var messageText = messageInput.text;
         messageInput.text = "";
-        loadMessages();
+
+        // 1. Сначала добавляем в UI
+        messageList.model.append({
+                                     content: messageText,
+                                     senderAlias: "Вы",
+                                     created_at: new Date().toISOString(),
+                                     isPending: true,
+                                     tempId: tempId
+                                 });
+
+        scrollTimer.restart();
+
+        // 2. Затем сохраняем в БД (с задержкой 10мс)
+        saveMessageTimer.tempId = tempId;
+        saveMessageTimer.messageText = messageText;
+        saveMessageTimer.currentUser = currentUser;
+        saveMessageTimer.start();
+    }
+
+    Timer {
+        id: saveMessageTimer
+        interval: 10
+        property var tempId
+        property string messageText
+        property var currentUser
+
+        onTriggered: {
+            var success;
+            try {
+                if (isLocalChat) {
+                    dao.saveToFavorites(currentUser.id, messageText);
+                    success = true;
+                } else {
+                    dao.sendMessageOptimized(chatId, currentUser.id, messageText);
+                    success = true;
+                }
+            } catch(e) {
+                console.error("Ошибка сохранения:", e);
+                success = false;
+            }
+            updateMessageStatus(tempId, success);
+        }
+    }
+
+    Timer {
+        id: scrollTimer
+        interval: 0
+        onTriggered: {
+            flickable.contentY = flickable.contentHeight - flickable.height;
+        }
     }
 
     function loadMessages() {
         messageList.model.clear();
         var currentUser = dao.getActiveUser();
-        var messages = isLocalChat ? dao.getFavoritesMessages(currentUser.id) : dao.getChatMessages(chatId);
+
+        // Используем существующие методы DAO
+        var messages = isLocalChat ?
+                    dao.getFavoritesMessages(currentUser.id) :
+                    dao.getChatMessages(chatId);
 
         messages.forEach(function(msg) {
             messageList.model.append({
-                content: msg.content,
-                senderAlias: msg.sender_alias || "",
-                created_at: msg.created_at
-            });
+                                         content: msg.content,
+                                         senderAlias: msg.sender_alias || "",
+                                         created_at: msg.created_at
+                                     });
         });
 
-        // Прокручиваем вниз после загрузки сообщений
-        Qt.callLater(function() {
-            flickable.contentY = flickable.contentHeight - flickable.height;
-        });
+        scrollTimer.restart();
+    }
+
+    function updateMessageStatus(tempId, success) {
+        for (var i = 0; i < messageList.model.count; i++) {
+            if (messageList.model.get(i).tempId === tempId) {
+                messageList.model.set(i, {
+                                          isPending: !success,
+                                          tempId: undefined
+                                      });
+                break;
+            }
+        }
     }
 
     Component.onCompleted: {

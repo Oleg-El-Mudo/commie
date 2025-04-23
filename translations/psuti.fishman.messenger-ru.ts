@@ -80,32 +80,32 @@
 <context>
     <name>ChatTemplate</name>
     <message>
-        <location filename="../qml/pages/ChatTemplate.qml" line="25"/>
+        <location filename="../qml/pages/ChatTemplate.qml" line="26"/>
         <source>Локальные заметки</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ChatTemplate.qml" line="26"/>
+        <location filename="../qml/pages/ChatTemplate.qml" line="27"/>
         <source>Личный чат</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ChatTemplate.qml" line="26"/>
+        <location filename="../qml/pages/ChatTemplate.qml" line="27"/>
         <source>Групповой чат</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ChatTemplate.qml" line="75"/>
+        <location filename="../qml/pages/ChatTemplate.qml" line="81"/>
         <source>Неизвестный</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ChatTemplate.qml" line="107"/>
+        <location filename="../qml/pages/ChatTemplate.qml" line="140"/>
         <source>Новая заметка...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ChatTemplate.qml" line="107"/>
+        <location filename="../qml/pages/ChatTemplate.qml" line="140"/>
         <source>Сообщение...</source>
         <translation type="unfinished"></translation>
     </message>
