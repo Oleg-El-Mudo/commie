@@ -328,7 +328,6 @@ QtObject {
         });
     }
 
-    // В dao.qml
     function sendMessageOptimized(chatId, senderId, messageText) {
         db.transaction(function(tx) {
             // Все в одной транзакции

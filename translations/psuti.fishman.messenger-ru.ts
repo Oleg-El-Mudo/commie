@@ -100,12 +100,12 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ChatTemplate.qml" line="140"/>
+        <location filename="../qml/pages/ChatTemplate.qml" line="154"/>
         <source>Новая заметка...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ChatTemplate.qml" line="140"/>
+        <location filename="../qml/pages/ChatTemplate.qml" line="154"/>
         <source>Сообщение...</source>
         <translation type="unfinished"></translation>
     </message>

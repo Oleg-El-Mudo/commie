@@ -133,22 +133,35 @@ Page {
         anchors.bottom: parent.bottom
         color: Theme.rgba(Theme.highlightBackgroundColor, 0.1)
 
-        TextField {
-            id: messageInput
+        Row {
             anchors.fill: parent
             anchors.margins: Theme.paddingSmall
-            placeholderText: isLocalChat ? qsTr("Новая заметка...") : qsTr("Сообщение...")
+            spacing: Theme.paddingSmall
 
-            EnterKey.onClicked: sendMessage()
-            EnterKey.iconSource: "image://theme/icon-m-enter-accept"
-        }
+            // 1. Иконка скрепки (пока без функционала)
+            IconButton {
+                id: attachButton
+                icon.source: "image://theme/icon-m-attach"
+                onClicked: {
+                    console.log("Кнопка прикрепления нажата"); // Временный лог
+                }
+            }
 
-        IconButton {
-            anchors.right: parent.right
-            anchors.verticalCenter: parent.verticalCenter
-            anchors.rightMargin: Theme.paddingMedium
-            icon.source: "image://theme/icon-m-send"
-            onClicked: sendMessage()
+            // 2. Поле ввода (оставляем как было)
+            TextField {
+                id: messageInput
+                width: parent.width - attachButton.width - sendButton.width - 2*Theme.paddingSmall
+                placeholderText: isLocalChat ? qsTr("Новая заметка...") : qsTr("Сообщение...")
+                EnterKey.onClicked: sendMessage()
+                EnterKey.iconSource: "image://theme/icon-m-enter-accept"
+            }
+
+            // 3. Кнопка отправки (оставляем как было)
+            IconButton {
+                id: sendButton
+                icon.source: "image://theme/icon-m-send"
+                onClicked: sendMessage()
+            }
         }
     }
 
