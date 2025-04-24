@@ -1,6 +1,7 @@
 import QtQuick 2.0
 import Sailfish.Silica 1.0
 import Aurora.Controls 1.0
+import Sailfish.Pickers 1.0
 
 Page {
     id: chatPage
@@ -143,7 +144,7 @@ Page {
                 id: attachButton
                 icon.source: "image://theme/icon-m-attach"
                 onClicked: {
-                    console.log("Кнопка прикрепления нажата"); // Временный лог
+                    pageStack.push(contentPickerPage); // Открываем пикер файлов
                 }
             }
 
@@ -252,6 +253,17 @@ Page {
                                           tempId: undefined
                                       });
                 break;
+            }
+        }
+    }
+
+    Component {
+        id: contentPickerPage
+        ContentPickerPage {
+            title: qsTr("Выберите файл")
+            onSelectedContentPropertiesChanged: {
+                console.log("Выбран файл:", selectedContentProperties.filePath);
+                // Пока просто логируем путь — обработка будет на шаге 3
             }
         }
     }
