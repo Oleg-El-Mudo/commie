@@ -100,17 +100,17 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ChatTemplate.qml" line="192"/>
+        <location filename="../qml/pages/ChatTemplate.qml" line="155"/>
         <source>Новая заметка...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ChatTemplate.qml" line="192"/>
+        <location filename="../qml/pages/ChatTemplate.qml" line="155"/>
         <source>Сообщение...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ChatTemplate.qml" line="338"/>
+        <location filename="../qml/pages/ChatTemplate.qml" line="263"/>
         <source>Выберите файл</source>
         <translation type="unfinished"></translation>
     </message>

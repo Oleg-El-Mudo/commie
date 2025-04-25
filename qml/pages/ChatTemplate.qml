@@ -47,7 +47,6 @@ Page {
 
             model: ListModel {}
 
-
             delegate: BackgroundItem {
                 width: parent.width
                 height: Math.max(Theme.itemSizeMedium, messageColumn.height + 2*Theme.paddingMedium)
@@ -58,12 +57,13 @@ Page {
                     x: Theme.horizontalPageMargin
                     width: parent.width - 2*Theme.horizontalPageMargin
 
-                    // Аватар (без изменений)
+                    // Аватар
                     Rectangle {
                         width: Theme.iconSizeMedium
                         height: Theme.iconSizeMedium
                         radius: width/2
                         color: isLocalChat ? Theme.highlightColor : Theme.primaryColor
+
                         Label {
                             anchors.centerIn: parent
                             text: isLocalChat ? "★" : (model.senderAlias ? model.senderAlias.charAt(0) : "?")
@@ -88,52 +88,15 @@ Page {
                             width: parent.width
                             spacing: Theme.paddingSmall
 
-                            // Компонент для отображения изображений
-                            Component {
-                                id: imageMessageComponent
-                                Image {
-                                    width: Math.min(parent.width - Theme.iconSizeMedium - Theme.paddingMedium, 300)
-                                    height: width * 0.75
-                                    fillMode: Image.PreserveAspectFit
-                                    source: JSON.parse(model.content).data
-                                    cache: false
-                                }
-                            }
-
-                            Component {
-                                id: textLabelComponent
-                                Label {
-                                    text: model.content || ""
-                                    color: model.isError ? Theme.errorColor : Theme.primaryColor
-                                    font.pixelSize: Theme.fontSizeMedium
-                                    wrapMode: Text.Wrap
-                                    width: parent.width
-                                }
-                            }
-
-
-                            // Отображение контента
-                            Loader {
-                                id: contentLoader
+                            Label {
+                                text: model.content || ""
+                                color: model.isError ? Theme.errorColor : Theme.primaryColor
+                                font.pixelSize: Theme.fontSizeMedium
                                 width: parent.width - (isLocalChat && model.isPending ? Theme.iconSizeSmall : 0)
-                                sourceComponent: {
-                                    try {
-                                        if (typeof model.content === "string" && model.content.indexOf("{") === 0) {
-                                            var content = JSON.parse(model.content);
-                                            if (content.type === "image") {
-                                                return imageMessageComponent;
-                                            }
-                                        }
-                                        // Для текстовых сообщений
-                                        return textLabelComponent;
-                                    } catch(e) {
-                                        console.error("Error parsing message content:", e);
-                                        return textLabelComponent;
-                                    }
-                                }
+                                wrapMode: Text.Wrap
                             }
 
-                            // Индикатор состояния (точно как вы указали)
+                            // Индикатор состояния (только для избранного)
                             Loader {
                                 active: isLocalChat && (model.isPending !== undefined || model.isSaved !== undefined || model.isError)
                                 visible: active
@@ -145,12 +108,12 @@ Page {
                                     text: {
                                         if (model.isError) return "❌";
                                         if (model.isPending) return "⏳";
-                                        return "✓";
+                                        return "✓"; // Галочка при успешном сохранении
                                     }
                                     color: {
                                         if (model.isError) return "red";
                                         if (model.isPending) return "orange";
-                                        return "green";
+                                        return "green"; // Зеленый цвет при успешном сохранении
                                     }
                                 }
                             }
@@ -217,8 +180,7 @@ Page {
                                      senderAlias: "Вы",
                                      created_at: new Date().toISOString(),
                                      isPending: true,
-                                     tempId: tempId,
-                                     isFile: (typeof content === "string" && content.indexOf("{") === 0) // Проверяем JSON
+                                     tempId: tempId
                                  });
 
         scrollTimer.restart();
@@ -295,56 +257,16 @@ Page {
         }
     }
 
-    function handleFileSelection(fileProperties) {
-        var filePath = fileProperties.filePath;
-        var mimeType = fileProperties.mimeType;
-
-        // Проверяем, что это изображение
-        if (mimeType.indexOf("image/") !== 0) {
-            console.log("Поддерживаются только изображения");
-            return;
-        }
-
-        // Читаем файл
-        var file = new XMLHttpRequest();
-        file.open("GET", filePath, false);
-        try {
-            // Альтернатива overrideMimeType для Aurora OS
-            file.setRequestHeader("Content-Type", "text/plain; charset=x-user-defined");
-            file.send(null);
-
-            if (file.status === 200) {
-                var binary = "";
-                for (var i = 0; i < file.responseText.length; i++) {
-                    binary += String.fromCharCode(file.responseText.charCodeAt(i) & 0xff);
-                }
-                var base64Content = Qt.btoa(binary);
-                var messageContent = JSON.stringify({
-                                                        type: "image",
-                                                        data: "data:" + mimeType + ";base64," + base64Content,
-                                                        mimeType: mimeType
-                                                    });
-                sendMessage(messageContent);
-            }
-        } catch(e) {
-            console.error("Ошибка при чтении файла:", e);
-        }
-    }
-
-
     Component {
         id: contentPickerPage
         ContentPickerPage {
             title: qsTr("Выберите файл")
             onSelectedContentPropertiesChanged: {
-                if (selectedContentProperties) {
-                    handleFileSelection(selectedContentProperties);
-                }
+                console.log("Выбран файл:", selectedContentProperties.filePath);
+                // Пока просто логируем путь — обработка будет на шаге 3
             }
         }
     }
-
-
 
     Component.onCompleted: {
         loadMessages();
