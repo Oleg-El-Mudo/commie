@@ -251,6 +251,7 @@ Page {
                 success = false;
             }
             updateMessageStatus(tempId, success);
+            loadMessages()
         }
     }
 
