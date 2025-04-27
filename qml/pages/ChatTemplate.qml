@@ -17,7 +17,7 @@ Page {
         id: dao
     }
 
-    // НЕВИДИМЫЙ КОНТЕЙНЕР ДЛЯ ОБРЕЗКИ
+    // НЕВИДИМЫЙ КОНТЕЙНЕР для того, чтобы сурс отсюда передать в модель
     Item {
         id: cropContainer
         width: 200
@@ -103,25 +103,28 @@ Page {
                             width: parent.width
                             spacing: Theme.paddingSmall
 
-                            Item {
-                                width: model.isImage ? Theme.iconSizeLarge : 0
-                                height: model.isImage ? Theme.iconSizeLarge : 0
-
-                                Image {
-                                    id: messageImage
-                                    visible: model.isImage
-                                    anchors.fill: parent
-                                    source: model.content
-                                    fillMode: Image.PreserveAspectFit
+                            // Если отправляется картинка
+                            Image {
+                                source: model.src
+                                width: 200
+                                height: 200
+                                visible: model.isImage // Управляйте видимостью через флаг
+                                onSourceChanged: {
+                                    console.log("Image source updated to:", source);
+                                }
+                                Component.onCompleted: {
+                                    console.log("Initial model.src value:", model.src); // Логирование начального значения model.src
                                 }
                             }
 
+                            // Если отправляется текст
                             Label {
-                                text: !model.isImage ? model.content : ""
+                                text: model.content
                                 color: model.isError ? Theme.errorColor : Theme.primaryColor
                                 font.pixelSize: Theme.fontSizeMedium
                                 width: parent.width - (isLocalChat && model.isPending ? Theme.iconSizeSmall : 0)
                                 wrapMode: Text.Wrap
+                                visible: !model.isImage // Текст скрывается, если есть изображение
                             }
 
                             // Индикатор состояния (только для избранного)
@@ -194,35 +197,34 @@ Page {
         }
     }
 
+    //функция отправки сообщений
     function sendMessage() {
         if (messageInput.text.trim() === "" && sourceImage.source === "") return;
 
         var currentUser = dao.getActiveUser();
         var tempId = Date.now();
         var messageText = messageInput.text;
+        var imgSrc = sourceImage.source.toString();
+
+        // Очищаем поле ввода
         messageInput.text = "";
+        sourceImage.source = "";
 
-        var messageContent = messageText.trim() !== "" ? messageText : sourceImage.source;
-        var isImage = messageText.trim() === "";
-
-        console.log("Sending message with content:", messageContent); // Отладочный вывод
-
-        // 1. Сначала добавляем в UI
+        // Добавляем данные в модель
         messageList.model.append({
-                                     content: messageContent,
+                                     content: messageText,
                                      senderAlias: "Вы",
                                      created_at: new Date().toISOString(),
                                      isPending: true,
                                      tempId: tempId,
-                                     isImage: isImage
+                                     src: imgSrc? imgSrc : undefined
                                  });
 
-        sourceImage.source = ""; // Очищаем путь к изображению после отправки
         scrollTimer.restart();
 
-        // 2. Затем сохраняем в БД (с задержкой 10мс)
+        // Сохраняем в базу данных
         saveMessageTimer.tempId = tempId;
-        saveMessageTimer.messageText = messageContent;
+        saveMessageTimer.messageText = imgSrc? imgSrc : messageText; // Сохраняем путь к файлу или текст
         saveMessageTimer.currentUser = currentUser;
         saveMessageTimer.start();
     }
@@ -260,20 +262,46 @@ Page {
         }
     }
 
+    function isImage(content) {
+        var extensions = [".jpg", ".jpeg", ".png", ".gif"]; // Список поддерживаемых расширений
+        for (var i = 0; i < extensions.length; i++) {
+            var ext = extensions[i];
+            var index = content.toLowerCase().indexOf(ext);
+            if (index !== -1 && index === content.length - ext.length) {
+                return true; // Строка оканчивается на расширение
+            }
+        }
+        return false; // Расширение не найдено
+    }
+
     function loadMessages() {
         messageList.model.clear();
         var currentUser = dao.getActiveUser();
 
-        // Используем существующие методы DAO
+        // Загружаем сообщения из базы данных
         var messages = isLocalChat ?
                     dao.getFavoritesMessages(currentUser.id) :
                     dao.getChatMessages(chatId);
 
         messages.forEach(function(msg) {
+            var content = msg.content || "";
+            var src = "";
+            var isImageFlag = false;
+
+            // Проверяем, является ли содержимое изображением
+            if (isImage(content)) {
+                src = content; // Это путь к изображению
+                content = "";  // Очищаем текстовое содержимое
+                isImageFlag = true;
+            }
+
+            // Добавляем данные в модель
             messageList.model.append({
-                                         content: msg.content,
+                                         content: content,
                                          senderAlias: msg.sender_alias || "",
-                                         created_at: msg.created_at
+                                         created_at: msg.created_at,
+                                         src: src,         // Путь к изображению
+                                         isImage: isImageFlag  // Флаг для изображения
                                      });
         });
 
@@ -299,6 +327,7 @@ Page {
                 var filePath = selectedContentProperties.filePath;
                 console.log("Selected file path:", filePath); // Отладочный вывод
                 sourceImage.source = filePath; // Убедитесь, что путь корректен
+                sendMessage();
             }
         }
     }
