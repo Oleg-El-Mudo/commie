@@ -258,6 +258,19 @@ Page{
                                     "Порт:", port,
                                     "Публичный ключ:", public_key
                                     );
+                        popup.open()
+
+                    }
+
+                    PopupMenu {
+                        id: popup
+                        PopupMenuItem{
+                            text: "Удалить контакт"
+                        }
+                        PopupMenuDividerItem{}
+                        PopupMenuItem{
+                            text: "Перейти в диалог"
+                        }
                     }
 
                 }
