@@ -103,19 +103,21 @@ Page {
                             width: parent.width
                             spacing: Theme.paddingSmall
 
+          //Заморожено
+
                             // Если отправляется картинка
-                            Image {
-                                source: model.src
-                                width: 200
-                                height: 200
-                                visible: model.isImage // Управляйте видимостью через флаг
-                                onSourceChanged: {
-                                    console.log("Image source updated to:", source);
-                                }
-                                Component.onCompleted: {
-                                    console.log("Initial model.src value:", model.src); // Логирование начального значения model.src
-                                }
-                            }
+//                            Image {
+//                                source: model.src
+//                                width: 200
+//                                height: 200
+//                                visible: model.isImage // Управляйте видимостью через флаг
+//                                onSourceChanged: {
+//                                    console.log("Image source updated to:", source);
+//                                }
+//                                Component.onCompleted: {
+//                                    console.log("Initial model.src value:", model.src); // Логирование начального значения model.src
+//                                }
+//                            }
 
                             // Если отправляется текст
                             Label {
@@ -170,19 +172,21 @@ Page {
             anchors.margins: Theme.paddingSmall
             spacing: Theme.paddingSmall
 
+            //ЗАМОРОЖЕНО
+
             // 1. Иконка скрепки (пока без функционала)
-            IconButton {
-                id: attachButton
-                icon.source: "image://theme/icon-m-attach"
-                onClicked: {
-                    pageStack.push(imagePickerPage); // Открываем пикер файлов
-                }
-            }
+//            IconButton {
+//                id: attachButton
+//                icon.source: "image://theme/icon-m-attach"
+//                onClicked: {
+//                    pageStack.push(imagePickerPage); // Открываем пикер файлов
+//                }
+//            }
 
             // 2. Поле ввода (оставляем как было)
             TextField {
                 id: messageInput
-                width: parent.width - attachButton.width - sendButton.width - 2*Theme.paddingSmall
+                width: parent.width - sendButton.width - 2*Theme.paddingSmall
                 placeholderText: isLocalChat ? qsTr("Новая заметка...") : qsTr("Сообщение...")
                 EnterKey.onClicked: sendMessage()
                 EnterKey.iconSource: "image://theme/icon-m-enter-accept"

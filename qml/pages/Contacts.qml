@@ -25,7 +25,10 @@ Page{
             listView.model.append({
                                       "login": contacts[i].login,
                                       "alias": contacts[i].alias,
-                                      "avatar": contacts[i].avatar
+                                      "avatar": contacts[i].avatar,
+                                      "public_key": contacts[i].public_key,
+                                      "ip": contacts[i].ip,
+                                      "port": contacts[i].port
                                   });
         }
     }
@@ -183,10 +186,14 @@ Page{
                         login: ""
                         alias: ""
                         avatar: ""
+                        ip: ""
+                        port: 0
+                        public_key: ""
                     }
                 }
                 //элемент списка
                 delegate: BackgroundItem {
+                    id: contactListElement
                     //высота 120
                     height: Theme.dp(120)
                     //ряд
@@ -239,7 +246,22 @@ Page{
                             }
                         }
                     }
+
+                    onPressed:  {
+
+                        console.log(
+                                    "Долгое нажатие на контакт:",
+                                    "Логин:", login,
+                                    "Алиас:", alias,
+                                    "Аватар:", avatar,
+                                    "IP:", ip,
+                                    "Порт:", port,
+                                    "Публичный ключ:", public_key
+                                    );
+                    }
+
                 }
+
                 //вертикальная полоса прокрутки к этому безобразию
                 VerticalScrollDecorator {flickable: ListView}
             }
@@ -250,4 +272,5 @@ Page{
         //обновить список
         updateList();
     }
+
 }

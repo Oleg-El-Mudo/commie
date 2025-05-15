@@ -22,6 +22,8 @@ Page{
         var port = peers.getCurrentPort();
         //обновляем айпи и порт в БД
         dao.updateIpAndPort(ip, port);
+        console.log("Порт при генерации ссылки:");
+        console.log(port);
         //получаем активного пользователя
         var auser = dao.getActiveUser();
 
@@ -52,6 +54,9 @@ Page{
         var avatar = friends.getAvatarFromParsedLink(link);
         //получаем активного пользователя из ссылки
         var auser = dao.getActiveUser();
+
+        console.log("ПОРТ ИЗ ССЫЛКИ: ");
+        console.log(port);
 
         //получаем список контактов активного пользователя
         var contacts = dao.getContacts();

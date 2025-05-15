@@ -132,10 +132,13 @@ Page{
         //модель списка
         model: ListModel{
             //элементы спика/пункты настроек
-            ListElement{
-                //Поменять установить аватар
-                settingsPunkt: qsTr("Set/change avatar")
-            }
+
+//ЗАМОРОЖЕНО
+
+//            ListElement{
+//                //Поменять установить аватар
+//                settingsPunkt: qsTr("Set/change avatar")
+//            }
             ListElement{
                 //Поменять/установить псевдоним
                 settingsPunkt: qsTr("Set/change alias")
@@ -168,15 +171,15 @@ Page{
             //функция отслеживания нажатия
             function handleClick(index) {
                 switch (index) {
+//                case 0:
+//                    // код для нажатия на установки аватара
+//                    pageStack.push(Qt.resolvedUrl("ProfileAvatarSettingsPage.qml"))
+//                    break;
                 case 0:
-                    // код для нажатия на установки аватара
-                    pageStack.push(Qt.resolvedUrl("ProfileAvatarSettingsPage.qml"))
-                    break;
-                case 1:
                     // код для нажатия на установки псевдонима
                     pageStack.push(Qt.resolvedUrl("AliasSettingsPage.qml"))
                     break;
-                case 2:
+                case 1:
                     // код для нажатия на смены пароля
                     pageStack.push(Qt.resolvedUrl("PasswordSettingsPage.qml"))
                     break;

@@ -100,12 +100,12 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ChatTemplate.qml" line="186"/>
+        <location filename="../qml/pages/ChatTemplate.qml" line="190"/>
         <source>Новая заметка...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ChatTemplate.qml" line="186"/>
+        <location filename="../qml/pages/ChatTemplate.qml" line="190"/>
         <source>Сообщение...</source>
         <translation type="unfinished"></translation>
     </message>
@@ -113,49 +113,49 @@
 <context>
     <name>Contacts</name>
     <message>
-        <location filename="../qml/pages/Contacts.qml" line="112"/>
-        <source>Personal Chats</source>
-        <translation>Личные чаты</translation>
-    </message>
-    <message>
-        <location filename="../qml/pages/Contacts.qml" line="121"/>
-        <source>Groups</source>
-        <translation>Группы</translation>
-    </message>
-    <message>
-        <location filename="../qml/pages/Contacts.qml" line="51"/>
-        <source>Contacts</source>
-        <translation>Контакты</translation>
-    </message>
-    <message>
         <location filename="../qml/pages/Contacts.qml" line="19"/>
         <source></source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../qml/pages/Contacts.qml" line="96"/>
+        <location filename="../qml/pages/Contacts.qml" line="54"/>
+        <source>Contacts</source>
+        <translation type="unfinished">Контакты</translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/Contacts.qml" line="99"/>
         <source>Update</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/Contacts.qml" line="130"/>
+        <location filename="../qml/pages/Contacts.qml" line="115"/>
+        <source>Personal Chats</source>
+        <translation type="unfinished">Личные чаты</translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/Contacts.qml" line="124"/>
+        <source>Groups</source>
+        <translation type="unfinished">Группы</translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/Contacts.qml" line="133"/>
         <source>Invites</source>
-        <translation>Приглашения</translation>
+        <translation type="unfinished">Приглашения</translation>
     </message>
     <message>
-        <location filename="../qml/pages/Contacts.qml" line="139"/>
+        <location filename="../qml/pages/Contacts.qml" line="142"/>
         <source>Settings</source>
-        <translation>Настройки</translation>
+        <translation type="unfinished">Настройки</translation>
     </message>
     <message>
-        <location filename="../qml/pages/Contacts.qml" line="148"/>
+        <location filename="../qml/pages/Contacts.qml" line="151"/>
         <source>Exit</source>
-        <translation>Выход</translation>
+        <translation type="unfinished">Выход</translation>
     </message>
     <message>
-        <location filename="../qml/pages/Contacts.qml" line="159"/>
+        <location filename="../qml/pages/Contacts.qml" line="162"/>
         <source>Commie</source>
-        <translation>Комми</translation>
+        <translation type="unfinished">Комми</translation>
     </message>
 </context>
 <context>
@@ -204,78 +204,78 @@
 <context>
     <name>InvitePage</name>
     <message>
-        <location filename="../qml/pages/InvitePage.qml" line="93"/>
+        <location filename="../qml/pages/InvitePage.qml" line="98"/>
         <source>Contact added</source>
         <translation>Контакт добавлен</translation>
     </message>
     <message>
-        <location filename="../qml/pages/InvitePage.qml" line="139"/>
-        <location filename="../qml/pages/InvitePage.qml" line="201"/>
+        <location filename="../qml/pages/InvitePage.qml" line="144"/>
+        <location filename="../qml/pages/InvitePage.qml" line="206"/>
         <source>Commie</source>
         <translation>Комми</translation>
     </message>
     <message>
-        <location filename="../qml/pages/InvitePage.qml" line="141"/>
+        <location filename="../qml/pages/InvitePage.qml" line="146"/>
         <source>Safe messenger</source>
         <translation>Безопасный мессенджер</translation>
     </message>
     <message>
-        <location filename="../qml/pages/InvitePage.qml" line="154"/>
+        <location filename="../qml/pages/InvitePage.qml" line="159"/>
         <source>Personal Chats</source>
         <translation>Личные чаты</translation>
     </message>
     <message>
-        <location filename="../qml/pages/InvitePage.qml" line="163"/>
+        <location filename="../qml/pages/InvitePage.qml" line="168"/>
         <source>Groups</source>
         <translation>Группы</translation>
     </message>
     <message>
-        <location filename="../qml/pages/InvitePage.qml" line="172"/>
+        <location filename="../qml/pages/InvitePage.qml" line="177"/>
         <source>Contacts</source>
         <translation>Контакты</translation>
     </message>
     <message>
-        <location filename="../qml/pages/InvitePage.qml" line="181"/>
+        <location filename="../qml/pages/InvitePage.qml" line="186"/>
         <source>Settings</source>
         <translation>Настройки</translation>
     </message>
     <message>
-        <location filename="../qml/pages/InvitePage.qml" line="190"/>
+        <location filename="../qml/pages/InvitePage.qml" line="195"/>
         <source>Exit</source>
         <translation>Выход</translation>
     </message>
     <message>
-        <location filename="../qml/pages/InvitePage.qml" line="223"/>
+        <location filename="../qml/pages/InvitePage.qml" line="228"/>
         <source>Generate invite-link</source>
         <translation>Сгенерировать ссылку-приглашение</translation>
     </message>
     <message>
-        <location filename="../qml/pages/InvitePage.qml" line="231"/>
+        <location filename="../qml/pages/InvitePage.qml" line="236"/>
         <source>Generate</source>
         <translation>Сгенерировать</translation>
     </message>
     <message>
-        <location filename="../qml/pages/InvitePage.qml" line="259"/>
+        <location filename="../qml/pages/InvitePage.qml" line="264"/>
         <source>Copy</source>
         <translation>Скопировать</translation>
     </message>
     <message>
-        <location filename="../qml/pages/InvitePage.qml" line="272"/>
+        <location filename="../qml/pages/InvitePage.qml" line="277"/>
         <source>Generate QR</source>
         <translation>Сгенерировать QR</translation>
     </message>
     <message>
-        <location filename="../qml/pages/InvitePage.qml" line="288"/>
+        <location filename="../qml/pages/InvitePage.qml" line="293"/>
         <source>Enter invite link here</source>
         <translation>Введите сюда ссылку</translation>
     </message>
     <message>
-        <location filename="../qml/pages/InvitePage.qml" line="297"/>
+        <location filename="../qml/pages/InvitePage.qml" line="302"/>
         <source>Accept</source>
         <translation>Подтвердить</translation>
     </message>
     <message>
-        <location filename="../qml/pages/InvitePage.qml" line="311"/>
+        <location filename="../qml/pages/InvitePage.qml" line="316"/>
         <source>Scan QR</source>
         <translation>Сканировать QR</translation>
     </message>
@@ -536,22 +536,17 @@
     <message>
         <location filename="../qml/pages/ProfileSettingsPage.qml" line="45"/>
         <location filename="../qml/pages/ProfileSettingsPage.qml" line="99"/>
-        <location filename="../qml/pages/ProfileSettingsPage.qml" line="190"/>
+        <location filename="../qml/pages/ProfileSettingsPage.qml" line="193"/>
         <source>No alias set</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ProfileSettingsPage.qml" line="137"/>
-        <source>Set/change avatar</source>
-        <translation>Установить / поменять аватар</translation>
-    </message>
-    <message>
-        <location filename="../qml/pages/ProfileSettingsPage.qml" line="141"/>
+        <location filename="../qml/pages/ProfileSettingsPage.qml" line="144"/>
         <source>Set/change alias</source>
         <translation>Установить / поменять псевдоним</translation>
     </message>
     <message>
-        <location filename="../qml/pages/ProfileSettingsPage.qml" line="145"/>
+        <location filename="../qml/pages/ProfileSettingsPage.qml" line="148"/>
         <source>Change password</source>
         <translation>Поменять пароль</translation>
     </message>
