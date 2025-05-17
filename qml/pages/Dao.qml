@@ -14,6 +14,8 @@ QtObject {
         password TEXT NOT NULL,
         public_key TEXT NOT NULL,
         private_key TEXT NOT NULL,
+        enc_private_key TEXT NOT NULL DEFAULT '',
+        enc_public_key TEXT NOT NULL DEFAULT '',
         ip TEXT NOT NULL,
         port INTEGER NOT NULL,
         is_active BOOLEAN NOT NULL,
@@ -22,9 +24,9 @@ QtObject {
         });
     }
     //функция для добавления данных пользователя при регистрации
-    function insertUser(login, password, publicKey, privateKey, ip, port, isActive){
+    function insertUser(login, password, publicKey, privateKey, ip, port, isActive, enc_private_key, enc_public_key){
         db.transaction(function(tx){
-            tx.executeSql("INSERT INTO users(login, password, public_key, private_key, ip, port, is_active) VALUES(?, ?, ?, ?, ?, ?, ?)", [login, password, publicKey, privateKey, ip, port, isActive]);
+            tx.executeSql("INSERT INTO users(login, password, public_key, private_key, ip, port, is_active, enc_private_key, enc_public_key) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)", [login, password, publicKey, privateKey, ip, port, isActive, enc_private_key, enc_public_key]);
         });
     }
     //выборка пользователя по никнейму
@@ -130,13 +132,14 @@ QtObject {
                     port INTEGER NOT NULL,
                     alias TEXT,
                     avatar TEXT,
+                    enc_public_key TEXT NOT NULL DEFAULT '',
                     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
                 )");
         });
     }
-    function updateContact(login, ip, port, aliias, avatar, user_id, public_key) {
+    function updateContact(login, ip, port, aliias, avatar, user_id, public_key, enc_public_key) {
         db.transaction(function (tx) {
-            tx.executeSql("UPDATE contacts SET login=?, ip=?, port=?, alias=?, avatar=? WHERE user_id=? AND public_key=?", [login, ip, port, aliias, avatar, user_id, public_key]);
+            tx.executeSql("UPDATE contacts SET login=?, ip=?, port=?, alias=?, avatar=?, enc_public_key=? WHERE user_id=? AND public_key=?", [login, ip, port, aliias, avatar, enc_public_key, user_id, public_key]);
         });
     }
     //получаем список контактов
@@ -146,15 +149,15 @@ QtObject {
             var result = tx.executeSql("SELECT * FROM contacts");
             for (var i = 0; i < result.rows.length; i++) {
                 var record = result.rows.item(i);
-                records.push({"id": record.id, "login": record.login, "public_key": record.public_key, "ip": record.ip, "port": record.port, "alias": record.alias, "avatar": record.avatar});
+                records.push({"id": record.id, "login": record.login, "public_key": record.public_key, "ip": record.ip, "port": record.port, "alias": record.alias, "avatar": record.avatar, "enc_public_key":record.enc_public_key});
             }
         });
         return records;
     }
     //функция для добавления контакта в таблицу contacts
-    function insertContact(user_id, login, publicKey, ip, port, aliias, avatar) {
+    function insertContact(user_id, login, publicKey, ip, port, aliias, avatar, enc_public_key) {
         db.transaction(function(tx) {
-            tx.executeSql("INSERT INTO contacts(user_id, login, public_key, ip, port, alias, avatar) VALUES(?, ?, ?, ?, ?, ?, ?)", [user_id, login, publicKey, ip, port, aliias, avatar]);
+            tx.executeSql("INSERT INTO contacts(user_id, login, public_key, ip, port, alias, avatar, enc_public_key) VALUES(?, ?, ?, ?, ?, ?, ?, ?)", [user_id, login, publicKey, ip, port, aliias, avatar, enc_public_key]);
         });
     }
     //функция для получения контактов пользователя по его id
@@ -164,7 +167,7 @@ QtObject {
             var query = tx.executeSql('SELECT * FROM contacts WHERE user_id = ?', [user_id]);
             for (var i = 0; i < query.rows.length; i++) {
                 var record = query.rows.item(i);
-                records.push({"id": record.id, "login": record.login, "public_key": record.public_key, "ip": record.ip, "port": record.port, "alias": record.alias, "avatar": record.avatar});
+                records.push({"id": record.id, "login": record.login, "public_key": record.public_key, "ip": record.ip, "port": record.port, "alias": record.alias, "avatar": record.avatar, "enc_public_key":record.enc_public_key});
             }
         });
         return records;
@@ -210,6 +213,8 @@ QtObject {
                 content TEXT,
                 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                 is_local BOOLEAN DEFAULT 0,
+                is_encrypted BOOLEAN NOT NULL DEFAULT 0,
+                encrypted_content TEXT,
                 FOREIGN KEY (chat_id) REFERENCES chats(id) ON DELETE CASCADE,
                 FOREIGN KEY (sender_id) REFERENCES users(id)
             )");

@@ -11,7 +11,7 @@ public:
     explicit Peer2PeerManager(QObject *parent = nullptr);
     ~Peer2PeerManager();
     //подключение к другим узлам сети по айпи и порту
-    void connectToPeer(const QString &ip, quint16 port);
+    Q_INVOKABLE void connectToPeer(const QString &ip, quint16 port);
     //Q_INVOKABLE позволяет запускать код из c++ в qml
     //получение текущего айпи
     Q_INVOKABLE QString getCurrentIpAddress() const;
@@ -19,9 +19,13 @@ public:
     Q_INVOKABLE quint16 getCurrentPort() const;
     //запуск сервера
     Q_INVOKABLE void startServer();
+    Q_INVOKABLE bool isConnected() const;
 signals:
     void newConnection(QTcpSocket *socket);
     void connectionError(QAbstractSocket::SocketError socketError);
+    void peerConnected();       // Успешное подключение к пиру
+    void peerDisconnected();    // Отключение от пира
+    void connectionFailed();    // Ошибка подключения (дублирует ли connectionError?)
 private:
     QTcpServer *m_server;
     QTcpSocket *m_socket;

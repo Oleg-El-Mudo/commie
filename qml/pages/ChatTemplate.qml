@@ -5,6 +5,7 @@ import Sailfish.Pickers 1.0
 
 Page {
     id: chatPage
+    allowedOrientations: Orientation.All
 
     property string chatId
     property int chatType: 1

@@ -15,6 +15,15 @@ Peer2PeerManager::Peer2PeerManager(QObject *parent) : QObject(parent), m_serverP
     //абстрактный метод для установления соединения со стороны сокета
     connect(m_socket, static_cast<void (QAbstractSocket::*)(QAbstractSocket::SocketError)>(&QAbstractSocket::error),
             this, &Peer2PeerManager::connectionError);
+
+    connect(m_socket, &QTcpSocket::connected, this, [this]() {
+        emit peerConnected();
+    });
+
+    connect(m_socket, &QTcpSocket::disconnected, this, [this]() {
+        emit peerDisconnected();
+    });
+
 }
 //деструктор
 Peer2PeerManager::~Peer2PeerManager()
@@ -29,6 +38,9 @@ void Peer2PeerManager::startServer()
 {
     //запускается сервер на любом доступном хосте
     m_server->listen(QHostAddress::Any, 0);
+
+    //ДИПСИК
+    m_serverPort = m_server->serverPort();
 }
 //функция подключения к другим узлам сети
 void Peer2PeerManager::connectToPeer(const QString &ip, quint16 port)
@@ -57,4 +69,8 @@ quint16 Peer2PeerManager::getCurrentPort() const
 {
     //возвращает текущий порт
     return m_serverPort;
+}
+
+bool Peer2PeerManager::isConnected() const {
+    return (m_socket->state() == QAbstractSocket::ConnectedState);
 }
