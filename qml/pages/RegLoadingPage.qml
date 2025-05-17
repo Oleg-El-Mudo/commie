@@ -47,50 +47,75 @@ Dialog {
         repeat: false
         //когда триггернуть
         onTriggered: {
-
-            // Выполняем фоновые операции
-            //регулярное выражение для проверки валидности пароля
+            // Проверка валидности пароля
             var passwordRegex = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&*()_+]{15,}$/;
-            //проверка введённого пароля по выражению
             var isValid = (loadingPage.nick.length > 0) && (passwordRegex.test(loadingPage.password));
-            //формирование сообщения о результатах проверки
-            var result = isValid ? "success" : "failure";
 
             if (isValid) {
-                console.log("Password is valid, performing hashing and database operations");
+                console.log("Password is valid, performing registration...");
 
-                // Хэшируем пароль
-                var hashedPassword = crypto.hashPassword(loadingPage.password);
-                //генерируем приватный ключ
-                var privateKey = crypto.generatePrivateKey();
-                //генерируем публичный ключ
-                var publicKey = crypto.generatePublicKey(privateKey);
-                //получаем актуальный айпишник
-                var ip = peers.getCurrentIpAddress();
-                //получаем актуальный порт
-                var port = peers.getCurrentPort();
-                //устанавливаем пользователя как активного
-                var isActive = true;
-
-                // Попытка добавить в БД пользователя данные из формы регистрации
                 try {
-                    //добавляем в БД нового пользователя
-                    dao.insertUser(loadingPage.nick, hashedPassword, publicKey, privateKey, ip, port, isActive);
-                    // Если успешно добавлено, навигация на страницу личных чатов
-                    navigationTimer.start(); // Запуск таймера для выполнения навигации
-                //если словили ошибку
+                    // 1. Хеширование пароля
+                    var hashedPassword = crypto.hashPassword(loadingPage.password);
+
+                    // 2. Генерация ключей Ed25519 (для подписи)
+                    var privateKey = crypto.generatePrivateKey();
+                    var publicKey = crypto.generatePublicKey(privateKey);
+
+                    // 3. Генерация ключей X25519 (для ECDH-шифрования)
+                    var x25519Keys = JSON.parse(crypto.generateX25519KeyPair());
+                    var encPrivateKey = x25519Keys.private_key;
+                    var encPublicKey = x25519Keys.public_key;
+
+                    // 4. Получение сетевых данных
+                    var ip = peers.getCurrentIpAddress();
+                    var port = peers.getCurrentPort();
+                    var isActive = true;
+
+                    // 5. Сохранение пользователя в БД
+                    dao.insertUser(
+                        loadingPage.nick,
+                        hashedPassword,
+                        publicKey,      // Ed25519 публичный
+                        privateKey,     // Ed25519 приватный
+                        ip,
+                        port,
+                        isActive,            // isActive
+                        encPublicKey,   // X25519 публичный
+                        encPrivateKey  // X25519 приватный
+                    );
+
+                    // 6. Запуск P2P-сервера
+                    peers.startServer();
+
+                    // 7. Обновление IP/port в БД (на случай динамического изменения)
+                    dao.updateIpAndPort(ip, port);
+
+                    // 8. Переход на страницу чатов
+                    navigationTimer.start();
+
                 } catch (error) {
-                    // Возврат на страницу регистрации с уведомлением о ошибке
+                    console.error("Registration error:", error);
                     errorTimer.start();
-                    Notices.show(qsTr("A user with this login already exists."),
-                                 Notice.Short,
-                                 Notice.Bottom,
-                                 0,
-                                 -Theme.horizontalPageMargin);
+                    Notices.show(
+                        error.message.includes("UNIQUE") ?
+                        qsTr("A user with this login already exists.") :
+                        qsTr("Registration failed. Please try again."),
+                        Notice.Short,
+                        Notice.Bottom,
+                        0,
+                        -Theme.horizontalPageMargin
+                    );
                 }
-            //если пароль не прошел валидацию
             } else {
-                errorTimer.start(); // Запуск таймера для выполнения возврата
+                errorTimer.start();
+                Notices.show(
+                    qsTr("Password must be 15+ chars with letters, numbers and special symbols."),
+                    Notice.Short,
+                    Notice.Bottom,
+                    0,
+                    -Theme.horizontalPageMargin
+                );
             }
         }
     }

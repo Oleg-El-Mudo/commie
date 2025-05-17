@@ -590,12 +590,22 @@
         <translation>Пожалуйста, подождите</translation>
     </message>
     <message>
-        <location filename="../qml/pages/RegLoadingPage.qml" line="85"/>
+        <location filename="../qml/pages/RegLoadingPage.qml" line="102"/>
         <source>A user with this login already exists.</source>
         <translation>Пользователь с таким логином уже существует.</translation>
     </message>
     <message>
-        <location filename="../qml/pages/RegLoadingPage.qml" line="124"/>
+        <location filename="../qml/pages/RegLoadingPage.qml" line="103"/>
+        <source>Registration failed. Please try again.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/RegLoadingPage.qml" line="113"/>
+        <source>Password must be 15+ chars with letters, numbers and special symbols.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/RegLoadingPage.qml" line="149"/>
         <source>Fill in all fields</source>
         <translation>Заполните все поля</translation>
     </message>
