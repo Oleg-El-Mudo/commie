@@ -33,6 +33,7 @@ Page {
         var port = friends.getPortFromParsedLink(link);
         var alias = friends.getAliasFromParsedLink(link);
         var avatar = friends.getAvatarFromParsedLink(link);
+        var encPublicKey = friends.getEncPublicKeyFromParsedLink(link);
         //получаем активного пользователя
         var auser = dao.getActiveUser();
 
@@ -50,14 +51,23 @@ Page {
             }
         }
 
-        //если контакт с таким ключом уже был,
+        //если такой контакт уже существует
         if (contactExists) {
-            //берем старый контакт и обновляем его данные
-            dao.updateContact(login, ip, port, alias, avatar, auser.id, publicKey);
-        //если не было
+            //обновляем его данные
+            dao.updateContact(login, ip, port, alias, avatar, auser.id, publicKey, encPublicKey);
+        //иначе
         } else {
-            //добавляем новый контакт
-            dao.insertContact(auser.id, login, publicKey, ip, port, alias, avatar);
+            //добавляем новый контакт текующему пользователю
+
+            //МОНУМЕНТ КОСТЫЛЮ
+            //аватарка добавляется при обновлении контакта, но не при добавлении контакта
+
+            //поэтому я делаю пустой аватар
+            var empty_avatar = ""
+            //добавляю пользователя без аватарки
+            dao.insertContact(auser.id, login, publicKey, ip, port, alias, empty_avatar, encPublicKey);
+            //потом обновляю этого пользователя с аватаркой
+            dao.updateContact(login, ip, port, alias, avatar, auser.id, publicKey, encPublicKey);
         }
 
         //выводим уведомление о том, что контакт добавлен или обновлён

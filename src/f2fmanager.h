@@ -10,7 +10,7 @@ public:
     //Q_INVOKABLE позволяет запускать код из c++ в qml
     //генерация пригласительныъ ссылок
     //в ссылку собираются: логин, публичный ключ, ip, порт, псевдоним, аватар
-    Q_INVOKABLE QString generateInviteLink(const QString &login, const QString &publicKey, const QString &ip, int port, const QString &alias, const QString &avatar);
+    Q_INVOKABLE QString generateInviteLink(const QString &login, const QString &publicKey, const QString &ip, int port, const QString &alias, const QString &avatar, const QString &encPublicKey);
     //парсинг пригласительных ссылок
     QMap<QString, QString> parseInviteLink(const QString &inviteLink);
     //получение по отдельности логина, публичного ключа, айпи и порта
@@ -20,5 +20,6 @@ public:
     Q_INVOKABLE int getPortFromParsedLink(const QString &inviteLink);
     Q_INVOKABLE QString getAliasFromParsedLink(const QString &inviteLink);
     Q_INVOKABLE QString getAvatarFromParsedLink(const QString &inviteLink);
+    Q_INVOKABLE QString getEncPublicKeyFromParsedLink(const QString &inviteLink);
 };
 #endif // F2FMANAGER_H

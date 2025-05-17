@@ -28,7 +28,9 @@ Page{
         var auser = dao.getActiveUser();
 
         //генерируем ссылку-приглашение
-        var link = friends.generateInviteLink(auser.login, auser.public_key, auser.ip, auser.port, auser.alias, auser.avatar);
+        var link = friends.generateInviteLink(auser.login, auser.public_key, auser.ip, auser.port, auser.alias, auser.avatar, auser.enc_public_key);
+        console.log("Ключ для шифрования:");
+        console.log(auser.enc_public_key);
         //вставляем ссылку в поле на странице
         linkTextArea.text = link;
 
@@ -52,11 +54,14 @@ Page{
         var alias = friends.getAliasFromParsedLink(link);
         //получаем аватар из ссылки
         var avatar = friends.getAvatarFromParsedLink(link);
+        var encPublicKey = friends.getEncPublicKeyFromParsedLink(link);
         //получаем активного пользователя из ссылки
         var auser = dao.getActiveUser();
 
         console.log("ПОРТ ИЗ ССЫЛКИ: ");
         console.log(port);
+        console.log("Ключ: ");
+        console.log(encPublicKey);
 
         //получаем список контактов активного пользователя
         var contacts = dao.getContacts();
@@ -76,7 +81,7 @@ Page{
         //если такой контакт уже существует
         if (contactExists) {
             //обновляем его данные
-            dao.updateContact(login, ip, port, alias, avatar, auser.id, publicKey);
+            dao.updateContact(login, ip, port, alias, avatar, auser.id, publicKey, encPublicKey);
         //иначе
         } else {
             //добавляем новый контакт текующему пользователю
@@ -87,9 +92,9 @@ Page{
             //поэтому я делаю пустой аватар
             var empty_avatar = ""
             //добавляю пользователя без аватарки
-            dao.insertContact(auser.id, login, publicKey, ip, port, alias, empty_avatar);
+            dao.insertContact(auser.id, login, publicKey, ip, port, alias, empty_avatar, encPublicKey);
             //потом обновляю этого пользователя с аватаркой
-            dao.updateContact(login, ip, port, alias, avatar, auser.id, publicKey);
+            dao.updateContact(login, ip, port, alias, avatar, auser.id, publicKey, encPublicKey);
         }
 
         //очищаем поле с введённой ссылкой

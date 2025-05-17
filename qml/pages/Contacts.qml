@@ -28,7 +28,8 @@ Page{
                                       "avatar": contacts[i].avatar,
                                       "public_key": contacts[i].public_key,
                                       "ip": contacts[i].ip,
-                                      "port": contacts[i].port
+                                      "port": contacts[i].port,
+                                      "enc_public_key": contacts[i].enc_public_key
                                   });
         }
     }
@@ -87,7 +88,11 @@ Page{
                                 listView.model.append({
                                                           "login": contacts[i].login,
                                                           "alias": contacts[i].alias,
-                                                          "avatar": contacts[i].avatar
+                                                          "avatar": contacts[i].avatar,
+                                                          "public_key": contacts[i].public_key,
+                                                          "ip": contacts[i].ip,
+                                                          "port": contacts[i].port,
+                                                          "enc_public_key": contacts[i].enc_public_key
                                                       });
                             }
                         }
@@ -189,6 +194,7 @@ Page{
                         ip: ""
                         port: 0
                         public_key: ""
+                        enc_public_key: ""
                     }
                 }
                 //элемент списка
@@ -247,16 +253,18 @@ Page{
                         }
                     }
 
+
                     onPressed:  {
 
                         console.log(
-                                    "Долгое нажатие на контакт:",
-                                    "Логин:", login,
-                                    "Алиас:", alias,
-                                    "Аватар:", avatar,
-                                    "IP:", ip,
-                                    "Порт:", port,
-                                    "Публичный ключ:", public_key
+                                    "Долгое нажатие на контакт:\n",
+                                    "Логин:", login, "\n",
+                                    "Алиас:", alias,"\n",
+                                    "Аватар:", avatar,"\n",
+                                    "IP:", ip,"\n",
+                                    "Порт:", port,"\n",
+                                    "Публичный ключ:", public_key,"\n",
+                                    "enc_public_key:", enc_public_key,"\n"
                                     );
                         popup.open()
 

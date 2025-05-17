@@ -4,7 +4,7 @@
 #include <QJsonDocument>
 #include <QJsonObject>
 //генерация пригласительной ссылки
-QString F2FManager::generateInviteLink(const QString &login, const QString &publicKey, const QString &ip, int port, const QString &alias, const QString &avatar)
+QString F2FManager::generateInviteLink(const QString &login, const QString &publicKey, const QString &ip, int port, const QString &alias, const QString &avatar, const QString &encPublicKey)
 {
     //создает json объект и вставляем в него логин, публичный ключ, айпи и порт после соотвествующих меток
     QJsonObject data;
@@ -12,6 +12,7 @@ QString F2FManager::generateInviteLink(const QString &login, const QString &publ
     data.insert("publicKey", publicKey);
     data.insert("ip", ip);
     data.insert("port", QString::number(port));
+    data.insert("encPublicKey", encPublicKey);
     //если у пользователя есть псевдоним (может отсутствовать)
     if (!alias.isEmpty()) {
         data.insert("alias", alias);
@@ -20,6 +21,7 @@ QString F2FManager::generateInviteLink(const QString &login, const QString &publ
     if (!avatar.isEmpty()) {
         data.insert("avatar", avatar);
     }
+
     //формируется json документ по данным
     QJsonDocument doc(data);
     //упаковываем данные в json из utf8
@@ -56,6 +58,7 @@ QMap<QString, QString> F2FManager::parseInviteLink(const QString &inviteLink)
     result["ip"] = data["ip"].toString();
     //получаем из data порт и приводим к строке
     result["port"] = data["port"].toString();
+    result["encPublicKey"] = data["encPublicKey"].toString();
     //если в полученных данных есть псевдоним, получаем его и приводим к строке
     if (data.contains("alias")) {
         result["alias"] = data["alias"].toString();
@@ -108,6 +111,14 @@ QString F2FManager::getAvatarFromParsedLink(const QString &inviteLink)
     //если аватар есть, возвращаем его, если нет - пустой массив
     if (data.contains("avatar")) {
         return data["avatar"];
+    }
+    return "";
+}
+QString F2FManager::getEncPublicKeyFromParsedLink(const QString &inviteLink) {
+    QMap<QString, QString> data = parseInviteLink(inviteLink);
+    // Возвращаем пустую строку, если ключа нет
+    if (data.contains("encPublicKey")) {
+        return data["encPublicKey"];
     }
     return "";
 }

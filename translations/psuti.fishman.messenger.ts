@@ -118,42 +118,42 @@
         <translation></translation>
     </message>
     <message>
-        <location filename="../qml/pages/Contacts.qml" line="54"/>
+        <location filename="../qml/pages/Contacts.qml" line="55"/>
         <source>Contacts</source>
         <translation type="unfinished">Contacts</translation>
     </message>
     <message>
-        <location filename="../qml/pages/Contacts.qml" line="99"/>
+        <location filename="../qml/pages/Contacts.qml" line="104"/>
         <source>Update</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/Contacts.qml" line="115"/>
+        <location filename="../qml/pages/Contacts.qml" line="120"/>
         <source>Personal Chats</source>
         <translation type="unfinished">Personal Chats</translation>
     </message>
     <message>
-        <location filename="../qml/pages/Contacts.qml" line="124"/>
+        <location filename="../qml/pages/Contacts.qml" line="129"/>
         <source>Groups</source>
         <translation type="unfinished">Groups</translation>
     </message>
     <message>
-        <location filename="../qml/pages/Contacts.qml" line="133"/>
+        <location filename="../qml/pages/Contacts.qml" line="138"/>
         <source>Invites</source>
         <translation type="unfinished">Invites</translation>
     </message>
     <message>
-        <location filename="../qml/pages/Contacts.qml" line="142"/>
+        <location filename="../qml/pages/Contacts.qml" line="147"/>
         <source>Settings</source>
         <translation type="unfinished">Settings</translation>
     </message>
     <message>
-        <location filename="../qml/pages/Contacts.qml" line="151"/>
+        <location filename="../qml/pages/Contacts.qml" line="156"/>
         <source>Exit</source>
         <translation type="unfinished">Exit</translation>
     </message>
     <message>
-        <location filename="../qml/pages/Contacts.qml" line="162"/>
+        <location filename="../qml/pages/Contacts.qml" line="167"/>
         <source>Commie</source>
         <translation type="unfinished">Commie</translation>
     </message>
@@ -204,78 +204,78 @@
 <context>
     <name>InvitePage</name>
     <message>
-        <location filename="../qml/pages/InvitePage.qml" line="98"/>
+        <location filename="../qml/pages/InvitePage.qml" line="103"/>
         <source>Contact added</source>
         <translation>Contact added</translation>
     </message>
     <message>
-        <location filename="../qml/pages/InvitePage.qml" line="144"/>
-        <location filename="../qml/pages/InvitePage.qml" line="206"/>
+        <location filename="../qml/pages/InvitePage.qml" line="149"/>
+        <location filename="../qml/pages/InvitePage.qml" line="211"/>
         <source>Commie</source>
         <translation>Commie</translation>
     </message>
     <message>
-        <location filename="../qml/pages/InvitePage.qml" line="146"/>
+        <location filename="../qml/pages/InvitePage.qml" line="151"/>
         <source>Safe messenger</source>
         <translation>Safe messenger</translation>
     </message>
     <message>
-        <location filename="../qml/pages/InvitePage.qml" line="159"/>
+        <location filename="../qml/pages/InvitePage.qml" line="164"/>
         <source>Personal Chats</source>
         <translation>Personal Chats</translation>
     </message>
     <message>
-        <location filename="../qml/pages/InvitePage.qml" line="168"/>
+        <location filename="../qml/pages/InvitePage.qml" line="173"/>
         <source>Groups</source>
         <translation>Groups</translation>
     </message>
     <message>
-        <location filename="../qml/pages/InvitePage.qml" line="177"/>
+        <location filename="../qml/pages/InvitePage.qml" line="182"/>
         <source>Contacts</source>
         <translation>Contacts</translation>
     </message>
     <message>
-        <location filename="../qml/pages/InvitePage.qml" line="186"/>
+        <location filename="../qml/pages/InvitePage.qml" line="191"/>
         <source>Settings</source>
         <translation>Settings</translation>
     </message>
     <message>
-        <location filename="../qml/pages/InvitePage.qml" line="195"/>
+        <location filename="../qml/pages/InvitePage.qml" line="200"/>
         <source>Exit</source>
         <translation>Exit</translation>
     </message>
     <message>
-        <location filename="../qml/pages/InvitePage.qml" line="228"/>
+        <location filename="../qml/pages/InvitePage.qml" line="233"/>
         <source>Generate invite-link</source>
         <translation>&quot;Generate invite-link</translation>
     </message>
     <message>
-        <location filename="../qml/pages/InvitePage.qml" line="236"/>
+        <location filename="../qml/pages/InvitePage.qml" line="241"/>
         <source>Generate</source>
         <translation>Generate</translation>
     </message>
     <message>
-        <location filename="../qml/pages/InvitePage.qml" line="264"/>
+        <location filename="../qml/pages/InvitePage.qml" line="269"/>
         <source>Copy</source>
         <translation>Copy</translation>
     </message>
     <message>
-        <location filename="../qml/pages/InvitePage.qml" line="277"/>
+        <location filename="../qml/pages/InvitePage.qml" line="282"/>
         <source>Generate QR</source>
         <translation>Generate QR</translation>
     </message>
     <message>
-        <location filename="../qml/pages/InvitePage.qml" line="293"/>
+        <location filename="../qml/pages/InvitePage.qml" line="298"/>
         <source>Enter invite link here</source>
         <translation>Enter invite link here</translation>
     </message>
     <message>
-        <location filename="../qml/pages/InvitePage.qml" line="302"/>
+        <location filename="../qml/pages/InvitePage.qml" line="307"/>
         <source>Accept</source>
         <translation>Accept</translation>
     </message>
     <message>
-        <location filename="../qml/pages/InvitePage.qml" line="316"/>
+        <location filename="../qml/pages/InvitePage.qml" line="321"/>
         <source>Scan QR</source>
         <translation>Scan QR</translation>
     </message>
@@ -562,22 +562,22 @@
 <context>
     <name>QRReaderPage</name>
     <message>
-        <location filename="../qml/pages/QRReaderPage.qml" line="64"/>
+        <location filename="../qml/pages/QRReaderPage.qml" line="74"/>
         <source>Contact added/updated</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/QRReaderPage.qml" line="78"/>
+        <location filename="../qml/pages/QRReaderPage.qml" line="88"/>
         <source>Commie</source>
         <translation>Commie</translation>
     </message>
     <message>
-        <location filename="../qml/pages/QRReaderPage.qml" line="80"/>
+        <location filename="../qml/pages/QRReaderPage.qml" line="90"/>
         <source>QR Reader</source>
         <translation>QR Reader</translation>
     </message>
     <message>
-        <location filename="../qml/pages/QRReaderPage.qml" line="187"/>
+        <location filename="../qml/pages/QRReaderPage.qml" line="197"/>
         <source>Add contact</source>
         <translation>Contact added</translation>
     </message>
