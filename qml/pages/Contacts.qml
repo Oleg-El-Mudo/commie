@@ -272,12 +272,46 @@ Page{
 
                     PopupMenu {
                         id: popup
-                        PopupMenuItem{
-                            text: "Удалить контакт"
-                        }
-                        PopupMenuDividerItem{}
-                        PopupMenuItem{
+                        PopupMenuItem {
                             text: "Перейти в диалог"
+                            onClicked: {
+                                // 1. Получаем данные контакта
+                                var contactIp = model.ip;
+                                var contactPort = model.port;
+
+                                // 2. Подключаем обработчики один раз
+                                function onSuccess() {
+                                    Notices.show(qsTr("Соединение установлено"),
+                                        Notice.Short,
+                                        Notice.Bottom,
+                                        0,
+                                        -Theme.horizontalPageMargin);
+
+                                    // Отключаем обработчики после срабатывания
+                                    peers.peerConnected.disconnect(onSuccess);
+                                    peers.connectionError.disconnect(onError);
+
+                                    // Здесь позже добавим переход в чат
+                                }
+
+                                function onError() {
+                                    Notices.show(qsTr("Ошибка соединения"),
+                                        Notice.Short,
+                                        Notice.Bottom,
+                                        0,
+                                        -Theme.horizontalPageMargin);
+
+                                    peers.peerConnected.disconnect(onSuccess);
+                                    peers.connectionError.disconnect(onError);
+                                }
+
+                                // 3. Подписываемся на события
+                                peers.peerConnected.connect(onSuccess);
+                                peers.connectionError.connect(onError);
+
+                                // 4. Инициируем подключение
+                                peers.connectToPeer(contactIp, contactPort);
+                            }
                         }
                     }
 

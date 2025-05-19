@@ -157,6 +157,16 @@
         <source>Commie</source>
         <translation type="unfinished">Commie</translation>
     </message>
+    <message>
+        <location filename="../qml/pages/Contacts.qml" line="298"/>
+        <source>Ошибка соединения</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/Contacts.qml" line="284"/>
+        <source>Соединение установлено</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>GroupChatsPage</name>
