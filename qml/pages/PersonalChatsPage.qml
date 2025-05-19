@@ -60,11 +60,6 @@ Page {
             topMargin: chatsBar.height
 
             MenuItem {
-                text: qsTr("Groups")
-                onClicked: pageStack.replace(Qt.resolvedUrl("GroupChatsPage.qml"))
-            }
-
-            MenuItem {
                 text: qsTr("Contact")
                 onClicked: pageStack.replace(Qt.resolvedUrl("Contacts.qml"))
             }

@@ -168,15 +168,6 @@ Page{
                     pageStack.replace(Qt.resolvedUrl("PersonalChatsPage.qml"))
                 }
             }
-            //элемент меню "Группы"
-            MenuItem {
-                text: qsTr("Groups")
-                //при клике
-                onClicked: {
-                    //меняем вершину стека на страницу групп
-                    pageStack.replace(Qt.resolvedUrl("GroupChatsPage.qml"))
-                }
-            }
             //элемент меню "Контакты"
             MenuItem {
                 text: qsTr("Contacts")

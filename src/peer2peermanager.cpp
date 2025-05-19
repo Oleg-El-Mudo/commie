@@ -7,22 +7,19 @@ Peer2PeerManager::Peer2PeerManager(QObject *parent) : QObject(parent), m_serverP
     //инициализация объекта tcp сокета (клиент)
     m_socket = new QTcpSocket(this);
 
-    //метод для установления соединения по ip и порту
-    connect(m_server, &QTcpServer::newConnection, this, [this]() {
-        emit newConnection(m_server->nextPendingConnection());
-    });
-
     //абстрактный метод для установления соединения со стороны сокета
     connect(m_socket, static_cast<void (QAbstractSocket::*)(QAbstractSocket::SocketError)>(&QAbstractSocket::error),
             this, &Peer2PeerManager::connectionError);
 
     connect(m_socket, &QTcpSocket::connected, this, [this]() {
         emit peerConnected();
+        m_socket->write("CONNECTION_ESTABLISHED\n");
     });
 
     connect(m_socket, &QTcpSocket::disconnected, this, [this]() {
         emit peerDisconnected();
     });
+
 
 }
 //деструктор
@@ -36,11 +33,36 @@ Peer2PeerManager::~Peer2PeerManager()
 //функция запуска сервера
 void Peer2PeerManager::startServer()
 {
-    //запускается сервер на любом доступном хосте
     m_server->listen(QHostAddress::Any, 0);
-
-    //ДИПСИК
     m_serverPort = m_server->serverPort();
+
+    connect(m_server, &QTcpServer::newConnection, this, [this]() {
+        QTcpSocket *socket = m_server->nextPendingConnection();
+
+        // Сохраняем сокет, чтобы не упал
+        m_activeSockets.append(socket);
+
+        connect(socket, &QTcpSocket::readyRead, this, [this, socket]() {
+            if (!socket || socket->state() != QAbstractSocket::ConnectedState) {
+                return;
+            }
+
+            QByteArray data = socket->readAll();
+            qDebug() << "SERVER: Received data:" << data;
+
+            if (data.contains("CONNECTION_ESTABLISHED")) {
+                emit remotePeerConnected();
+            }
+        });
+
+        connect(socket, &QTcpSocket::disconnected, this, [this, socket]() {
+            m_activeSockets.removeOne(socket);
+            socket->deleteLater();
+        });
+
+        // Убедись, что этот сигнал действительно нужен
+        // emit newConnection(socket);
+    });
 }
 //функция подключения к другим узлам сети
 void Peer2PeerManager::connectToPeer(const QString &ip, quint16 port)
@@ -85,7 +107,7 @@ bool Peer2PeerManager::hasActiveConnection(const QString &ip, quint16 port) cons
 
     // Проверяем входящее соединение
     for (const auto &socket : m_server->findChildren<QTcpSocket *>()) {
-        if (socket->state() == QAbstractSocket::ConnectedState &&
+        if (socket && socket->state() == QAbstractSocket::ConnectedState &&
             socket->peerAddress().toString() == ip &&
             socket->peerPort() == port) {
             return true;

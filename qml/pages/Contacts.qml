@@ -124,15 +124,6 @@ Page{
                     pageStack.replace(Qt.resolvedUrl("PersonalChatsPage.qml"))
                 }
             }
-            //элемент меню "Группы"
-            MenuItem {
-                text: qsTr("Groups")
-                //при клике
-                onClicked: {
-                    //замена верхнего элемента стека страниц на группы
-                    pageStack.replace(Qt.resolvedUrl("GroupChatsPage.qml"))
-                }
-            }
             //элемент меню "Приглашения"
             MenuItem {
                 text: qsTr("Invites")
@@ -328,6 +319,30 @@ Page{
     Component.onCompleted: {
         //обновить список
         updateList();
+
+        peers.peerConnected.connect(function() {
+                Notices.show(qsTr("Соединение установлено"),
+                             Notice.Short,
+                             Notice.Bottom,
+                             0,
+                             -Theme.horizontalPageMargin);
+            });
+
+            peers.remotePeerConnected.connect(function() {
+                Notices.show(qsTr("Соединение установлено"),
+                             Notice.Short,
+                             Notice.Bottom,
+                             0,
+                             -Theme.horizontalPageMargin);
+            });
+
+            peers.connectionError.connect(function() {
+                Notices.show(qsTr("Ошибка соединения"),
+                             Notice.Short,
+                             Notice.Bottom,
+                             0,
+                             -Theme.horizontalPageMargin);
+            });
     }
 
 }

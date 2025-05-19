@@ -22,13 +22,11 @@ DISTFILES += \
     qml/pages/ChatTemplate.qml \
     qml/pages/Contacts.qml \
     qml/pages/Dao.qml \
-    qml/pages/GroupChatsPage.qml \
     qml/pages/InvitePage.qml \
     qml/pages/LoginLoadingPage.qml \
     qml/pages/LoginPage.qml \
     qml/pages/PasswordSettingsPage.qml \
     qml/pages/PersonalChatsPage.qml \
-    qml/pages/ProfileAvatarSettingsPage.qml \
     qml/pages/ProfileSettingsPage.qml \
     qml/pages/QRCodePage.qml \
     qml/pages/QRReaderPage.qml \

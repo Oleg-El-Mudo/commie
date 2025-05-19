@@ -47,13 +47,6 @@ Page{
                 }
             }
 
-            //элемент меню с личными чатами
-            MenuItem {
-                text: qsTr("Groups")
-                onClicked: {
-                    pageStack.replace(Qt.resolvedUrl("GroupChatsPage.qml"))
-                }
-            }
 
             //элемент меню с контактами
             MenuItem {

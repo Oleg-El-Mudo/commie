@@ -43,10 +43,6 @@ Page{
                 var auser = dao.getActiveUser();
                 // Загружаем псевдоним независимо от аватара
                 your_alias = auser.alias || qsTr("No alias set");
-
-                // Всегда пытаемся загрузить аватар, даже если псевдонима нет
-                your_avatar = dao.getAvatar(auser.id);
-                console.log("Avatar after update:", your_avatar);
             }
         }
     }
@@ -61,22 +57,6 @@ Page{
         //высота по картинке плюс псевдоним
         height: avatarImage.height+aliasLabel.height
 
-
-        // Проверяем наличие аватара
-        // Проверяем наличие аватара
-        // Изображение с аватаром при наличии
-        Image {
-            id: avatarImage
-            // Источник картинки - или аватар, или пустая строка
-            source: your_avatar
-            // Размеры 100x100
-            width: 200
-            height: 200
-            // Видимость, если аватар присутствует
-            visible: true
-            fillMode: Image.PreserveAspectCrop
-        }
-
         // Точка вместо аватара
         Rectangle {
             id: avatarPlaceholder
@@ -88,7 +68,7 @@ Page{
             // Углы скошены до круга
             radius: width * 0.5
             // Видим, если аватар отсутствует
-            visible: !your_avatar
+            visible: true
         }
 
         // Проверяем наличие псевдонима
@@ -133,12 +113,6 @@ Page{
         model: ListModel{
             //элементы спика/пункты настроек
 
-//ЗАМОРОЖЕНО
-
-//            ListElement{
-//                //Поменять установить аватар
-//                settingsPunkt: qsTr("Set/change avatar")
-//            }
             ListElement{
                 //Поменять/установить псевдоним
                 settingsPunkt: qsTr("Set/change alias")

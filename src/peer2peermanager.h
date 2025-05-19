@@ -9,7 +9,6 @@
 class Peer2PeerManager : public QObject
 {
     Q_OBJECT
-    // Сначала объявляем enum ▼
 
 public:
     explicit Peer2PeerManager(QObject *parent = nullptr);
@@ -28,11 +27,13 @@ signals:
     void connectionError(QAbstractSocket::SocketError socketError);
     void peerConnected();
     void peerDisconnected();
+    void remotePeerConnected();
 
 private:
     QTcpServer *m_server;
     QTcpSocket *m_socket;
     quint16 m_serverPort;
+    QList<QTcpSocket*> m_activeSockets;
 };
 
 #endif // PEER2PEERMANAGER_H

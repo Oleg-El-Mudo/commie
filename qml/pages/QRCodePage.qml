@@ -5,6 +5,7 @@ import Aurora.Controls 1.0
 //страница для отображения qr кода
 Page {
     id: qrCodePage
+    allowedOrientations: Orientation.All
 
     //параметр с изображением, сгенеренным на странице приглашений
     property string qrimage

@@ -7,6 +7,7 @@ import QtQuick.LocalStorage 2.0
 
 Page {
     objectName: "recognitionPage"
+    allowedOrientations: Orientation.All
 
     //при изменении видимости (страница открылась/закрылась)
     onVisibleChanged: {
