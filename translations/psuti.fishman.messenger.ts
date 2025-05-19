@@ -158,12 +158,17 @@
         <translation type="unfinished">Commie</translation>
     </message>
     <message>
-        <location filename="../qml/pages/Contacts.qml" line="298"/>
+        <location filename="../qml/pages/Contacts.qml" line="283"/>
+        <source>Уже соединены</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/Contacts.qml" line="303"/>
         <source>Ошибка соединения</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/Contacts.qml" line="284"/>
+        <location filename="../qml/pages/Contacts.qml" line="292"/>
         <source>Соединение установлено</source>
         <translation type="unfinished"></translation>
     </message>

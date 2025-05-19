@@ -275,41 +275,43 @@ Page{
                         PopupMenuItem {
                             text: "Перейти в диалог"
                             onClicked: {
-                                // 1. Получаем данные контакта
                                 var contactIp = model.ip;
                                 var contactPort = model.port;
 
-                                // 2. Подключаем обработчики один раз
+                                // Проверяем, есть ли уже соединение
+                                if (peers.hasActiveConnection(contactIp, contactPort)) {
+                                    Notices.show(qsTr("Уже соединены"),
+                                                 Notice.Short,
+                                                 Notice.Bottom,
+                                                 0,
+                                                 -Theme.horizontalPageMargin);
+                                    return;
+                                }
+
                                 function onSuccess() {
                                     Notices.show(qsTr("Соединение установлено"),
-                                        Notice.Short,
-                                        Notice.Bottom,
-                                        0,
-                                        -Theme.horizontalPageMargin);
-
-                                    // Отключаем обработчики после срабатывания
+                                                 Notice.Short,
+                                                 Notice.Bottom,
+                                                 0,
+                                                 -Theme.horizontalPageMargin);
                                     peers.peerConnected.disconnect(onSuccess);
                                     peers.connectionError.disconnect(onError);
-
-                                    // Здесь позже добавим переход в чат
                                 }
 
-                                function onError() {
+                                function onError(socketError) {
+                                    console.log("Ошибка соединения:", socketError);
                                     Notices.show(qsTr("Ошибка соединения"),
-                                        Notice.Short,
-                                        Notice.Bottom,
-                                        0,
-                                        -Theme.horizontalPageMargin);
-
+                                                 Notice.Short,
+                                                 Notice.Bottom,
+                                                 0,
+                                                 -Theme.horizontalPageMargin);
                                     peers.peerConnected.disconnect(onSuccess);
                                     peers.connectionError.disconnect(onError);
                                 }
 
-                                // 3. Подписываемся на события
                                 peers.peerConnected.connect(onSuccess);
                                 peers.connectionError.connect(onError);
 
-                                // 4. Инициируем подключение
                                 peers.connectToPeer(contactIp, contactPort);
                             }
                         }

@@ -74,3 +74,23 @@ quint16 Peer2PeerManager::getCurrentPort() const
 bool Peer2PeerManager::isConnected() const {
     return (m_socket->state() == QAbstractSocket::ConnectedState);
 }
+
+bool Peer2PeerManager::hasActiveConnection(const QString &ip, quint16 port) const {
+    // Проверяем исходящее соединение
+    if (m_socket->state() == QAbstractSocket::ConnectedState &&
+        m_socket->peerAddress().toString() == ip &&
+        m_socket->peerPort() == port) {
+        return true;
+    }
+
+    // Проверяем входящее соединение
+    for (const auto &socket : m_server->findChildren<QTcpSocket *>()) {
+        if (socket->state() == QAbstractSocket::ConnectedState &&
+            socket->peerAddress().toString() == ip &&
+            socket->peerPort() == port) {
+            return true;
+        }
+    }
+
+    return false;
+}

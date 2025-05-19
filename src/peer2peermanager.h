@@ -21,6 +21,8 @@ public:
     Q_INVOKABLE void startServer();
     Q_INVOKABLE bool isConnected() const;
 
+    Q_INVOKABLE bool hasActiveConnection(const QString &ip, quint16 port) const;
+
 signals:
     void newConnection(QTcpSocket *socket);
     void connectionError(QAbstractSocket::SocketError socketError);
