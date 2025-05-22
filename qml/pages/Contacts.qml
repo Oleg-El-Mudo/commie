@@ -24,6 +24,7 @@ Page{
             //добавление в модель списка контактов: логин, псевдоним и аватар"
             listView.model.append({
                                       "login": contacts[i].login,
+                                      "id": contacts[i].id,
                                       "alias": contacts[i].alias,
                                       "avatar": contacts[i].avatar,
                                       "public_key": contacts[i].public_key,
@@ -87,6 +88,7 @@ Page{
                                 //к модели списка присоединяем логин, псевдоним и пароль
                                 listView.model.append({
                                                           "login": contacts[i].login,
+                                                          "id": contacts[i].id,
                                                           "alias": contacts[i].alias,
                                                           "avatar": contacts[i].avatar,
                                                           "public_key": contacts[i].public_key,
@@ -268,6 +270,8 @@ Page{
                             onClicked: {
                                 var contactIp = model.ip;
                                 var contactPort = model.port;
+                                var contactId = model.id;
+
 
                                 // Проверяем, есть ли уже соединение
                                 if (peers.hasActiveConnection(contactIp, contactPort)) {
@@ -287,6 +291,11 @@ Page{
                                                  -Theme.horizontalPageMargin);
                                     peers.peerConnected.disconnect(onSuccess);
                                     peers.connectionError.disconnect(onError);
+                                    var activeUser = dao.getActiveUser();
+                                    if (activeUser) {
+                                        dao.createPersonalChat(activeUser.id, contactId);
+                                        // Переключаемся на экран чата или обновляем список чатов
+                                    }
                                 }
 
                                 function onError(socketError) {
@@ -321,28 +330,28 @@ Page{
         updateList();
 
         peers.peerConnected.connect(function() {
-                Notices.show(qsTr("Соединение установлено"),
-                             Notice.Short,
-                             Notice.Bottom,
-                             0,
-                             -Theme.horizontalPageMargin);
-            });
+            Notices.show(qsTr("Соединение установлено"),
+                         Notice.Short,
+                         Notice.Bottom,
+                         0,
+                         -Theme.horizontalPageMargin);
+        });
 
-            peers.remotePeerConnected.connect(function() {
-                Notices.show(qsTr("Соединение установлено"),
-                             Notice.Short,
-                             Notice.Bottom,
-                             0,
-                             -Theme.horizontalPageMargin);
-            });
+        peers.remotePeerConnected.connect(function() {
+            Notices.show(qsTr("Соединение установлено"),
+                         Notice.Short,
+                         Notice.Bottom,
+                         0,
+                         -Theme.horizontalPageMargin);
+        });
 
-            peers.connectionError.connect(function() {
-                Notices.show(qsTr("Ошибка соединения"),
-                             Notice.Short,
-                             Notice.Bottom,
-                             0,
-                             -Theme.horizontalPageMargin);
-            });
+        peers.connectionError.connect(function() {
+            Notices.show(qsTr("Ошибка соединения"),
+                         Notice.Short,
+                         Notice.Bottom,
+                         0,
+                         -Theme.horizontalPageMargin);
+        });
     }
 
 }

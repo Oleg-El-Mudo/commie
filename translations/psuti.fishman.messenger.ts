@@ -118,55 +118,55 @@
         <translation></translation>
     </message>
     <message>
-        <location filename="../qml/pages/Contacts.qml" line="55"/>
+        <location filename="../qml/pages/Contacts.qml" line="56"/>
         <source>Contacts</source>
         <translation type="unfinished">Contacts</translation>
     </message>
     <message>
-        <location filename="../qml/pages/Contacts.qml" line="104"/>
+        <location filename="../qml/pages/Contacts.qml" line="106"/>
         <source>Update</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/Contacts.qml" line="120"/>
+        <location filename="../qml/pages/Contacts.qml" line="122"/>
         <source>Personal Chats</source>
         <translation type="unfinished">Personal Chats</translation>
     </message>
     <message>
-        <location filename="../qml/pages/Contacts.qml" line="129"/>
+        <location filename="../qml/pages/Contacts.qml" line="131"/>
         <source>Invites</source>
         <translation type="unfinished">Invites</translation>
     </message>
     <message>
-        <location filename="../qml/pages/Contacts.qml" line="138"/>
+        <location filename="../qml/pages/Contacts.qml" line="140"/>
         <source>Settings</source>
         <translation type="unfinished">Settings</translation>
     </message>
     <message>
-        <location filename="../qml/pages/Contacts.qml" line="147"/>
+        <location filename="../qml/pages/Contacts.qml" line="149"/>
         <source>Exit</source>
         <translation type="unfinished">Exit</translation>
     </message>
     <message>
-        <location filename="../qml/pages/Contacts.qml" line="158"/>
+        <location filename="../qml/pages/Contacts.qml" line="160"/>
         <source>Commie</source>
         <translation type="unfinished">Commie</translation>
     </message>
     <message>
-        <location filename="../qml/pages/Contacts.qml" line="274"/>
+        <location filename="../qml/pages/Contacts.qml" line="278"/>
         <source>Уже соединены</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/Contacts.qml" line="294"/>
-        <location filename="../qml/pages/Contacts.qml" line="340"/>
+        <location filename="../qml/pages/Contacts.qml" line="303"/>
+        <location filename="../qml/pages/Contacts.qml" line="349"/>
         <source>Ошибка соединения</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/Contacts.qml" line="283"/>
-        <location filename="../qml/pages/Contacts.qml" line="324"/>
-        <location filename="../qml/pages/Contacts.qml" line="332"/>
+        <location filename="../qml/pages/Contacts.qml" line="287"/>
+        <location filename="../qml/pages/Contacts.qml" line="333"/>
+        <location filename="../qml/pages/Contacts.qml" line="341"/>
         <source>Соединение установлено</source>
         <translation type="unfinished"></translation>
     </message>

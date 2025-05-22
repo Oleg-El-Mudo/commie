@@ -252,14 +252,11 @@ QtObject {
 
     function getPersonalChats(userId) {
         var chats = [];
-
         db.transaction(function(tx) {
-            // Используем обратные кавычки для многострочного SQL-запроса
             var query = tx.executeSql("
                 SELECT
                     c.id AS chat_id,
                     c.type AS chat_type,
-                    cp.user_id AS partner_id,
                     u.login AS user_login,
                     u.alias AS user_alias,
                     u.avatar AS user_avatar,
@@ -272,7 +269,6 @@ QtObject {
                     SELECT chat_id FROM chat_participants WHERE user_id = ?
                 )
             ", [userId]);
-
             for (var i = 0; i < query.rows.length; i++) {
                 var row = query.rows.item(i);
                 chats.push({
@@ -285,7 +281,6 @@ QtObject {
                 });
             }
         });
-
         return chats;
     }
 
@@ -365,6 +360,18 @@ QtObject {
                 console.error("DB error:", e);
                 if (callback) callback(false);
             }
+        });
+    }
+
+    function createPersonalChat(userId1, userId2) {
+        db.transaction(function(tx) {
+            // Создаём новый чат
+            tx.executeSql("INSERT INTO chats(type) VALUES(1)");
+            var chatId = tx.executeSql("SELECT last_insert_rowid()").rows.item(0)["last_insert_rowid()"];
+
+            // Добавляем обоих участников
+            tx.executeSql("INSERT INTO chat_participants(chat_id, user_id) VALUES(?, ?)", [chatId, userId1]);
+            tx.executeSql("INSERT INTO chat_participants(chat_id, user_id) VALUES(?, ?)", [chatId, userId2]);
         });
     }
 
