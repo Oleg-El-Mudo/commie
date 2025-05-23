@@ -39,14 +39,20 @@ Page{
         PullDownMenu{
             topMargin: chatsList.height
 
-            //элемент меню с личными чатами
+            //элемент меню с избранным
             MenuItem {
-                text: qsTr("Personal Chats")
+                text: qsTr("Favorite")
+                //при клике
                 onClicked: {
-                    pageStack.replace(Qt.resolvedUrl("PersonalChatsPage.qml"))
+                    var currentUser = dao.getActiveUser();
+                    pageStack.push(Qt.resolvedUrl("ChatTemplate.qml"), {
+                                       "chatId": "favorites_" + currentUser.id,
+                                       "chatType": 3, //3 - тип чата - избранное
+                                       "chatTitle": qsTr("Избранное"),
+                                       "isLocalChat": true
+                                   });
                 }
             }
-
 
             //элемент меню с контактами
             MenuItem {

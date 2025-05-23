@@ -193,14 +193,18 @@ QtObject {
 
     function createChatParticipantsTable() {
         db.transaction(function (tx) {
-            tx.executeSql("CREATE TABLE IF NOT EXISTS chat_participants (
-                id INTEGER PRIMARY KEY AUTOINCREMENT,
-                chat_id INTEGER NOT NULL,
-                user_id INTEGER NOT NULL,
-                joined_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                FOREIGN KEY (chat_id) REFERENCES chats(id) ON DELETE CASCADE,
-                FOREIGN KEY (user_id) REFERENCES users(id)
-            )");
+            tx.executeSql("
+                CREATE TABLE IF NOT EXISTS chat_participants (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    chat_id INTEGER NOT NULL,
+                    user_id INTEGER NOT NULL,           -- обязательное поле
+                    contact_id INTEGER,                 -- опциональное
+                    joined_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                    FOREIGN KEY (chat_id) REFERENCES chats(id) ON DELETE CASCADE,
+                    FOREIGN KEY (user_id) REFERENCES users(id),
+                    FOREIGN KEY (contact_id) REFERENCES contacts(id)
+                )
+            ");
         });
     }
 
@@ -257,26 +261,39 @@ QtObject {
                 SELECT
                     c.id AS chat_id,
                     c.type AS chat_type,
-                    u.login AS user_login,
-                    u.alias AS user_alias,
-                    u.avatar AS user_avatar,
+
+                    cnt.id AS contact_id,
+                    cnt.login AS contact_login,
+                    cnt.alias AS contact_alias,
+                    cnt.avatar AS contact_avatar,
+                    cnt.public_key AS contact_public_key,
+                    cnt.ip AS contact_ip,
+                    cnt.port AS contact_port,
+
                     m.content AS last_message
                 FROM chats c
                 JOIN chat_participants cp ON c.id = cp.chat_id
-                JOIN users u ON cp.user_id = u.id
+                LEFT JOIN contacts cnt ON cp.contact_id = cnt.id
                 LEFT JOIN messages m ON c.last_message_id = m.id
-                WHERE c.type = 1 AND c.id IN (
-                    SELECT chat_id FROM chat_participants WHERE user_id = ?
-                )
+                WHERE c.type = 1
+                  AND cp.user_id = ?
+                  AND cp.contact_id IS NOT NULL
             ", [userId]);
+
             for (var i = 0; i < query.rows.length; i++) {
                 var row = query.rows.item(i);
                 chats.push({
                     id: row.chat_id,
                     type: row.chat_type,
-                    login: row.user_login || "",
-                    alias: row.user_alias || "",
-                    avatar: row.user_avatar || "",
+
+                    contact_id: row.contact_id,
+                    contact_login: row.contact_login || "",
+                    contact_alias: row.contact_alias || "",
+                    contact_avatar: row.contact_avatar || "",
+                    contact_public_key: row.contact_public_key || "",
+                    contact_ip: row.contact_ip || "",
+                    contact_port: row.contact_port || "",
+
                     last_message: row.last_message || ""
                 });
             }
@@ -298,10 +315,10 @@ QtObject {
     function sendMessage(chatId, senderId, messageText, isLocal) {
         // Добавляем сообщение в интерфейс
         messageList.model.append({
-            content: messageText,
-            senderAlias: "Вы",
-            created_at: new Date().toISOString()
-        });
+                                     content: messageText,
+                                     senderAlias: "Вы",
+                                     created_at: new Date().toISOString()
+                                 });
 
         // Прокручиваем вниз
         Qt.callLater(function() {
@@ -332,7 +349,7 @@ QtObject {
         db.transaction(function(tx) {
             // Все в одной транзакции
             tx.executeSql("INSERT INTO messages(chat_id, sender_id, content) VALUES(?, ?, ?)",
-                         [chatId, senderId, messageText]);
+                          [chatId, senderId, messageText]);
             tx.executeSql("UPDATE chats SET last_message_id=last_insert_rowid() WHERE id=?", [chatId]);
         });
     }
@@ -342,16 +359,16 @@ QtObject {
         db.transaction(function(tx) {
             try {
                 var chat = tx.executeSql(
-                    "SELECT c.id FROM chats c JOIN chat_participants cp ON c.id=cp.chat_id WHERE c.type=3 AND cp.user_id=?",
-                    [userId]
-                );
+                            "SELECT c.id FROM chats c JOIN chat_participants cp ON c.id=cp.chat_id WHERE c.type=3 AND cp.user_id=?",
+                            [userId]
+                            );
 
                 if (chat.rows.length > 0) {
                     var chatId = chat.rows.item(0).id;
                     tx.executeSql(
-                        "INSERT INTO messages(chat_id, sender_id, content, is_local) VALUES(?, ?, ?, 1)",
-                        [chatId, userId, messageText]
-                    );
+                                "INSERT INTO messages(chat_id, sender_id, content, is_local) VALUES(?, ?, ?, 1)",
+                                [chatId, userId, messageText]
+                                );
                     if (callback) callback(true);
                 } else {
                     if (callback) callback(false);
@@ -363,15 +380,15 @@ QtObject {
         });
     }
 
-    function createPersonalChat(userId1, userId2) {
+    function createPersonalChat(userId, contactId) {
         db.transaction(function(tx) {
             // Создаём новый чат
             tx.executeSql("INSERT INTO chats(type) VALUES(1)");
             var chatId = tx.executeSql("SELECT last_insert_rowid()").rows.item(0)["last_insert_rowid()"];
 
-            // Добавляем обоих участников
-            tx.executeSql("INSERT INTO chat_participants(chat_id, user_id) VALUES(?, ?)", [chatId, userId1]);
-            tx.executeSql("INSERT INTO chat_participants(chat_id, user_id) VALUES(?, ?)", [chatId, userId2]);
+            // Добавляем участников
+            tx.executeSql("INSERT INTO chat_participants(chat_id, user_id, contact_id) VALUES (?, ?, ?)", [chatId, userId, null]);
+            tx.executeSql("INSERT INTO chat_participants(chat_id, user_id, contact_id) VALUES (?, ?, ?)", [chatId, userId, contactId]);
         });
     }
 

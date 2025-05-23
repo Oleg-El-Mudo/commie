@@ -128,9 +128,9 @@ Dialog {
         running: false
         //не повторяется
         repeat: false
-        //при запуске заменяет текущую страницу на список личных чатов
+        //при запуске заменяет текущую страницу на список контактов
         onTriggered: {
-            pageStack.replace(Qt.resolvedUrl("PersonalChatsPage.qml"));
+            pageStack.replace(Qt.resolvedUrl("Contacts.qml"));
         }
     }
 

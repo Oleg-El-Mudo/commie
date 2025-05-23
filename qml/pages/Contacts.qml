@@ -119,11 +119,16 @@ Page{
             topMargin: contsBar.height
             //элемент меню "Персональные чаты"
             MenuItem {
-                text: qsTr("Personal Chats")
+                text: qsTr("Favorite")
                 //при клике
                 onClicked: {
-                    //замена верхнего элемента стека страниц на персональные чаты
-                    pageStack.replace(Qt.resolvedUrl("PersonalChatsPage.qml"))
+                    var currentUser = dao.getActiveUser();
+                    pageStack.push(Qt.resolvedUrl("ChatTemplate.qml"), {
+                                       "chatId": "favorites_" + currentUser.id,
+                                       "chatType": 3, //3 - тип чата - избранное
+                                       "chatTitle": qsTr("Избранное"),
+                                       "isLocalChat": true
+                                   });
                 }
             }
             //элемент меню "Приглашения"
@@ -266,7 +271,7 @@ Page{
                     PopupMenu {
                         id: popup
                         PopupMenuItem {
-                            text: "Перейти в диалог"
+                            text: "Создать чат"
                             onClicked: {
                                 var contactIp = model.ip;
                                 var contactPort = model.port;

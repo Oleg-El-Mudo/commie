@@ -27,15 +27,20 @@ Page {
 
         // Добавляем личные чаты
         var currentUser = dao.getActiveUser();
-        var chats = dao.getPersonalChats(currentUser.id);
-        chats.forEach(function(chat) {
+        var allChats = dao.getPersonalChats(currentUser.id);
+
+        // Добавляем личные чаты
+        allChats.forEach(function(chat) {
             listView.model.append({
                                       "isFavorite": false,
-                                      "title": chat.alias || chat.login,
+                                      "title": chat.contact_alias || chat.contact_login,
                                       "lastMessage": chat.last_message || qsTr("Нет сообщений"),
                                       "chatId": chat.id,
-                                      "chatType": chat.chat_type,
-                                      "avatar": chat.avatar
+                                      "chatType": chat.type,
+                                      "contactPublicKey": chat.contact_public_key,
+                                      "contactIp": chat.contact_ip,
+                                      "contactPort": chat.contact_port,
+                                      "avatar": chat.contact_avatar
                                   });
         });
     }

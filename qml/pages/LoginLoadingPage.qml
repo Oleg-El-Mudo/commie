@@ -80,8 +80,8 @@ Dialog {
         repeat: false
         //когда триггернуть
         onTriggered: {
-            //меняет верхнюю страницу в стеке на персональные чаты
-            pageStack.replace(Qt.resolvedUrl("PersonalChatsPage.qml"));
+            //меняет верхнюю страницу в стеке на контакты
+            pageStack.replace(Qt.resolvedUrl("Contacts.qml"));
         }
     }
 

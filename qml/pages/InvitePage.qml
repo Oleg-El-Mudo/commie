@@ -161,11 +161,16 @@ Page{
             topMargin: header.height
             //элемент меню "Персональные чаты"
             MenuItem {
-                text: qsTr("Personal Chats")
+                text: qsTr("Favorite")
                 //при клике
                 onClicked: {
-                    //меняем вершину стека на страницу персональных чатов
-                    pageStack.replace(Qt.resolvedUrl("PersonalChatsPage.qml"))
+                    var currentUser = dao.getActiveUser();
+                    pageStack.push(Qt.resolvedUrl("ChatTemplate.qml"), {
+                                       "chatId": "favorites_" + currentUser.id,
+                                       "chatType": 3, //3 - тип чата - избранное
+                                       "chatTitle": qsTr("Избранное"),
+                                       "isLocalChat": true
+                                   });
                 }
             }
             //элемент меню "Контакты"
