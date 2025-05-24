@@ -423,6 +423,7 @@ QtObject {
                 "chat_id INTEGER NOT NULL," +
                 "is_sent BOOLEAN NOT NULL," +
                 "content TEXT NOT NULL," +
+                "signature TEXT," +                // Новое поле: подпись сообщения
                 "timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP," +
                 "FOREIGN KEY(chat_id) REFERENCES personalchats(id)" +
                 ")");
@@ -464,6 +465,32 @@ QtObject {
                 [chatId, isSent, encryptedContent]
             );
         });
+    }
+    // Добавляет зашифрованное сообщение с подписью
+    function addPersonalMessageWithSignature(chatId, isSent, encryptedContent, signature) {
+        db.transaction(function(tx) {
+            tx.executeSql(
+                "INSERT INTO personalmessages(chat_id, is_sent, content, signature) VALUES (?, ?, ?, ?)",
+                [chatId, isSent, encryptedContent, signature]
+            );
+        });
+    }
+
+    // Загружает все сообщения для личного чата
+    function loadPersonalMessages(chatId) {
+        var messages = [];
+        db.readTransaction(function(tx) {
+            var query = tx.executeSql(
+                "SELECT id, chat_id, is_sent, content, signature, timestamp FROM personalmessages WHERE chat_id = ? ORDER BY timestamp ASC",
+                [chatId]
+            );
+
+            for (var i = 0; i < query.rows.length; i++) {
+                messages.push(query.rows.item(i));
+            }
+        });
+
+        return messages;
     }
 
     // ИНИЦИАЛИЗАЦИЯ БАЗЫ ДАННЫХ

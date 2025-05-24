@@ -104,22 +104,6 @@ Page {
                             width: parent.width
                             spacing: Theme.paddingSmall
 
-          //Заморожено
-
-                            // Если отправляется картинка
-//                            Image {
-//                                source: model.src
-//                                width: 200
-//                                height: 200
-//                                visible: model.isImage // Управляйте видимостью через флаг
-//                                onSourceChanged: {
-//                                    console.log("Image source updated to:", source);
-//                                }
-//                                Component.onCompleted: {
-//                                    console.log("Initial model.src value:", model.src); // Логирование начального значения model.src
-//                                }
-//                            }
-
                             // Если отправляется текст
                             Label {
                                 text: model.content
@@ -172,17 +156,6 @@ Page {
             anchors.fill: parent
             anchors.margins: Theme.paddingSmall
             spacing: Theme.paddingSmall
-
-            //ЗАМОРОЖЕНО
-
-            // 1. Иконка скрепки (пока без функционала)
-//            IconButton {
-//                id: attachButton
-//                icon.source: "image://theme/icon-m-attach"
-//                onClicked: {
-//                    pageStack.push(imagePickerPage); // Открываем пикер файлов
-//                }
-//            }
 
             // 2. Поле ввода (оставляем как было)
             TextField {

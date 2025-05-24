@@ -100,12 +100,12 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ChatTemplate.qml" line="191"/>
+        <location filename="../qml/pages/ChatTemplate.qml" line="164"/>
         <source>Новая заметка...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ChatTemplate.qml" line="191"/>
+        <location filename="../qml/pages/ChatTemplate.qml" line="164"/>
         <source>Сообщение...</source>
         <translation type="unfinished"></translation>
     </message>
@@ -118,60 +118,63 @@
         <translation></translation>
     </message>
     <message>
-        <location filename="../qml/pages/Contacts.qml" line="100"/>
+        <location filename="../qml/pages/Contacts.qml" line="127"/>
         <source>Contacts</source>
         <translation type="unfinished">Contacts</translation>
     </message>
     <message>
-        <location filename="../qml/pages/Contacts.qml" line="150"/>
+        <location filename="../qml/pages/Contacts.qml" line="177"/>
         <source>Update</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/Contacts.qml" line="166"/>
+        <location filename="../qml/pages/Contacts.qml" line="193"/>
         <source>Favorite</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/Contacts.qml" line="173"/>
+        <location filename="../qml/pages/Contacts.qml" line="200"/>
         <source>Избранное</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/Contacts.qml" line="180"/>
+        <location filename="../qml/pages/Contacts.qml" line="207"/>
         <source>Invites</source>
         <translation type="unfinished">Invites</translation>
     </message>
     <message>
-        <location filename="../qml/pages/Contacts.qml" line="189"/>
+        <location filename="../qml/pages/Contacts.qml" line="216"/>
         <source>Settings</source>
         <translation type="unfinished">Settings</translation>
     </message>
     <message>
-        <location filename="../qml/pages/Contacts.qml" line="198"/>
+        <location filename="../qml/pages/Contacts.qml" line="225"/>
         <source>Exit</source>
         <translation type="unfinished">Exit</translation>
     </message>
     <message>
-        <location filename="../qml/pages/Contacts.qml" line="209"/>
+        <location filename="../qml/pages/Contacts.qml" line="236"/>
         <source>Commie</source>
         <translation type="unfinished">Commie</translation>
     </message>
     <message>
-        <location filename="../qml/pages/Contacts.qml" line="328"/>
+        <location filename="../qml/pages/Contacts.qml" line="355"/>
+        <location filename="../qml/pages/Contacts.qml" line="403"/>
         <source>Уже соединены</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/Contacts.qml" line="351"/>
-        <location filename="../qml/pages/Contacts.qml" line="398"/>
+        <location filename="../qml/pages/Contacts.qml" line="378"/>
+        <location filename="../qml/pages/Contacts.qml" line="426"/>
+        <location filename="../qml/pages/Contacts.qml" line="473"/>
         <source>Ошибка соединения</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/Contacts.qml" line="339"/>
-        <location filename="../qml/pages/Contacts.qml" line="382"/>
-        <location filename="../qml/pages/Contacts.qml" line="390"/>
+        <location filename="../qml/pages/Contacts.qml" line="366"/>
+        <location filename="../qml/pages/Contacts.qml" line="414"/>
+        <location filename="../qml/pages/Contacts.qml" line="457"/>
+        <location filename="../qml/pages/Contacts.qml" line="465"/>
         <source>Соединение установлено</source>
         <translation type="unfinished"></translation>
     </message>
@@ -391,12 +394,17 @@
 <context>
     <name>PersonalChatTemplate</name>
     <message>
-        <location filename="../qml/pages/PersonalChatTemplate.qml" line="33"/>
+        <location filename="../qml/pages/PersonalChatTemplate.qml" line="31"/>
         <source>Личный чат</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/PersonalChatTemplate.qml" line="111"/>
+        <location filename="../qml/pages/PersonalChatTemplate.qml" line="77"/>
+        <source>Неизвестный</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/PersonalChatTemplate.qml" line="134"/>
         <source>Сообщение...</source>
         <translation type="unfinished"></translation>
     </message>
@@ -486,7 +494,7 @@
     <message>
         <location filename="../qml/pages/ProfileSettingsPage.qml" line="45"/>
         <location filename="../qml/pages/ProfileSettingsPage.qml" line="79"/>
-        <location filename="../qml/pages/ProfileSettingsPage.qml" line="167"/>
+        <location filename="../qml/pages/ProfileSettingsPage.qml" line="163"/>
         <source>No alias set</source>
         <translation type="unfinished"></translation>
     </message>
@@ -621,6 +629,19 @@
         <location filename="../qml/pages/RegPage.qml" line="122"/>
         <source>Enter a password</source>
         <translation>Enter a password</translation>
+    </message>
+</context>
+<context>
+    <name>SecretChatTemplate</name>
+    <message>
+        <location filename="../qml/pages/SecretChatTemplate.qml" line="33"/>
+        <source>Секретный чат</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/SecretChatTemplate.qml" line="111"/>
+        <source>Сообщение...</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

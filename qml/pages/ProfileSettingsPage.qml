@@ -145,10 +145,6 @@ Page{
             //функция отслеживания нажатия
             function handleClick(index) {
                 switch (index) {
-//                case 0:
-//                    // код для нажатия на установки аватара
-//                    pageStack.push(Qt.resolvedUrl("ProfileAvatarSettingsPage.qml"))
-//                    break;
                 case 0:
                     // код для нажатия на установки псевдонима
                     pageStack.push(Qt.resolvedUrl("AliasSettingsPage.qml"))

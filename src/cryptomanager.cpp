@@ -6,6 +6,7 @@
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QDebug>
+#include <QByteArray>
 
 
 //метод хэширования паролей
@@ -111,4 +112,55 @@ QByteArray CryptoManager::decryptMessage(const QByteArray &encryptedData, const 
     }
 
     return decrypted.left(decryptedLen);
+}
+
+
+QByteArray CryptoManager::signMessage(const QByteArray &message, const QString &privateKeyStr)
+{
+    QByteArray privateKey = QByteArray::fromBase64(privateKeyStr.toUtf8());
+
+    if (privateKey.size() != crypto_sign_ed25519_SECRETKEYBYTES) {
+        qWarning() << "Invalid private key size";
+        return QByteArray();
+    }
+
+    QByteArray signature(crypto_sign_ed25519_BYTES, 0);
+
+    unsigned long long outLen;
+    if (crypto_sign_ed25519(
+            reinterpret_cast<unsigned char*>(signature.data()),
+            &outLen,
+            reinterpret_cast<const unsigned char*>(message.constData()),
+            message.size(),
+            reinterpret_cast<const unsigned char*>(privateKey.constData())) != 0) {
+        qWarning() << "Failed to sign message";
+        return QByteArray();
+    }
+
+    return signature.toBase64();
+}
+
+bool CryptoManager::verifyMessage(const QByteArray &message, const QByteArray &signatureBase64, const QString &publicKeyStr)
+{
+    QByteArray publicKey = QByteArray::fromBase64(publicKeyStr.toUtf8());
+    QByteArray signature = QByteArray::fromBase64(signatureBase64);
+
+    if (publicKey.size() != crypto_sign_ed25519_PUBLICKEYBYTES) {
+        qWarning() << "Invalid public key size";
+        return false;
+    }
+
+    if (signature.size() != crypto_sign_ed25519_BYTES) {
+        qWarning() << "Invalid signature size";
+        return false;
+    }
+
+    int result = crypto_sign_ed25519_open(
+        reinterpret_cast<unsigned char*>(const_cast<char*>(reinterpret_cast<const char*>(message.constData()))),
+        nullptr,
+        reinterpret_cast<const unsigned char*>(signature.constData()),
+        signature.size(),
+        reinterpret_cast<const unsigned char*>(publicKey.constData()));
+
+    return result == 0;
 }

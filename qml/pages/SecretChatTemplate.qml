@@ -30,7 +30,7 @@ Page {
         divider: true
         background: true
         headerText: chatTitle
-        subHeaderText: qsTr("Личный чат")
+        subHeaderText: qsTr("Секретный чат")
     }
 
     SilicaFlickable {
