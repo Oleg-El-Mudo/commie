@@ -24,7 +24,7 @@ Page{
             //добавление в модель списка контактов: логин, псевдоним и аватар"
             listView.model.append({
                                       "login": contacts[i].login,
-                                      "id": contacts[i].id,
+                                      "contactId": contacts[i].id,
                                       "alias": contacts[i].alias,
                                       "avatar": contacts[i].avatar,
                                       "public_key": contacts[i].public_key,
@@ -33,6 +33,47 @@ Page{
                                       "enc_public_key": contacts[i].enc_public_key
                                   });
         }
+    }
+    function openChat(contactId) {
+        var activeUser = dao.getActiveUser();
+        if (!activeUser) {
+            console.error("Нет активного пользователя");
+            return;
+        }
+
+
+        // Получаем или создаём личный чат
+        var chat = dao.getOrCreatePersonalChat(activeUser.id, contactId);
+
+        // Получаем данные пользователя и контакта
+        var user = dao.getUserById(activeUser.id);
+        var contact = dao.getContactById(contactId);
+
+        // Формируем заголовок чата
+        var chatTitle = contact.alias ? contact.alias : contact.login;
+
+        // Переходим на страницу переписки
+        pageStack.push(Qt.resolvedUrl("PersonalChatTemplate.qml"), {
+            chatId: chat.id,
+            user_id: user.id,
+            contact_id: contact.id,
+            chatTitle: chatTitle,
+
+            // Ключи пользователя
+            user_public_key: user.public_key,
+            user_private_key: user.private_key,
+            user_enc_public_key: user.enc_public_key,
+            user_enc_private_key: user.enc_private_key,
+
+            // IP и порт собеседника
+            contact_ip: contact.ip,
+            contact_port: contact.port,
+
+            contact_public_key: contact.public_key,
+            contact_enc_public_key: contact.enc_public_key,
+
+            isLocalChat: false
+        });
     }
     //прокручиваемый элемент страницы
     SilicaFlickable{
@@ -88,7 +129,7 @@ Page{
                                 //к модели списка присоединяем логин, псевдоним и пароль
                                 listView.model.append({
                                                           "login": contacts[i].login,
-                                                          "id": contacts[i].id,
+                                                          "contactId": contacts[i].id,
                                                           "alias": contacts[i].alias,
                                                           "avatar": contacts[i].avatar,
                                                           "public_key": contacts[i].public_key,
@@ -193,6 +234,7 @@ Page{
                         port: 0
                         public_key: ""
                         enc_public_key: ""
+                        contactId: -1
                     }
                 }
                 //элемент списка
@@ -271,24 +313,26 @@ Page{
                     PopupMenu {
                         id: popup
                         PopupMenuItem {
-                            text: "Создать чат"
+                            text: "Личный чат"
                             onClicked: {
                                 var contactIp = model.ip;
                                 var contactPort = model.port;
-                                var contactId = model.id;
-
+                                var contactId = model.contactId;
 
                                 // Проверяем, есть ли уже соединение
                                 if (peers.hasActiveConnection(contactIp, contactPort)) {
+                                    openChat(contactId);
                                     Notices.show(qsTr("Уже соединены"),
                                                  Notice.Short,
                                                  Notice.Bottom,
                                                  0,
                                                  -Theme.horizontalPageMargin);
+
                                     return;
                                 }
 
                                 function onSuccess() {
+                                    openChat(contactId);
                                     Notices.show(qsTr("Соединение установлено"),
                                                  Notice.Short,
                                                  Notice.Bottom,
@@ -296,11 +340,7 @@ Page{
                                                  -Theme.horizontalPageMargin);
                                     peers.peerConnected.disconnect(onSuccess);
                                     peers.connectionError.disconnect(onError);
-                                    var activeUser = dao.getActiveUser();
-                                    if (activeUser) {
-                                        dao.createPersonalChat(activeUser.id, contactId);
-                                        // Переключаемся на экран чата или обновляем список чатов
-                                    }
+
                                 }
 
                                 function onError(socketError) {
@@ -329,6 +369,7 @@ Page{
             }
         }
     }
+
     //при загрузке страницы
     Component.onCompleted: {
         //обновить список

@@ -118,60 +118,60 @@
         <translation></translation>
     </message>
     <message>
-        <location filename="../qml/pages/Contacts.qml" line="56"/>
+        <location filename="../qml/pages/Contacts.qml" line="97"/>
         <source>Contacts</source>
         <translation type="unfinished">Contacts</translation>
     </message>
     <message>
-        <location filename="../qml/pages/Contacts.qml" line="106"/>
+        <location filename="../qml/pages/Contacts.qml" line="147"/>
         <source>Update</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/Contacts.qml" line="122"/>
+        <location filename="../qml/pages/Contacts.qml" line="163"/>
         <source>Favorite</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/Contacts.qml" line="129"/>
+        <location filename="../qml/pages/Contacts.qml" line="170"/>
         <source>Избранное</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/Contacts.qml" line="136"/>
+        <location filename="../qml/pages/Contacts.qml" line="177"/>
         <source>Invites</source>
         <translation type="unfinished">Invites</translation>
     </message>
     <message>
-        <location filename="../qml/pages/Contacts.qml" line="145"/>
+        <location filename="../qml/pages/Contacts.qml" line="186"/>
         <source>Settings</source>
         <translation type="unfinished">Settings</translation>
     </message>
     <message>
-        <location filename="../qml/pages/Contacts.qml" line="154"/>
+        <location filename="../qml/pages/Contacts.qml" line="195"/>
         <source>Exit</source>
         <translation type="unfinished">Exit</translation>
     </message>
     <message>
-        <location filename="../qml/pages/Contacts.qml" line="165"/>
+        <location filename="../qml/pages/Contacts.qml" line="206"/>
         <source>Commie</source>
         <translation type="unfinished">Commie</translation>
     </message>
     <message>
-        <location filename="../qml/pages/Contacts.qml" line="283"/>
+        <location filename="../qml/pages/Contacts.qml" line="325"/>
         <source>Уже соединены</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/Contacts.qml" line="308"/>
-        <location filename="../qml/pages/Contacts.qml" line="354"/>
+        <location filename="../qml/pages/Contacts.qml" line="348"/>
+        <location filename="../qml/pages/Contacts.qml" line="395"/>
         <source>Ошибка соединения</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/Contacts.qml" line="292"/>
-        <location filename="../qml/pages/Contacts.qml" line="338"/>
-        <location filename="../qml/pages/Contacts.qml" line="346"/>
+        <location filename="../qml/pages/Contacts.qml" line="336"/>
+        <location filename="../qml/pages/Contacts.qml" line="379"/>
+        <location filename="../qml/pages/Contacts.qml" line="387"/>
         <source>Соединение установлено</source>
         <translation type="unfinished"></translation>
     </message>
@@ -385,6 +385,24 @@
     <message>
         <location filename="../qml/pages/PasswordSettingsPage.qml" line="95"/>
         <source>Error</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>PersonalChatTemplate</name>
+    <message>
+        <location filename="../qml/pages/PersonalChatTemplate.qml" line="38"/>
+        <source>Личный чат</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/PersonalChatTemplate.qml" line="92"/>
+        <source>Неизвестный</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/PersonalChatTemplate.qml" line="157"/>
+        <source>Сообщение...</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

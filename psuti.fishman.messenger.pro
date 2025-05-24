@@ -26,6 +26,7 @@ DISTFILES += \
     qml/pages/LoginLoadingPage.qml \
     qml/pages/LoginPage.qml \
     qml/pages/PasswordSettingsPage.qml \
+    qml/pages/PersonalChatTemplate.qml \
     qml/pages/PersonalChatsPage.qml \
     qml/pages/ProfileSettingsPage.qml \
     qml/pages/QRCodePage.qml \

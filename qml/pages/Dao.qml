@@ -173,6 +173,30 @@ QtObject {
         return records;
     }
 
+    // Получить пользователя по ID
+    function getUserById(userId) {
+        var result;
+        db.readTransaction(function(tx) {
+            var query = tx.executeSql('SELECT * FROM users WHERE id = ?', [userId]);
+            if (query.rows.length > 0) {
+                result = query.rows.item(0);
+            }
+        });
+        return result;
+    }
+
+    // Получить контакт по ID
+    function getContactById(contactId) {
+        var result;
+        db.readTransaction(function(tx) {
+            var query = tx.executeSql('SELECT * FROM contacts WHERE id = ?', [contactId]);
+            if (query.rows.length > 0) {
+                result = query.rows.item(0);
+            }
+        });
+        return result;
+    }
+
     function deleteAllContacts() {
         db.transaction(function(tx) {
             tx.executeSql("DELETE FROM contacts");
@@ -380,15 +404,65 @@ QtObject {
         });
     }
 
-    function createPersonalChat(userId, contactId) {
+    function createPersonalChatsTable() {
         db.transaction(function(tx) {
-            // Создаём новый чат
-            tx.executeSql("INSERT INTO chats(type) VALUES(1)");
-            var chatId = tx.executeSql("SELECT last_insert_rowid()").rows.item(0)["last_insert_rowid()"];
+            tx.executeSql("CREATE TABLE IF NOT EXISTS personalchats (" +
+                "id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                "user_id INTEGER NOT NULL," +
+                "contact_id INTEGER NOT NULL," +
+                "FOREIGN KEY(user_id) REFERENCES users(id)," +
+                "FOREIGN KEY(contact_id) REFERENCES contacts(id)" +
+                ")");
+        });
+    }
 
-            // Добавляем участников
-            tx.executeSql("INSERT INTO chat_participants(chat_id, user_id, contact_id) VALUES (?, ?, ?)", [chatId, userId, null]);
-            tx.executeSql("INSERT INTO chat_participants(chat_id, user_id, contact_id) VALUES (?, ?, ?)", [chatId, userId, contactId]);
+    function createPersonalMessagesTable() {
+        db.transaction(function(tx) {
+            tx.executeSql("CREATE TABLE IF NOT EXISTS personalmessages (" +
+                "id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                "chat_id INTEGER NOT NULL," +
+                "is_sent BOOLEAN NOT NULL," +
+                "content TEXT NOT NULL," +
+                "timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP," +
+                "FOREIGN KEY(chat_id) REFERENCES personalchats(id)" +
+                ")");
+        });
+    }
+
+    // Получить или создать чат между пользователем и контактом
+    function getOrCreatePersonalChat(userId, contactId) {
+        var result;
+        db.readTransaction(function(tx) {
+            var query = tx.executeSql(
+                "SELECT * FROM personalchats WHERE user_id = ? AND contact_id = ?",
+                [userId, contactId]
+            );
+            if (query.rows.length > 0) {
+                result = query.rows.item(0);
+            }
+        });
+
+        if (!result) {
+            db.transaction(function(tx) {
+                tx.executeSql(
+                    "INSERT INTO personalchats(user_id, contact_id) VALUES (?, ?)",
+                    [userId, contactId]
+                );
+                var chatId = tx.executeSql("SELECT last_insert_rowid()").rows.item(0)["last_insert_rowid()"];
+                result = { id: chatId, user_id: userId, contact_id: contactId };
+            });
+        }
+
+        return result;
+    }
+
+    // Добавить сообщение в личный чат
+    function addPersonalMessage(chatId, isSent, encryptedContent) {
+        db.transaction(function(tx) {
+            tx.executeSql(
+                "INSERT INTO personalmessages(chat_id, is_sent, content) VALUES (?, ?, ?)",
+                [chatId, isSent, encryptedContent]
+            );
         });
     }
 
@@ -405,6 +479,8 @@ QtObject {
         createChatsTable();
         createChatParticipantsTable();
         createMessagesTable();
+        createPersonalChatsTable();
+        createPersonalMessagesTable();
 
         createIndexes();
 
