@@ -21,6 +21,7 @@ public:
     Q_INVOKABLE bool isConnected() const;
 
     Q_INVOKABLE bool hasActiveConnection(const QString &ip, quint16 port) const;
+    Q_INVOKABLE void sendMessage(const QString &ip, quint16 port, const QString &message);
 
 signals:
     void newConnection(QTcpSocket *socket);
@@ -28,6 +29,7 @@ signals:
     void peerConnected();
     void peerDisconnected();
     void remotePeerConnected();
+    void messageReceived(const QString &ip, quint16 port, const QString &message);
 
 private:
     QTcpServer *m_server;

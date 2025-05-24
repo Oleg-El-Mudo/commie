@@ -34,7 +34,7 @@ Page{
                                   });
         }
     }
-    function openChat(contactId) {
+    function openChat(contactId, isSecret) {
         var activeUser = dao.getActiveUser();
         if (!activeUser) {
             console.error("Нет активного пользователя");
@@ -52,28 +52,58 @@ Page{
         // Формируем заголовок чата
         var chatTitle = contact.alias ? contact.alias : contact.login;
 
-        // Переходим на страницу переписки
-        pageStack.push(Qt.resolvedUrl("PersonalChatTemplate.qml"), {
-            chatId: chat.id,
-            user_id: user.id,
-            contact_id: contact.id,
-            chatTitle: chatTitle,
+        if (isSecret){
+            // Переходим на страницу секретной переписки
+            pageStack.push(Qt.resolvedUrl("SecretChatTemplate.qml"), {
+                chatId: chat.id,
+                user_id: user.id,
+                contact_id: contact.id,
+                chatTitle: chatTitle,
 
-            // Ключи пользователя
-            user_public_key: user.public_key,
-            user_private_key: user.private_key,
-            user_enc_public_key: user.enc_public_key,
-            user_enc_private_key: user.enc_private_key,
+                // Ключи пользователя
+                user_public_key: user.public_key,
+                user_private_key: user.private_key,
+                user_enc_public_key: user.enc_public_key,
+                user_enc_private_key: user.enc_private_key,
 
-            // IP и порт собеседника
-            contact_ip: contact.ip,
-            contact_port: contact.port,
 
-            contact_public_key: contact.public_key,
-            contact_enc_public_key: contact.enc_public_key,
+                // IP и порт собеседника
+                contact_ip: contact.ip,
+                contact_port: contact.port,
 
-            isLocalChat: false
-        });
+                contact_public_key: contact.public_key,
+                contact_enc_public_key: contact.enc_public_key,
+
+                isLocalChat: false
+            });
+        } else{
+            pageStack.push(Qt.resolvedUrl("PersonalChatTemplate.qml"), {
+                chatId: chat.id,
+                user_id: user.id,
+                contact_id: contact.id,
+                chatTitle: chatTitle,
+
+                // Ключи пользователя
+                user_public_key: user.public_key,
+                user_private_key: user.private_key,
+                user_enc_public_key: user.enc_public_key,
+                user_enc_private_key: user.enc_private_key,
+
+
+                // IP и порт собеседника
+                contact_ip: contact.ip,
+                contact_port: contact.port,
+
+                contact_public_key: contact.public_key,
+                contact_enc_public_key: contact.enc_public_key,
+
+                isLocalChat: false
+            });
+        }
+
+
+        console.log("PUBLIC: "+user.enc_public_key);
+        console.log("PRIVATE: "+user.enc_private_key)
     }
     //прокручиваемый элемент страницы
     SilicaFlickable{
@@ -321,7 +351,7 @@ Page{
 
                                 // Проверяем, есть ли уже соединение
                                 if (peers.hasActiveConnection(contactIp, contactPort)) {
-                                    openChat(contactId);
+                                    openChat(contactId, false);
                                     Notices.show(qsTr("Уже соединены"),
                                                  Notice.Short,
                                                  Notice.Bottom,
@@ -332,7 +362,55 @@ Page{
                                 }
 
                                 function onSuccess() {
-                                    openChat(contactId);
+                                    openChat(contactId, false);
+                                    Notices.show(qsTr("Соединение установлено"),
+                                                 Notice.Short,
+                                                 Notice.Bottom,
+                                                 0,
+                                                 -Theme.horizontalPageMargin);
+                                    peers.peerConnected.disconnect(onSuccess);
+                                    peers.connectionError.disconnect(onError);
+
+                                }
+
+                                function onError(socketError) {
+                                    console.log("Ошибка соединения:", socketError);
+                                    Notices.show(qsTr("Ошибка соединения"),
+                                                 Notice.Short,
+                                                 Notice.Bottom,
+                                                 0,
+                                                 -Theme.horizontalPageMargin);
+                                    peers.peerConnected.disconnect(onSuccess);
+                                    peers.connectionError.disconnect(onError);
+                                }
+
+                                peers.peerConnected.connect(onSuccess);
+                                peers.connectionError.connect(onError);
+
+                                peers.connectToPeer(contactIp, contactPort);
+                            }
+                        }
+                        PopupMenuItem {
+                            text: "Секретный чат"
+                            onClicked: {
+                                var contactIp = model.ip;
+                                var contactPort = model.port;
+                                var contactId = model.contactId;
+
+                                // Проверяем, есть ли уже соединение
+                                if (peers.hasActiveConnection(contactIp, contactPort)) {
+                                    openChat(contactId, true);
+                                    Notices.show(qsTr("Уже соединены"),
+                                                 Notice.Short,
+                                                 Notice.Bottom,
+                                                 0,
+                                                 -Theme.horizontalPageMargin);
+
+                                    return;
+                                }
+
+                                function onSuccess() {
+                                    openChat(contactId, true);
                                     Notices.show(qsTr("Соединение установлено"),
                                                  Notice.Short,
                                                  Notice.Bottom,

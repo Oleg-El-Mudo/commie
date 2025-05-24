@@ -32,6 +32,7 @@ DISTFILES += \
     qml/pages/QRCodePage.qml \
     qml/pages/QRReaderPage.qml \
     qml/pages/RegLoadingPage.qml \
+    qml/pages/SecretChatTemplate.qml \
     qml/pages/SettingsPage \
     qml/pages/SettingsPage.qml \
     rpm/psuti.fishman.messenger.spec \

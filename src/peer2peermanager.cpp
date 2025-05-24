@@ -19,8 +19,24 @@ Peer2PeerManager::Peer2PeerManager(QObject *parent) : QObject(parent), m_serverP
     connect(m_socket, &QTcpSocket::disconnected, this, [this]() {
         emit peerDisconnected();
     });
+    connect(m_socket, &QTcpSocket::readyRead, this, [this]() {
+        if (!m_socket || m_socket->state() != QAbstractSocket::ConnectedState)
+            return;
 
+        while (m_socket->canReadLine()) {
+            QByteArray line = m_socket->readLine().trimmed();
+            if (line.isEmpty())
+                continue;
 
+            qDebug() << "CLIENT: Received line:" << line;
+
+            if (line.contains("CONNECTION_ESTABLISHED")) {
+                emit remotePeerConnected();
+            } else {
+                emit messageReceived(m_socket->peerAddress().toString(), m_socket->peerPort(), QString::fromUtf8(line));
+            }
+        }
+    });
 }
 //деструктор
 Peer2PeerManager::~Peer2PeerManager()
@@ -39,19 +55,26 @@ void Peer2PeerManager::startServer()
     connect(m_server, &QTcpServer::newConnection, this, [this]() {
         QTcpSocket *socket = m_server->nextPendingConnection();
 
-        // Сохраняем сокет, чтобы не упал
+        // Сохраняем сокет
         m_activeSockets.append(socket);
 
+        // Подписываемся на readyRead именно для этого сокета
         connect(socket, &QTcpSocket::readyRead, this, [this, socket]() {
-            if (!socket || socket->state() != QAbstractSocket::ConnectedState) {
+            if (!socket || socket->state() != QAbstractSocket::ConnectedState)
                 return;
-            }
 
-            QByteArray data = socket->readAll();
-            qDebug() << "SERVER: Received data:" << data;
+            while (socket->canReadLine()) {
+                QByteArray line = socket->readLine().trimmed(); // trim уберёт \n
+                if (line.isEmpty())
+                    continue;
 
-            if (data.contains("CONNECTION_ESTABLISHED")) {
-                emit remotePeerConnected();
+                qDebug() << "SERVER: Received line:" << line;
+
+                if (line.contains("CONNECTION_ESTABLISHED")) {
+                    emit remotePeerConnected();
+                } else {
+                    emit messageReceived(socket->peerAddress().toString(), socket->peerPort(), QString::fromUtf8(line));
+                }
             }
         });
 
@@ -59,9 +82,6 @@ void Peer2PeerManager::startServer()
             m_activeSockets.removeOne(socket);
             socket->deleteLater();
         });
-
-        // Убедись, что этот сигнал действительно нужен
-        // emit newConnection(socket);
     });
 }
 //функция подключения к другим узлам сети
@@ -100,19 +120,40 @@ bool Peer2PeerManager::isConnected() const {
 bool Peer2PeerManager::hasActiveConnection(const QString &ip, quint16 port) const {
     // Проверяем исходящее соединение
     if (m_socket->state() == QAbstractSocket::ConnectedState &&
-        m_socket->peerAddress().toString() == ip &&
-        m_socket->peerPort() == port) {
+            m_socket->peerAddress().toString() == ip &&
+            m_socket->peerPort() == port) {
         return true;
     }
 
     // Проверяем входящее соединение
     for (const auto &socket : m_server->findChildren<QTcpSocket *>()) {
         if (socket && socket->state() == QAbstractSocket::ConnectedState &&
-            socket->peerAddress().toString() == ip &&
-            socket->peerPort() == port) {
+                socket->peerAddress().toString() == ip &&
+                socket->peerPort() == port) {
             return true;
         }
     }
 
     return false;
+}
+
+void Peer2PeerManager::sendMessage(const QString &ip, quint16 port, const QString &message)
+{
+    if (m_socket->state() == QAbstractSocket::ConnectedState &&
+            m_socket->peerAddress().toString() == ip &&
+            m_socket->peerPort() == port) {
+        m_socket->write(message.toUtf8() + "\n");
+        return;
+    }
+
+    for (auto socket : m_activeSockets) {
+        if (socket && socket->state() == QAbstractSocket::ConnectedState &&
+                socket->peerAddress().toString() == ip &&
+                socket->peerPort() == port) {
+            socket->write(message.toUtf8() + "\n");
+            return;
+        }
+    }
+
+    qDebug() << "Не удалось отправить сообщение" << ip << ":" << port;
 }
