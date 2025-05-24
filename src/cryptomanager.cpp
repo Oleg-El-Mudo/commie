@@ -49,9 +49,9 @@ QByteArray CryptoManager::generateX25519KeyPair() {
     QJsonObject keys;
     // Преобразуем QByteArray в QString перед добавлением в JSON
     keys["private_key"] = QString(QByteArray(reinterpret_cast<char*>(privateKey),
-                                           crypto_box_SECRETKEYBYTES).toBase64());
+                                             crypto_box_SECRETKEYBYTES).toBase64());
     keys["public_key"] = QString(QByteArray(reinterpret_cast<char*>(publicKey),
-                                          crypto_box_PUBLICKEYBYTES).toBase64());
+                                            crypto_box_PUBLICKEYBYTES).toBase64());
 
     return QJsonDocument(keys).toJson();
 }
@@ -69,7 +69,7 @@ QByteArray CryptoManager::generateSharedSecret(const QByteArray &localPrivateKey
     qDebug() << "Decoded remote public key size:" << decodedRemotePub.size();
 
     if (decodedLocalPriv.size() != crypto_scalarmult_BYTES ||
-        decodedRemotePub.size() != crypto_scalarmult_BYTES) {
+            decodedRemotePub.size() != crypto_scalarmult_BYTES) {
         qWarning() << "[CryptoManager] Неверный размер ключей для ECDH";
         return QByteArray();
     }
@@ -77,10 +77,10 @@ QByteArray CryptoManager::generateSharedSecret(const QByteArray &localPrivateKey
     unsigned char sharedSecret[crypto_scalarmult_BYTES];
 
     int result = crypto_scalarmult(
-        sharedSecret,
-        reinterpret_cast<const unsigned char*>(decodedLocalPriv.constData()),
-        reinterpret_cast<const unsigned char*>(decodedRemotePub.constData())
-    );
+                sharedSecret,
+                reinterpret_cast<const unsigned char*>(decodedLocalPriv.constData()),
+                reinterpret_cast<const unsigned char*>(decodedRemotePub.constData())
+                );
 
     if (result != 0) {
         qWarning() << "[CryptoManager] Ошибка при генерации общего секрета";
@@ -92,166 +92,67 @@ QByteArray CryptoManager::generateSharedSecret(const QByteArray &localPrivateKey
 
     return sharedSecretBytes;
 }
-QByteArray CryptoManager::encryptMessage(const QByteArray &message, const QByteArray &sharedSecret) {
-    // 🔍 Логируем входные данные
-    qDebug() << "Encrypt: Plaintext message (UTF-8):" << message;
-    qDebug() << "Encrypt: Message size:" << message.size();
-    qDebug() << "Encrypt: Shared secret (hex):" << sharedSecret.toHex();
-
-    // Генерируем случайный nonce
-    unsigned char nonce[crypto_aead_xchacha20poly1305_ietf_NPUBBYTES];
-    randombytes_buf(nonce, sizeof(nonce));
-
-    // 🔍 Логируем nonce (только первые 8 байт для удобства)
-    qDebug() << "Encrypt: Generated nonce (first 8 bytes):"
-             << QByteArray(reinterpret_cast<char*>(nonce), 8).toHex();
-
-    // Подготавливаем буфер для зашифрованного сообщения
-    QByteArray ciphertext(message.size() + crypto_aead_xchacha20poly1305_ietf_ABYTES, 0);
-    unsigned long long ciphertextLen;
-
-    // Выполняем шифрование
-    crypto_aead_xchacha20poly1305_ietf_encrypt(
-        reinterpret_cast<unsigned char*>(ciphertext.data()), &ciphertextLen,
-        reinterpret_cast<const unsigned char*>(message.constData()), message.size(),
-        nullptr, 0, nullptr, nonce,
-        reinterpret_cast<const unsigned char*>(sharedSecret.constData())
-    );
-
-    // Обрезаем до реального размера зашифрованного текста
-    ciphertext.resize(ciphertextLen);
-
-    // Добавляем nonce в начало зашифрованного сообщения
-    ciphertext.prepend(reinterpret_cast<char*>(nonce), crypto_aead_xchacha20poly1305_ietf_NPUBBYTES);
-
-    // 🔍 Логируем результат шифрования
-    qDebug() << "Encrypt: Ciphertext length (with nonce):" << ciphertext.size();
-    qDebug() << "Encrypt: Ciphertext (Base64):" << ciphertext.toBase64();
-
-    return ciphertext.toBase64();
-}
-QByteArray CryptoManager::decryptMessage(const QByteArray &encryptedData, const QByteArray &sharedSecret) {
-    QByteArray data = QByteArray::fromBase64(encryptedData);
-    if (data.size() < crypto_aead_xchacha20poly1305_ietf_NPUBBYTES) {
-        qWarning() << "Invalid encrypted data size";
-        return QByteArray();
-    }
-
-    // 🔍 Логируем размер данных и sharedSecret
-    qDebug() << "Decrypt: Encrypted data size (base64 decoded):" << data.size();
-    qDebug() << "Decrypt: Shared secret (hex):" << sharedSecret.toHex();
-
-    // 🔍 Выводим первые байты nonce для проверки
-    qDebug() << "Decrypt: Nonce (first 8 bytes):" << data.left(crypto_aead_xchacha20poly1305_ietf_NPUBBYTES).toHex();
-
-    QByteArray decrypted(data.size() - crypto_aead_xchacha20poly1305_ietf_ABYTES, 0);
-    unsigned long long decryptedLen;
-
-    if (crypto_aead_xchacha20poly1305_ietf_decrypt(
-        reinterpret_cast<unsigned char*>(decrypted.data()), &decryptedLen,
-        nullptr,
-        reinterpret_cast<const unsigned char*>(data.constData() + crypto_aead_xchacha20poly1305_ietf_NPUBBYTES),
-        data.size() - crypto_aead_xchacha20poly1305_ietf_NPUBBYTES,
-        nullptr, 0,
-        reinterpret_cast<const unsigned char*>(data.constData()),
-        reinterpret_cast<const unsigned char*>(sharedSecret.constData())
-    ) != 0) {
-        qWarning() << "Decryption failed";
-        return QByteArray();
-    }
-
-    qDebug() << "Decrypt: Decrypted message length:" << decryptedLen;
-    qDebug() << "Decrypt: Decrypted message (UTF-8):" << decrypted.left(decryptedLen);
-
-    return decrypted.left(decryptedLen);
-}
-
-
-QByteArray CryptoManager::signMessage(const QByteArray &message, const QString &privateKeyStr)
-{
-    QByteArray privateKey = QByteArray::fromBase64(privateKeyStr.toUtf8());
-
-    if (privateKey.size() != crypto_sign_ed25519_SECRETKEYBYTES) {
-        qWarning() << "Invalid private key size";
-        return QByteArray();
-    }
-
-    QByteArray signature(crypto_sign_ed25519_BYTES, 0);
-
-    unsigned long long outLen;
-    if (crypto_sign_ed25519(
-            reinterpret_cast<unsigned char*>(signature.data()),
-            &outLen,
-            reinterpret_cast<const unsigned char*>(message.constData()),
-            message.size(),
-            reinterpret_cast<const unsigned char*>(privateKey.constData())) != 0) {
-        qWarning() << "Failed to sign message";
-        return QByteArray();
-    }
-
-    return signature.toBase64();
-}
-
-bool CryptoManager::verifyMessage(const QByteArray &message, const QByteArray &signatureBase64, const QString &publicKeyStr)
-{
-    QByteArray publicKey = QByteArray::fromBase64(publicKeyStr.toUtf8());
-    QByteArray signature = QByteArray::fromBase64(signatureBase64);
-
-    if (publicKey.size() != crypto_sign_ed25519_PUBLICKEYBYTES) {
-        qWarning() << "Invalid public key size";
-        return false;
-    }
-
-    if (signature.size() != crypto_sign_ed25519_BYTES) {
-        qWarning() << "Invalid signature size";
-        return false;
-    }
-
-    int result = crypto_sign_ed25519_open(
-        reinterpret_cast<unsigned char*>(const_cast<char*>(reinterpret_cast<const char*>(message.constData()))),
-        nullptr,
-        reinterpret_cast<const unsigned char*>(signature.constData()),
-        signature.size(),
-        reinterpret_cast<const unsigned char*>(publicKey.constData()));
-
-    return result == 0;
-}
 
 QByteArray CryptoManager::decryptWithSharedSecret(const QByteArray &encryptedData, const QByteArray &sharedSecret) {
+    qDebug() << "DecryptWithSharedSecret: Encrypted data size (base64 decoded):" << encryptedData.size();
+    qDebug() << "DecryptWithSharedSecret: Shared secret (hex):" << sharedSecret.toHex();
+
     QByteArray data = QByteArray::fromBase64(encryptedData);
+
     if (data.size() < crypto_aead_xchacha20poly1305_ietf_NPUBBYTES) {
         qWarning() << "Invalid encrypted data size";
         return QByteArray();
     }
 
-    QByteArray decrypted(data.size() - crypto_aead_xchacha20poly1305_ietf_ABYTES, 0);
+    int cipherTextSize = data.size() - crypto_aead_xchacha20poly1305_ietf_NPUBBYTES;
+
+    // Извлекаем nonce и шифртекст
+    QByteArray nonce = data.left(crypto_aead_xchacha20poly1305_ietf_NPUBBYTES);
+    const unsigned char *cipherText = reinterpret_cast<const unsigned char*>(data.constData()) +
+                                      crypto_aead_xchacha20poly1305_ietf_NPUBBYTES;
+
+    // Буфер под расшифрованный текст
+    QByteArray decrypted;
+    decrypted.resize(cipherTextSize); // Не инициализируем содержимое
+
     unsigned long long decryptedLen;
 
     int result = crypto_aead_xchacha20poly1305_ietf_decrypt(
         reinterpret_cast<unsigned char*>(decrypted.data()), &decryptedLen,
         nullptr,
-        reinterpret_cast<const unsigned char*>(data.constData() + crypto_aead_xchacha20poly1305_ietf_NPUBBYTES),
-        data.size() - crypto_aead_xchacha20poly1305_ietf_NPUBBYTES,
+        cipherText,
+        cipherTextSize,
         nullptr, 0,
-        reinterpret_cast<const unsigned char*>(data.constData()),
+        reinterpret_cast<const unsigned char*>(nonce.constData()),
         reinterpret_cast<const unsigned char*>(sharedSecret.constData())
     );
 
     if (result != 0) {
-        qWarning() << "Decryption failed";
+        qWarning() << "Decryption failed with error code:" << result;
         return QByteArray();
     }
 
-    return decrypted.left(decryptedLen);
+    decrypted.resize(static_cast<int>(decryptedLen)); // Обрезаем до реального размера
+    qDebug() << "DecryptWithSharedSecret: Decrypted message length:" << decryptedLen;
+    return decrypted;
 }
 
 QByteArray CryptoManager::encryptWithSharedSecret(const QByteArray &message, const QByteArray &sharedSecret) {
+    qDebug() << "EncryptWithSharedSecret: Plaintext message (UTF-8):" << message;
+    qDebug() << "EncryptWithSharedSecret: Message size:" << message.size();
+    qDebug() << "EncryptWithSharedSecret: Shared secret (hex):" << sharedSecret.toHex();
+
+    // Генерируем случайный nonce
     unsigned char nonce[crypto_aead_xchacha20poly1305_ietf_NPUBBYTES];
     randombytes_buf(nonce, sizeof(nonce));
 
-    QByteArray ciphertext(message.size() + crypto_aead_xchacha20poly1305_ietf_ABYTES, 0);
+    // Подготавливаем буфер под зашифрованное сообщение
+    QByteArray ciphertext;
+    ciphertext.resize(message.size() + crypto_aead_xchacha20poly1305_ietf_ABYTES); // Выделяем нужный объём
+
     unsigned long long ciphertextLen;
 
+    // Шифруем
     crypto_aead_xchacha20poly1305_ietf_encrypt(
         reinterpret_cast<unsigned char*>(ciphertext.data()), &ciphertextLen,
         reinterpret_cast<const unsigned char*>(message.constData()), message.size(),
@@ -259,7 +160,12 @@ QByteArray CryptoManager::encryptWithSharedSecret(const QByteArray &message, con
         reinterpret_cast<const unsigned char*>(sharedSecret.constData())
     );
 
-    ciphertext.resize(ciphertextLen);
-    ciphertext.prepend(reinterpret_cast<char*>(nonce), sizeof(nonce));
+    // Обрезаем до реального размера
+    ciphertext.resize(static_cast<int>(ciphertextLen));
+
+    // Добавляем nonce в начало
+    ciphertext.prepend(reinterpret_cast<char*>(nonce), crypto_aead_xchacha20poly1305_ietf_NPUBBYTES);
+
+    qDebug() << "EncryptWithSharedSecret: Ciphertext length (with nonce):" << ciphertext.size();
     return ciphertext.toBase64();
 }

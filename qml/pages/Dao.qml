@@ -422,8 +422,7 @@ QtObject {
                 "id INTEGER PRIMARY KEY AUTOINCREMENT," +
                 "chat_id INTEGER NOT NULL," +
                 "is_sent BOOLEAN NOT NULL," +
-                "content TEXT NOT NULL," +
-                "signature TEXT," +                // Новое поле: подпись сообщения
+                "content TEXT NOT NULL,"+
                 "timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP," +
                 "FOREIGN KEY(chat_id) REFERENCES personalchats(id)" +
                 ")");
@@ -467,11 +466,11 @@ QtObject {
         });
     }
     // Добавляет зашифрованное сообщение с подписью
-    function addPersonalMessageWithSignature(chatId, isSent, encryptedContent, signature) {
+    function addPersonalMessageWithoutSignature(chatId, isSent, encryptedContent) {
         db.transaction(function(tx) {
             tx.executeSql(
-                "INSERT INTO personalmessages(chat_id, is_sent, content, signature) VALUES (?, ?, ?, ?)",
-                [chatId, isSent, encryptedContent, signature]
+                "INSERT INTO personalmessages(chat_id, is_sent, content) VALUES (?, ?, ?)",
+                [chatId, isSent, encryptedContent]
             );
         });
     }
@@ -481,7 +480,7 @@ QtObject {
         var messages = [];
         db.readTransaction(function(tx) {
             var query = tx.executeSql(
-                "SELECT id, chat_id, is_sent, content, signature, timestamp FROM personalmessages WHERE chat_id = ? ORDER BY timestamp ASC",
+                "SELECT id, chat_id, is_sent, content, timestamp FROM personalmessages WHERE chat_id = ? ORDER BY timestamp ASC",
                 [chatId]
             );
 

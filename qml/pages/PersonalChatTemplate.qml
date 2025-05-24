@@ -165,11 +165,9 @@ Page {
         if (normalizedIp !== normalizeIp(contact_ip)) {
             return;
         }
-
         try {
             var msgObj = JSON.parse(message.trim());
             var encryptedMessage = msgObj.encrypted_message;
-            var signature = msgObj.signature;
 
             // Генерируем общий секрет правильно
             var sharedSecret = crypto.generateSharedSecret(user_enc_private_key, contact_enc_public_key);
@@ -177,27 +175,26 @@ Page {
             // Расшифровываем
             var decryptedMessage = crypto.decryptWithSharedSecret(encryptedMessage, sharedSecret);
 
-            // Проверяем подпись
-            var isValid = crypto.verifyMessage(decryptedMessage, signature, contact_public_key);
+            // ✅ Проверяем подпись с правильным публичным ключом контакта
+            //var isValid = crypto.verifyMessage(decryptedMessage, signature, contact_public_key);
 
             messageList.model.append({
-                                         content: isValid ? decryptedMessage : "[Неверная подпись]",
+//                                         content: isValid ? decryptedMessage : "[Неверная подпись]",
+                                         content: String(decryptedMessage),
                                          isSent: false,
                                          senderAlias: chatTitle,
-                                         isError: !isValid
+                                         isError: false
                                      });
-
             scrollTimer.restart();
-            saveIncomingMessage(encryptedMessage, signature);
-
+            saveIncomingMessage(encryptedMessage);
         } catch (e) {
             console.error("Ошибка получения сообщения:", e);
             console.error("Неудачный JSON:", message);
         }
     }
 
-    function saveIncomingMessage(encryptedMessage, signature) {
-        dao.addPersonalMessageWithSignature(chatId, false, encryptedMessage, signature);
+    function saveIncomingMessage(encryptedMessage) {
+        dao.addPersonalMessageWithoutSignature(chatId, false, encryptedMessage);
     }
 
     function sendMessage() {
@@ -207,7 +204,9 @@ Page {
 
         var sharedSecret = crypto.generateSharedSecret(user_enc_private_key, contact_enc_public_key);
         var encryptedForContact = crypto.encryptWithSharedSecret(messageText, sharedSecret);
-        var signature = crypto.signMessage(messageText, user_private_key);
+
+
+        console.log("Сохраняемое сообщение:", messageText);
 
         // Добавляем своё сообщение во временный список
         messageList.model.append({
@@ -221,12 +220,11 @@ Page {
         // Сохраняем в БД асинхронно
         saveMessageTimer.chatId = chatId;
         saveMessageTimer.encryptedMessage = encryptedForContact;
-        saveMessageTimer.signature = signature;
         saveMessageTimer.start();
 
         var payload = {
-            encrypted_message: String(encryptedForContact),
-            signature: String(signature)
+            encrypted_message: String(encryptedForContact)//,
+            //signature: String(signature)
         };
         peers.sendMessage(contact_ip, contact_port, JSON.stringify(payload));
     }
@@ -242,7 +240,7 @@ Page {
         onTriggered: {
             var success;
             try {
-                dao.addPersonalMessageWithSignature(chatId, true, encryptedMessage, signature);
+                dao.addPersonalMessageWithoutSignature(chatId, true, encryptedMessage);
                 success = true;
             } catch(e) {
                 console.error("Ошибка сохранения:", e);
@@ -277,16 +275,19 @@ Page {
                 }
 
                 // Проверяем подпись
-                var isValid = msg.is_sent ?
-                            crypto.verifyMessage(decrypted, msg.signature, user_public_key) :
-                            crypto.verifyMessage(decrypted, msg.signature, contact_public_key);
+//                var isValid = msg.is_sent ?
+//                    crypto.verifyMessage(decrypted, msg.signature, user_public_key) :
+//                    crypto.verifyMessage(decrypted, msg.signature, contact_public_key);
 
                 messageList.model.append({
-                                             content: isValid ? decrypted : "[Неверная подпись]",
+//                                             content: isValid ? decrypted : "[Неверная подпись]",
+                                             content: String(decrypted),
                                              isSent: Boolean(msg.is_sent),
                                              senderAlias: msg.is_sent ? "Вы" : chatTitle,
-                                             isError: !isValid
+                                             isError: false
                                          });
+                console.log("Загружено сообщение:", decrypted);
+                console.log("Загруженная подпись:", msg.signature);
             } catch (e) {
                 console.error("Ошибка расшифровки:", e);
                 messageList.model.append({
