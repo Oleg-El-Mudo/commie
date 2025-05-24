@@ -1,13 +1,4 @@
 #include "cryptomanager.h"
-//библиотека для хэшей
-#include <QCryptographicHash>
-//Библиотека для генерации ключей
-#include <sodium.h>
-#include <QJsonDocument>
-#include <QJsonObject>
-#include <QDebug>
-#include <QByteArray>
-
 
 //метод хэширования паролей
 QString CryptoManager::hashPassword(const QString &password)

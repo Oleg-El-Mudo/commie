@@ -3,6 +3,10 @@
 #include <QObject>
 #include <QString>
 #include <QMap>
+#include <QUrl>
+#include <QUrlQuery>
+#include <QJsonDocument>
+#include <QJsonObject>
 class F2FManager : public QObject
 {
     Q_OBJECT

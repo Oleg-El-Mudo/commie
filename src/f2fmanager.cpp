@@ -1,8 +1,4 @@
 #include "f2fmanager.h"
-#include <QUrl>
-#include <QUrlQuery>
-#include <QJsonDocument>
-#include <QJsonObject>
 //генерация пригласительной ссылки
 QString F2FManager::generateInviteLink(const QString &login, const QString &publicKey, const QString &ip, int port, const QString &alias, const QString &avatar, const QString &encPublicKey)
 {

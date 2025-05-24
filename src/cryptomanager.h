@@ -3,6 +3,14 @@
 #include <QObject>
 #include <QString>
 #include <QString>
+//библиотека для хэшей
+#include <QCryptographicHash>
+//Библиотека для генерации ключей
+#include <sodium.h>
+#include <QJsonDocument>
+#include <QJsonObject>
+#include <QDebug>
+#include <QByteArray>
 class CryptoManager : public QObject
 {
     Q_OBJECT
