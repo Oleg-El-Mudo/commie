@@ -29,8 +29,11 @@ Page{
 
         //генерируем ссылку-приглашение
         var link = friends.generateInviteLink(auser.login, auser.public_key, auser.ip, auser.port, auser.alias, auser.avatar, auser.enc_public_key);
-        console.log("Ключ для шифрования:");
+        console.log("Передача ссылки");
+        console.log("Публичный Ключ для шифрования:");
         console.log(auser.enc_public_key);
+        console.log("Публичный Ключ для подписи:");
+        console.log(auser.public_key);
         //вставляем ссылку в поле на странице
         linkTextArea.text = link;
 
@@ -60,8 +63,10 @@ Page{
 
         console.log("ПОРТ ИЗ ССЫЛКИ: ");
         console.log(port);
-        console.log("Ключ: ");
+        console.log("Публичный Ключ шифрования из ссылки: ");
         console.log(encPublicKey);
+        console.log("Публичный Ключ подписи из ссылки: ");
+        console.log(publicKey);
 
         //получаем список контактов активного пользователя
         var contacts = dao.getContacts();

@@ -182,78 +182,78 @@
 <context>
     <name>InvitePage</name>
     <message>
-        <location filename="../qml/pages/InvitePage.qml" line="103"/>
+        <location filename="../qml/pages/InvitePage.qml" line="108"/>
         <source>Contact added</source>
         <translation>Контакт добавлен</translation>
     </message>
     <message>
-        <location filename="../qml/pages/InvitePage.qml" line="149"/>
-        <location filename="../qml/pages/InvitePage.qml" line="207"/>
+        <location filename="../qml/pages/InvitePage.qml" line="154"/>
+        <location filename="../qml/pages/InvitePage.qml" line="212"/>
         <source>Commie</source>
         <translation>Комми</translation>
     </message>
     <message>
-        <location filename="../qml/pages/InvitePage.qml" line="151"/>
+        <location filename="../qml/pages/InvitePage.qml" line="156"/>
         <source>Safe messenger</source>
         <translation>Безопасный мессенджер</translation>
     </message>
     <message>
-        <location filename="../qml/pages/InvitePage.qml" line="164"/>
+        <location filename="../qml/pages/InvitePage.qml" line="169"/>
         <source>Favorite</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/InvitePage.qml" line="171"/>
+        <location filename="../qml/pages/InvitePage.qml" line="176"/>
         <source>Избранное</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/InvitePage.qml" line="178"/>
+        <location filename="../qml/pages/InvitePage.qml" line="183"/>
         <source>Contacts</source>
         <translation>Контакты</translation>
     </message>
     <message>
-        <location filename="../qml/pages/InvitePage.qml" line="187"/>
+        <location filename="../qml/pages/InvitePage.qml" line="192"/>
         <source>Settings</source>
         <translation>Настройки</translation>
     </message>
     <message>
-        <location filename="../qml/pages/InvitePage.qml" line="196"/>
+        <location filename="../qml/pages/InvitePage.qml" line="201"/>
         <source>Exit</source>
         <translation>Выход</translation>
     </message>
     <message>
-        <location filename="../qml/pages/InvitePage.qml" line="229"/>
+        <location filename="../qml/pages/InvitePage.qml" line="234"/>
         <source>Generate invite-link</source>
         <translation>Сгенерировать ссылку-приглашение</translation>
     </message>
     <message>
-        <location filename="../qml/pages/InvitePage.qml" line="237"/>
+        <location filename="../qml/pages/InvitePage.qml" line="242"/>
         <source>Generate</source>
         <translation>Сгенерировать</translation>
     </message>
     <message>
-        <location filename="../qml/pages/InvitePage.qml" line="265"/>
+        <location filename="../qml/pages/InvitePage.qml" line="270"/>
         <source>Copy</source>
         <translation>Скопировать</translation>
     </message>
     <message>
-        <location filename="../qml/pages/InvitePage.qml" line="278"/>
+        <location filename="../qml/pages/InvitePage.qml" line="283"/>
         <source>Generate QR</source>
         <translation>Сгенерировать QR</translation>
     </message>
     <message>
-        <location filename="../qml/pages/InvitePage.qml" line="294"/>
+        <location filename="../qml/pages/InvitePage.qml" line="299"/>
         <source>Enter invite link here</source>
         <translation>Введите сюда ссылку</translation>
     </message>
     <message>
-        <location filename="../qml/pages/InvitePage.qml" line="303"/>
+        <location filename="../qml/pages/InvitePage.qml" line="308"/>
         <source>Accept</source>
         <translation>Подтвердить</translation>
     </message>
     <message>
-        <location filename="../qml/pages/InvitePage.qml" line="317"/>
+        <location filename="../qml/pages/InvitePage.qml" line="322"/>
         <source>Scan QR</source>
         <translation>Сканировать QR</translation>
     </message>
@@ -548,22 +548,22 @@
         <translation>Пожалуйста, подождите</translation>
     </message>
     <message>
-        <location filename="../qml/pages/RegLoadingPage.qml" line="102"/>
+        <location filename="../qml/pages/RegLoadingPage.qml" line="108"/>
         <source>A user with this login already exists.</source>
         <translation>Пользователь с таким логином уже существует.</translation>
     </message>
     <message>
-        <location filename="../qml/pages/RegLoadingPage.qml" line="103"/>
+        <location filename="../qml/pages/RegLoadingPage.qml" line="109"/>
         <source>Registration failed. Please try again.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/RegLoadingPage.qml" line="113"/>
+        <location filename="../qml/pages/RegLoadingPage.qml" line="119"/>
         <source>Password must be 15+ chars with letters, numbers and special symbols.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/RegLoadingPage.qml" line="149"/>
+        <location filename="../qml/pages/RegLoadingPage.qml" line="155"/>
         <source>Fill in all fields</source>
         <translation>Заполните все поля</translation>
     </message>

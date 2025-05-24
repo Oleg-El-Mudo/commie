@@ -72,6 +72,12 @@ Dialog {
                     var port = peers.getCurrentPort();
                     var isActive = true;
 
+                    console.log("Registration");
+                    console.log("User Public_key: "+ publicKey);
+                    console.log("User Private_key: "+ privateKey);
+                    console.log("User encPublic_key: "+ encPublicKey);
+                    console.log("User enc_Private_key: "+ encPrivateKey);
+
                     // 5. Сохранение пользователя в БД
                     dao.insertUser(
                         loadingPage.nick,
@@ -81,8 +87,8 @@ Dialog {
                         ip,
                         port,
                         isActive,            // isActive
-                        encPublicKey,   // X25519 публичный
-                        encPrivateKey  // X25519 приватный
+                        encPrivateKey,
+                        encPublicKey
                     );
 
                     // 6. Запуск P2P-сервера

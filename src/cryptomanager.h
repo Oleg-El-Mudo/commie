@@ -23,6 +23,8 @@ public:
 
     Q_INVOKABLE QByteArray signMessage(const QByteArray &message, const QString &privateKey);
     Q_INVOKABLE bool verifyMessage(const QByteArray &message, const QByteArray &signature, const QString &publicKey);
+    Q_INVOKABLE QByteArray encryptWithSharedSecret(const QByteArray &message, const QByteArray &sharedSecret);
+    Q_INVOKABLE QByteArray decryptWithSharedSecret(const QByteArray &encryptedData, const QByteArray &sharedSecret);
 
 private:
     static const int X25519_KEY_LENGTH = 32;  // Длина ключа X25519 в байтах
