@@ -208,7 +208,7 @@ QtObject {
         db.transaction(function (tx) {
             tx.executeSql("CREATE TABLE IF NOT EXISTS chats (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
-                type INTEGER NOT NULL,  -- 1=личный, 2=групповой, 3=избранное
+                type INTEGER NOT NULL,
                 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                 last_message_id INTEGER
             )");

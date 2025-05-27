@@ -174,12 +174,7 @@ Page {
 
             // Расшифровываем
             var decryptedMessage = crypto.decryptWithSharedSecret(encryptedMessage, sharedSecret);
-
-            // ✅ Проверяем подпись с правильным публичным ключом контакта
-            //var isValid = crypto.verifyMessage(decryptedMessage, signature, contact_public_key);
-
             messageList.model.append({
-//                                         content: isValid ? decryptedMessage : "[Неверная подпись]",
                                          content: String(decryptedMessage),
                                          isSent: false,
                                          senderAlias: chatTitle,
@@ -274,13 +269,7 @@ Page {
                     return;
                 }
 
-                // Проверяем подпись
-//                var isValid = msg.is_sent ?
-//                    crypto.verifyMessage(decrypted, msg.signature, user_public_key) :
-//                    crypto.verifyMessage(decrypted, msg.signature, contact_public_key);
-
                 messageList.model.append({
-//                                             content: isValid ? decrypted : "[Неверная подпись]",
                                              content: String(decrypted),
                                              isSent: Boolean(msg.is_sent),
                                              senderAlias: msg.is_sent ? "Вы" : chatTitle,
